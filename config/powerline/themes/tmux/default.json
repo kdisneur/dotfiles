@@ -1,0 +1,23 @@
+{
+	"default_module": "powerline.segments.common",
+	"segments": {
+		"right": [
+            {
+              "name": "email_imap_alert"
+            },
+			{
+				"name": "date"
+			},
+			{
+				"name": "date",
+				"args": {
+					"format": "%H:%M",
+					"istime": true
+				}
+			},
+			{
+				"name": "hostname"
+			}
+		]
+	}
+}
