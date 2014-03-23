@@ -1,0 +1,24 @@
+[color]
+  diff = true
+  ui = true
+[color "diff"]
+  whitespace = red
+[core]
+  excludesfile = ~/.gitignore
+  pager = less -F -X
+[push]
+  default = current
+[alias]
+  br = branch
+  co = checkout
+  current = !git branch | awk '/^* (.*)/ { print $2 }' | sed /^$/d
+  d  = diff
+  dc = diff --cached
+  g  = grep --break --heading --line-number
+  l  = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue)<%an>%Creset' --abbrev-commit
+  s  = status
+[grep]
+  extendRegexp = true
+  lineNumber = true
+[include]
+  path = ~/.gitconfig.local
