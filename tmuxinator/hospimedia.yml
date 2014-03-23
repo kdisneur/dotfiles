@@ -1,0 +1,75 @@
+name: hospimedia
+root: ~/app/hospimedia
+pre_window: rbenv shell 1.9.3-p194
+default_layout: &default_layout
+  layout: b28a,272x73,0,0[272x49,0,0,0,272x23,0,50,6]
+
+windows:
+  - Global:
+      <<: *default_layout
+      panes:
+        - vim
+        -
+  - HmdBackOffice:
+      <<: *default_layout
+      panes:
+        - editor:
+          - cd HmdBackOffice
+          - vim
+        - console:
+          - cd HmdBackOffice
+          - clear
+  - HmdPrivate:
+      <<: *default_layout
+      panes:
+        - editor:
+          - cd HmdPrivate
+          - vim
+        - console:
+          - cd HmdPrivate
+          - clear
+  - HmdPublic:
+      <<: *default_layout
+      panes:
+        - editor:
+          - cd HmdPublic
+          - vim
+        - console:
+          - cd HmdPublic
+          - clear
+  - Kiosk:
+      <<: *default_layout
+      panes:
+        - editor:
+          - cd Kiosk
+          - vim
+        - console:
+          - cd Kiosk
+          - clear
+  - Roma:
+      <<: *default_layout
+      panes:
+        - editor:
+          - cd Roma
+          - vim
+        - console:
+          - cd Roma
+          - clear
+  - Seville:
+      <<: *default_layout
+      panes:
+        - editor:
+          - cd Seville
+          - vim
+        - console:
+          - cd Seville
+          - clear
+  - Thrust:
+      <<: *default_layout
+      panes:
+        - editor:
+          - cd Thrust
+          - vim
+        - console:
+          - cd Thrust
+          - clear
