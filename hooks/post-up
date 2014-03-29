@@ -3,4 +3,4 @@
 chmod 600 ~/.ssh/id_*
 [[ -e ~/.bin ]] && chmod u+x ~/.bin/*
 [[ -e ~/.bin.local ]] && chmod u+x ~/.bin.local/*
-vim -u ${HOME}/.vimrc.bundles +NeoBundleInstall +qa
+vim +NeoBundleInstall +qa
