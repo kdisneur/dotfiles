@@ -20,7 +20,7 @@ export TERM=xterm-256color
 
 alias ack=ack-grep
 alias vi=vim
-alias mutt='TERM=vt100 mutt'
+alias mutt='cd && TERM=vt100 mutt'
 
 [[ -r ${WORKSPACE}/others/liquidprompt/liquidprompt ]] && source ${WORKSPACE}/others/liquidprompt/liquidprompt
 [[ -r ${HOME}/.travis/travis.sh ]] && source ${HOME}/.travis/travis.sh
