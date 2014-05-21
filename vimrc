@@ -38,6 +38,7 @@ noremap <up> <nop>
 noremap <down> <nop>
 inoremap <esc> <nop>
 inoremap jk <esc>
+nnoremap <F3> :NumbersToggle<CR>
 nmap <silent> <F4> :set invpaste<CR>:set paste?<CR>
 imap <silent> <F4> <ESC>:set invpaste<CR>:set paste?<CR>
 nmap <leader>pr :CodeReview https://github.com/
