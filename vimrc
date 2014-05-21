@@ -38,7 +38,6 @@ noremap <up> <nop>
 noremap <down> <nop>
 inoremap <esc> <nop>
 inoremap jk <esc>
-nnoremap <F3> :NumbersToggle<CR>
 nmap <silent> <F4> :set invpaste<CR>:set paste?<CR>
 imap <silent> <F4> <ESC>:set invpaste<CR>:set paste?<CR>
 nmap <leader>pr :CodeReview https://github.com/
@@ -93,6 +92,11 @@ let g:ctrlp_follow_symlinks = 2
 let NERDTreeShowHidden=1
 map <Leader>n :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+" }}}
+
+" Numbers {{{
+let g:enable_numbers = 0
+nnoremap <F3> :NumbersToggle<CR>
 " }}}
 
 " Trailing Whitespace {{{
