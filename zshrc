@@ -18,7 +18,6 @@ export LC_ALL=en_US.UTF-8
 export POWERLINE_COMMAND='powerline -t default.segment_data.email_imap_alert.args.username="${POWERLINE_IMAP_EMAIL}" -t default.segment_data.email_imap_alert.args.password="${POWERLINE_IMAP_PASSWORD}"'
 export TERM=xterm-256color
 
-alias ack=ack-grep
 alias vi=vim
 alias mutt='cd && TERM=vt100 mutt'
 
