@@ -1,6 +1,5 @@
 name: sunda
 root: ~/app/Sunda
-pre_window: rbenv shell 1.9.3-p194
 default_layout: &default_layout
   layout: b28a,272x73,0,0[272x49,0,0,0,272x23,0,50,6]
 
