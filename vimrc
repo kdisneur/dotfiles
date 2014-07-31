@@ -53,6 +53,7 @@ map <leader>ec :e <c-r>=expand("%:p:h") . "/" <cr>
 map <leader>eh :sp <c-r>=expand("%:p:h") . "/" <cr>
 map <leader>ev :vsp <c-r>=expand("%:p:h") . "/" <cr>
 nnoremap <leader>fef :normal! gg=G``<CR>
+nnoremap <leader>\ :Ag<space>
 map <Leader>/ :TComment<cr>
 vmap <Leader>/ :TComment<cr>gv<esc>
 
@@ -87,6 +88,8 @@ highlight GitGutterDelete ctermfg=131
 " CtrlP  {{{
 let g:ctrlp_dotfiles = 1
 let g:ctrlp_follow_symlinks = 2
+let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
+let g:ctrlp_use_caching = 0
 " }}}
 
 " NERDTree {{{
