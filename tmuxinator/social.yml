@@ -1,0 +1,6 @@
+name: social
+root: ~/
+windows:
+  - Mail:
+      panes:
+         mutt
