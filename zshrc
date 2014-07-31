@@ -19,7 +19,6 @@ export POWERLINE_COMMAND='powerline -t default.segment_data.email_imap_alert.arg
 export TERM=xterm-256color
 
 alias vi=vim
-alias mutt='cd && TERM=vt100 mutt'
 
 [[ -r ${WORKSPACE}/others/liquidprompt/liquidprompt ]] && source ${WORKSPACE}/others/liquidprompt/liquidprompt
 [[ -r ${HOME}/.travis/travis.sh ]] && source ${HOME}/.travis/travis.sh
