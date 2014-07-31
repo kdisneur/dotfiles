@@ -3,6 +3,10 @@ augroup filetype_vim
   autocmd FileType vim setlocal foldmethod=marker
 augroup END
 
+if filereadable(expand("~/.vimrc.bundles"))
+  source ~/.vimrc.bundles
+endif
+
 let mapleader=","
 set backspace=indent,eol,start
 set tabstop=4
@@ -21,6 +25,7 @@ set cursorline
 set ruler
 set colorcolumn=120
 set number
+colorscheme badwolf
 set term=xterm-256color
 autocmd Filetype csv hi CSVColumnEven   ctermfg=black       ctermbg=lightgray
 autocmd Filetype csv hi CSVColumnOdd    ctermfg=black
@@ -65,10 +70,6 @@ inoremap [      []<Left>
 inoremap [<CR>  [<CR>]<Esc>O
 inoremap [[     [
 inoremap []     []
-
-if filereadable(expand("~/.vimrc.bundles"))
-  source ~/.vimrc.bundles
-endif
 
 " Airline {{{
 let g:airline_powerline_fonts = 1
