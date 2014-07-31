@@ -151,4 +151,4 @@ set crypt_replyencrypt = yes
 bind compose p       pgp-menu
 
 source ~/.muttrc.local
-source ~/.mutt/mutt-colors-solarized-light-256.muttrc
+source ~/.mutt/badwolf.muttrc
