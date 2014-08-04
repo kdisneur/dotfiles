@@ -52,6 +52,7 @@ nmap <silent> <leader>fc <esc>/\v^[<=>]{7}( .*\|$)<cr>
 map <leader>ec :e <c-r>=expand("%:p:h") . "/" <cr>
 map <leader>eh :sp <c-r>=expand("%:p:h") . "/" <cr>
 map <leader>ev :vsp <c-r>=expand("%:p:h") . "/" <cr>
+nnoremap <leader>c :VimuxPromptCommand<cr>
 nnoremap <leader>fef :normal! gg=G``<CR>
 nnoremap <leader>\ :Ag<space>
 map <Leader>/ :TComment<cr>
@@ -111,6 +112,10 @@ let g:DeleteTrailingWhitespace_Action = 'delete'
 
 " Syntastic {{{
 let g:syntastic_check_on_open=1
+" }}}
+
+" Vroom {{{
+let g:vroom_use_vimux = 1
 " }}}
 
 if filereadable("~/.vimrc.local")
