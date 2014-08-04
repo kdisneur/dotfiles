@@ -150,5 +150,6 @@ set crypt_autosign = yes
 set crypt_replyencrypt = yes
 bind compose p       pgp-menu
 
+source ~/.mutt/gpg.rc
 source ~/.muttrc.local
 source ~/.mutt/badwolf.muttrc
