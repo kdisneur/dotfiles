@@ -8,67 +8,45 @@ windows:
       <<: *default_layout
       panes:
         - vim
-        -
   - HmdBackOffice:
       <<: *default_layout
       panes:
         - editor:
           - cd HmdBackOffice
           - vim
-        - console:
-          - cd HmdBackOffice
-          - clear
   - HmdPrivate:
       <<: *default_layout
       panes:
         - editor:
           - cd HmdPrivate
           - vim
-        - console:
-          - cd HmdPrivate
-          - clear
   - HmdPublic:
       <<: *default_layout
       panes:
         - editor:
           - cd HmdPublic
           - vim
-        - console:
-          - cd HmdPublic
-          - clear
   - Kiosk:
       <<: *default_layout
       panes:
         - editor:
           - cd Kiosk
           - vim
-        - console:
-          - cd Kiosk
-          - clear
   - Roma:
       <<: *default_layout
       panes:
         - editor:
           - cd Roma
           - vim
-        - console:
-          - cd Roma
-          - clear
   - Seville:
       <<: *default_layout
       panes:
         - editor:
           - cd Seville
           - vim
-        - console:
-          - cd Seville
-          - clear
   - Thrust:
       <<: *default_layout
       panes:
         - editor:
           - cd Thrust
           - vim
-        - console:
-          - cd Thrust
-          - clear
