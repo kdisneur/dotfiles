@@ -10,6 +10,7 @@
   default = current
 [alias]
   br = branch
+  ci = commit -S
   co = checkout
   current = !git branch | awk '/^* (.*)/ { print $2 }' | sed /^$/d
   d  = diff
