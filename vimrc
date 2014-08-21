@@ -46,9 +46,7 @@ inoremap jk <esc>
 nmap <silent> <F4> :set invpaste<CR>:set paste?<CR>
 imap <silent> <F4> <ESC>:set invpaste<CR>:set paste?<CR>
 nmap <leader>pr :CodeReview https://github.com/
-nmap <leader>hs :set hlsearch! hlsearch?<CR>
 nmap <silent> <leader>md :!mkdir -p %:p:h<CR>
-nmap <silent> <leader>fc <esc>/\v^[<=>]{7}( .*\|$)<cr>
 map <leader>ec :e <c-r>=expand("%:p:h") . "/" <cr>
 map <leader>eh :sp <c-r>=expand("%:p:h") . "/" <cr>
 map <leader>ev :vsp <c-r>=expand("%:p:h") . "/" <cr>

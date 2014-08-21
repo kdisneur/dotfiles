@@ -5,6 +5,7 @@ call neobundle#rc(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 NeoBundle 'Align'
+NeoBundle 'ahw/vim-pbcopy'
 NeoBundle 'airblade/vim-gitgutter.git'
 NeoBundle 'ap/vim-css-color'
 NeoBundle 'benmills/vimux'
@@ -33,6 +34,7 @@ NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-endwise'
 NeoBundle 'tpope/vim-eunuch'
 NeoBundle 'tpope/vim-surround'
+NeoBundle 'tpope/vim-unimpaired'
 
 if filereadable(expand("~/.vimrc.bundles.local"))
   source ~/.vimrc.bundles.local
