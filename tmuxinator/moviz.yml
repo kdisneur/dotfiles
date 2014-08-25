@@ -1,0 +1,10 @@
+name: moviz
+root: ~/app/moviz
+default_layout: &default_layout
+  layout: b28a,272x73,0,0[272x49,0,0,0,272x23,0,50,6]
+
+windows:
+  - Moviz:
+      <<: *default_layout
+      panes:
+        - vim
