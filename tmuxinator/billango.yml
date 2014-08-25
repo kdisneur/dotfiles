@@ -8,4 +8,3 @@ windows:
       <<: *default_layout
       panes:
         - vim
-        -
