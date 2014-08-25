@@ -12,6 +12,8 @@ PATH="${PATH}:/opt/vagrant_ruby/bin"
 PATH="${HOME}/.rbenv/bin:$HOME/.rbenv/shims:${PATH}"
 export PATH="/usr/local/heroku/bin:${PATH}"
 
+export CDPATH="${CDPATH}:${HOME}/app"
+
 export DISPLAY=:1
 export EDITOR=vim
 export LC_ALL=en_US.UTF-8
