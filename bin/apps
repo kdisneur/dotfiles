@@ -51,23 +51,22 @@ class AppStart < Thor
     end
 
     def start_puma(app)
-      inside(app.directory) do
-        run("puma -e development -d -b unix://tmp/#{app.name}.sock --pidfile tmp/pids/#{app.name}.pid")
-        say("#{app.name} started", :green)
-      end
+      sock_file = File.join(app.directory, 'tmp', "#{app.name}.sock")
+      pid_file  = File.join(app.directory, 'tmp', 'pids', "#{app.name}.pid")
+
+      run("cd #{app.directory} && puma -e development -d -b unix://#{sock_file} --pidfile #{pid_file}")
+      say("#{app.name} started", :green)
     end
 
     def stop_puma(app)
-      inside(app.directory) do
-        pid_file = File.join('tmp', 'pids', "#{app.name}.pid")
+      pid_file = File.join(app.directory, 'tmp', 'pids', "#{app.name}.pid")
 
-        if File.exists?(pid_file)
-          pid = File.read(pid_file)
-          run("kill -s SIGTERM #{pid}")
-          say("#{app.name} stopped", :green)
-        else
-          say("#{app.name} pid does not exist", :red)
-        end
+      if File.exists?(pid_file)
+        pid = File.read(pid_file)
+        run("kill -s SIGTERM #{pid}")
+        say("#{app.name} stopped", :green)
+      else
+        say("#{app.name} pid does not exist", :red)
       end
     end
   end
