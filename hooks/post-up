@@ -5,4 +5,4 @@ chmod 600 ~/.gnupg/*
 [[ -e ~/.bin ]] && chmod u+x ~/.bin/*
 [[ -e ~/.bin.local ]] && chmod u+x ~/.bin.local/*
 vim +NeoBundleInstall +qa
-mkdir -p ~/.mail/kevin-koboyz.org/INBOX ~/.mail/kevin-koboyz.org/Personal ~/.mail/kevin-koboyz.org/Personal/Bill ~/.mail/kevin-koboyz.org/Personal/Home ~/.mail/kevin-koboyz.org/Personal/London ~/.mail/kevin-koboyz.org/Project ~/.mail/kevin-koboyz.org/Work ~/.mail/kevin-koboyz.org/archive ~/.mail/kevin-koboyz.org/sent ~/.mail/kevin-koboyz.org/drafts ~/.mail/temporary/search
+mkdir -p ~/.mail/kevin-koboyz.org/INBOX ~/.mail/kevin-koboyz.org/Personal ~/.mail/kevin-koboyz.org/Personal/Bill ~/.mail/kevin-koboyz.org/Personal/Home ~/.mail/kevin-koboyz.org/Personal/London ~/.mail/kevin-koboyz.org/Project ~/.mail/kevin-koboyz.org/Work ~/.mail/kevin-koboyz.org/archive ~/.mail/kevin-koboyz.org/sent ~/.mail/kevin-koboyz.org/drafts ~/.mail/temporary/search ~/.mutt/temp
