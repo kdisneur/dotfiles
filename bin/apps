@@ -35,13 +35,13 @@ class AppStart < Thor
   desc "Start an appllication", "start APP_NAME"
   method_option :tag, type: :boolean, aliases: '-t'
   def start(app_name)
-    find_each(app_name, options[:tag], &method(:start_puma))
+    find_each(app_name, options[:tag], &method(:start_unicorn))
   end
 
   desc "Stop an appllication", "stop APP_NAME"
   method_option :tag, type: :boolean, aliases: '-t'
   def stop(app_name)
-    find_each(app_name, options['tag'], &method(:stop_puma))
+    find_each(app_name, options['tag'], &method(:stop_unicorn))
   end
 
   no_commands do
@@ -50,20 +50,20 @@ class AppStart < Thor
       Parallel.each(apps, in_threads: apps.length, &block)
     end
 
-    def start_puma(app)
+    def start_unicorn(app)
       sock_file = File.join(app.directory, 'tmp', "#{app.name}.sock")
       pid_file  = File.join(app.directory, 'tmp', 'pids', "#{app.name}.pid")
 
-      run("cd #{app.directory} && puma -e development -d -b unix://#{sock_file} --pidfile #{pid_file}")
+      run("cd #{app.directory} && unicorn --listen #{sock_file} --pid #{pid_file} -D")
       say("#{app.name} started", :green)
     end
 
-    def stop_puma(app)
+    def stop_unicorn(app)
       pid_file = File.join(app.directory, 'tmp', 'pids', "#{app.name}.pid")
 
       if File.exists?(pid_file)
         pid = File.read(pid_file)
-        run("kill -s SIGTERM #{pid}")
+        run("kill -9 #{pid}")
         say("#{app.name} stopped", :green)
       else
         say("#{app.name} pid does not exist", :red)

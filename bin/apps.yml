@@ -1,4 +1,10 @@
 apps:
+  arenaflowers.com:
+    directory: /Users/kdisneur/app/arena_flowers/arena_apps/arenaflowers.com
+    tags: [arenaflowers]
+  arenaflowers.net:
+    directory: /Users/kdisneur/app/arena_flowers/arena_apps/arenaflowers.net
+    tags: [arenaflowers]
   billango:
     directory: /Users/kdisneur/app/Billango
     tags: []
