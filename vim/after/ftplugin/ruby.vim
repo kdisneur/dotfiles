@@ -1,1 +1,1 @@
-command! Debug :normal! mqOrequire 'ruby-debug'<cr>debugger<esc>`q:write<cr>
+command! Debug :normal! mqOrequire 'pry-remote'<cr>binding.remote_pry<esc>`q:write<cr>
