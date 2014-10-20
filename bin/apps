@@ -44,7 +44,18 @@ class AppStart < Thor
     find_each(app_name, options['tag'], &method(:stop_unicorn))
   end
 
+  desc "Bundle an application", "bundle APP_NAME"
+  method_option :tag, type: :boolean, aliases: '-t'
+  def bundle(app_name)
+    find_each(app_name, options['tag'], &method(:run_bundle))
+  end
+
   no_commands do
+    def run_bundle(app)
+      run("cd #{app.directory} && bundle")
+      say("#{app.name} bundled", :green)
+    end
+
     def find_each(name, tag, &block)
       apps = tag ? AppFinder.find_all_by_tag(name) : AppFinder.find_all_by_name(name)
       Parallel.each(apps, in_threads: apps.length, &block)
