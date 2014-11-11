@@ -43,15 +43,21 @@ noremap <up> <nop>
 noremap <down> <nop>
 inoremap <esc> <nop>
 inoremap jk <esc>
-nmap <silent> <F4> :set invpaste<CR>:set paste?<CR>
-imap <silent> <F4> <ESC>:set invpaste<CR>:set paste?<CR>
+nmap <F4> :set invpaste<cr>:set paste?<cr>
+imap <F4> <esc>:set invpaste<cr>:set paste?<cr>
+inoremap ;; <esc>:w<cr>a
+noremap ;; <esc>:w<cr>
+inoremap "" <esc>:q<cr>
+noremap "" <esc>:q<cr>
+inoremap \\ <esc>:x<cr>
+noremap \\ <esc>:x<cr>
 nmap <leader>pr :CodeReview https://github.com/
 nmap <silent> <leader>md :!mkdir -p %:p:h<CR>
 map <leader>ec :e <c-r>=expand("%:p:h") . "/" <cr>
 map <leader>eh :sp <c-r>=expand("%:p:h") . "/" <cr>
 map <leader>ev :vsp <c-r>=expand("%:p:h") . "/" <cr>
 nnoremap <leader>c :VimuxPromptCommand<cr>
-nnoremap <leader>fef :normal! gg=G``<CR>
+noremap <leader>fef :normal! gg=G``<CR>
 nnoremap <leader>\ :Ag<space>
 map <Leader>/ :TComment<cr>
 vmap <Leader>/ :TComment<cr>gv<esc>
