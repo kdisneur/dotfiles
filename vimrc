@@ -56,6 +56,9 @@ nmap <silent> <leader>md :!mkdir -p %:p:h<CR>
 map <leader>ec :e <c-r>=expand("%:p:h") . "/" <cr>
 map <leader>eh :sp <c-r>=expand("%:p:h") . "/" <cr>
 map <leader>ev :vsp <c-r>=expand("%:p:h") . "/" <cr>
+nmap <leader>rmc :RailsMigrationInPlace <c-r>=expand("%:p:h") . "/"<cr>
+nmap <leader>rmh :RailsMigrationHorizontalSplit <c-r>=expand("%:p:h") . "/"<cr>
+nmap <leader>rmv :RailsMigrationVerticalSplit <c-r>=expand("%:p:h") . "/"<cr>
 nnoremap <leader>c :VimuxPromptCommand<cr>
 noremap <leader>fef :normal! gg=G``<CR>
 nnoremap <leader>\ :Ag<space>
