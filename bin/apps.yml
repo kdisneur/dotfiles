@@ -11,21 +11,5 @@ apps:
   arenaflowers.net:
     directory: /Users/kdisneur/app/arena_flowers/arena_apps/arenaflowers.net
     tags: [arenaflowers]
-  billango:
-    directory: /Users/kdisneur/app/Billango
-    tags: []
-  hmdbackoffice:
-    directory: /Users/kdisneur/app/Hospimedia/HmdBackOffice
-    tags: [hospimedia]
-  hmdprivate:
-    directory: /Users/kdisneur/app/Hospimedia/HmdPrivate
-    tags: [hospimedia]
-  hmdpublic:
-    directory: /Users/kdisneur/app/Hospimedia/HmdPublic
-    tags: [hospimedia]
-  roma:
-    directory: /Users/kdisneur/app/Hospimedia/Roma
-    tags: [hospimedia]
-  sunda:
-    directory: /Users/kdisneur/app/Billango
-    tags: []
+  pscloud.arenaflowers.net:
+    directory: /Users/kdisneur/app/arena_flowers/packing_web
