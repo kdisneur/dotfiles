@@ -10,6 +10,7 @@
   default = current
 [alias]
   br = branch
+  brutali = !source ~/.jarjar-brutali && git push -f
   ci = commit -S
   co = checkout
   current = !git branch | awk '/^* (.*)/ { print $2 }' | sed /^$/d

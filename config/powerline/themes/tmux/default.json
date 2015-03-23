@@ -3,7 +3,18 @@
 	"segments": {
 		"right": [
             {
-              "name": "email_imap_alert"
+              "name": "email_imap_alert_2",
+              "args": {
+                "username": "kevin@arenaflowers.com",
+                "password": "dqoxbxetsntszfnh"
+              }
+            },
+            {
+              "name": "email_imap_alert",
+              "args": {
+                "username": "kevin@disneur.me",
+                "password": "evie0eiy"
+              }
             },
 			{
 				"name": "date"

@@ -1,0 +1,34 @@
+name: deploymycodes
+root: ~/app/deploymy.codes/
+default_layout: &default_layout
+  layout: b28a,272x73,0,0[272x49,0,0,0,272x23,0,50,6]
+
+windows:
+  - global:
+      <<: *default_layout
+      panes:
+        - vim
+  - api:
+      <<: *default_layout
+      panes:
+        - editor:
+          - cd api
+          - vim
+  - blog:
+      <<: *default_layout
+      panes:
+        - editor:
+          - cd blog
+          - vim
+  - documentation:
+      <<: *default_layout
+      panes:
+        - editor:
+          - cd documentation
+          - vim
+  - frontend:
+      <<: *default_layout
+      panes:
+        - editor:
+          - cd frontend
+          - vim

@@ -1,0 +1,13 @@
+name: personal-website
+root: ~/app/
+windows:
+  - Archives:
+      panes:
+        - editor:
+           - cd archives
+           - vim
+  - Website:
+      panes:
+        - editor:
+           - cd website
+           - vim

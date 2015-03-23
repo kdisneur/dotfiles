@@ -25,7 +25,7 @@ set cursorline
 set ruler
 set colorcolumn=120
 set number
-colorscheme badwolf
+colorscheme soda
 set term=xterm-256color
 autocmd Filetype csv hi CSVColumnEven   ctermfg=black       ctermbg=lightgray
 autocmd Filetype csv hi CSVColumnOdd    ctermfg=black
@@ -66,6 +66,7 @@ noremap <leader>fef :normal! gg=G``<CR>
 nnoremap <leader>\ :Ag<space>
 map <Leader>/ :TComment<cr>
 vmap <Leader>/ :TComment<cr>gv<esc>
+vmap <Leader>t <Plug>(EasyAlign)
 
 inoremap {      {}<Left>
 inoremap {<CR>  {<CR>}<Esc>O
@@ -128,10 +129,13 @@ let g:syntastic_check_on_open=1
 let g:vroom_use_vimux = 1
 " }}}
 
-
 " Vim Markdown {{{
+au BufNewFile,BufReadPost *.md.erb set filetype=markdown
+au BufNewFile,BufReadPost *.md set filetype=markdown
 let g:vim_markdown_folding_disabled=1
+let g:markdown_fenced_languages = ['coffee', 'css', 'erb=eruby', 'http', 'javascript', 'js=javascript', 'json=javascript', 'ruby', 'sass', 'shell', 'xml', 'html']
 " }}}
+
 if filereadable("~/.vimrc.local")
   source ~/.vimrc.local
 endif
