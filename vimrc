@@ -67,6 +67,8 @@ nnoremap <leader>\ :Ag<space>
 map <Leader>/ :TComment<cr>
 vmap <Leader>/ :TComment<cr>gv<esc>
 vmap <Leader>t <Plug>(EasyAlign)
+vmap <Leader>ocd :ObsessiveCompulsiveDisorder<cr>
+noremap <Leader>ro :OldToNewHash<cr>
 
 inoremap {      {}<Left>
 inoremap {<CR>  {<CR>}<Esc>O
