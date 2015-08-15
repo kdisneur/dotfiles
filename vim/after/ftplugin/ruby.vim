@@ -7,7 +7,7 @@ function! s:ObsessiveCompulsiveDisorder() range
   exec a:firstline . ',' . a:lastline . 'EasyAlign :'
 endfunction
 
-command! Debug :normal! mqOrequire 'pry'<cr>binding.pry<esc>`q:write<cr>
+command! Debug :normal! mqObinding.pry<esc>`q:write<cr>
 command! -complete=dir -nargs=+ RailsMigrationInPlace         execute "edit " . s:BuildRailsMigrationPath(<f-args>)
 command! -complete=dir -nargs=+ RailsMigrationVerticalSplit   execute "rightbelow vsplit " . s:BuildRailsMigrationPath(<f-args>)
 command! -complete=dir -nargs=+ RailsMigrationHorizontalSplit execute "split " . s:BuildRailsMigrationPath(<f-args>)

@@ -21,6 +21,11 @@ export POWERLINE_COMMAND='powerline -t default.segment_data.email_imap_alert.arg
 export TERM=xterm-256color
 
 alias vi=vim
+alias vim=nvim
+alias tmc="tmux new-session -s $1"
+alias tml="tmux list-sessions"
+alias tma="tmux -2 attach -t $1"
+alias tmk="tmux kill-session -t $1"
 
 [[ -r ${WORKSPACE}/others/liquidprompt/liquidprompt ]] && source ${WORKSPACE}/others/liquidprompt/liquidprompt
 [[ -r ${HOME}/.travis/travis.sh ]] && source ${HOME}/.travis/travis.sh

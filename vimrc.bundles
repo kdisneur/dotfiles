@@ -1,11 +1,13 @@
 filetype off
 set runtimepath+=~/.vim/bundle/neobundle.vim/
-call neobundle#rc(expand('~/.vim/bundle/'))
+
+call neobundle#begin(expand('~/.vim/bundle/'))
 
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 NeoBundle 'ahw/vim-pbcopy'
 NeoBundle 'airblade/vim-gitgutter.git'
+NeoBundle 'airblade/vim-rooter'
 NeoBundle 'ap/vim-css-color'
 NeoBundle 'benmills/vimux'
 NeoBundle 'bling/vim-airline'
@@ -14,27 +16,31 @@ NeoBundle 'chrisbra/csv.vim'
 NeoBundle 'codegram/vim-codereview'
 NeoBundle 'daddye/soda.vim'
 NeoBundle 'digitaltoad/vim-jade'
+NeoBundle 'ecomba/vim-ruby-refactoring'
 NeoBundle 'elixir-lang/vim-elixir'
+NeoBundle 'elzr/vim-json'
 NeoBundle 'flazz/vim-colorschemes'
 NeoBundle 'junegunn/vim-easy-align'
 NeoBundle 'honza/vim-snippets'
+NeoBundle 'janko-m/vim-test'
 NeoBundle 'jamessan/vim-gnupg'
 NeoBundle 'jeetsukumaran/vim-buffergator'
 NeoBundle 'junkblocker/patchreview-vim'
+NeoBundle 'kassio/neoterm'
 NeoBundle 'kchmck/vim-coffee-script'
 NeoBundle 'kien/ctrlp.vim'
 NeoBundle 'michaeljsmith/vim-indent-object'
 NeoBundle 'mileszs/ack.vim'
 NeoBundle 'myusuf3/numbers.vim'
-NeoBundle 'plasticboy/vim-markdown'
+NeoBundle 'gabrielelana/vim-markdown'
 NeoBundle 'rking/ag.vim'
 NeoBundle 'rizzatti/dash.vim'
-NeoBundle 'skalnik/vim-vroom'
-NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'slim-template/vim-slim'
+NeoBundle 'spiegela/vimix'
 NeoBundle 'terryma/vim-multiple-cursors'
 NeoBundle 'tomtom/tcomment_vim'
+NeoBundle 'tpope/vim-dispatch'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-endwise'
 NeoBundle 'tpope/vim-eunuch'
@@ -42,11 +48,14 @@ NeoBundle 'tpope/vim-rbenv'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'tpope/vim-unimpaired'
 NeoBundle 'vim-ruby/vim-ruby'
+NeoBundle 'vim-scripts/matchit.zip'
 NeoBundle 'vim-scripts/ZoomWin'
 
 if filereadable(expand("~/.vimrc.bundles.local"))
   source ~/.vimrc.bundles.local
 endif
+
+call neobundle#end()
 
 filetype plugin indent on
 
