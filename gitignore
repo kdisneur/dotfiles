@@ -1,7 +1,4 @@
 *.DS_Store
 *.sw[nop]
-.env.*
 log/*.log
 tmp/**/*
-Dockerfile
-fig.yml

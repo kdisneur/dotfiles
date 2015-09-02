@@ -1,8 +1,3 @@
-augroup filetype_vim
-  autocmd!
-  autocmd FileType vim setlocal foldmethod=marker
-augroup END
-
 if filereadable(expand("~/.vimrc.bundles"))
   source ~/.vimrc.bundles
 endif
@@ -31,17 +26,15 @@ set number
 
 colorscheme soda
 
-autocmd Filetype csv hi CSVColumnEven   ctermfg=black       ctermbg=lightgray
-autocmd Filetype csv hi CSVColumnOdd    ctermfg=black
+autocmd Filetype csv hi CSVColumnEven ctermfg=black ctermbg=lightgray
+autocmd Filetype csv hi CSVColumnOdd  ctermfg=black
 autocmd FileType markdown setlocal spell
 autocmd FileType gitcommit setlocal spell
-
-au FileType eruby,html,slim setlocal cursorcolumn
+autocmd FileType eruby,html,slim setlocal cursorcolumn
 
 syntax on
 highlight Search ctermfg=Black ctermbg=LightYellow cterm=NONE
 
-" Open new split panes to right and bottom, which feels more natural
 set splitbelow
 set splitright
 
@@ -51,17 +44,12 @@ noremap <up> <nop>
 noremap <down> <nop>
 inoremap <esc> <nop>
 inoremap jk <esc>
-nmap <F4> :set invpaste<cr>:set paste?<cr>
-imap <F4> <esc>:set invpaste<cr>:set paste?<cr>
 inoremap ;; <esc>:w<cr>a
 noremap ;; <esc>:w<cr>
-nmap <leader>pr :CodeReview https://github.com/
 nmap <silent> <leader>md :!mkdir -p %:p:h<CR>
 map <leader>ec :e <c-r>=expand("%:p:h") . "/" <cr>
 map <leader>eh :sp <c-r>=expand("%:p:h") . "/" <cr>
 map <leader>ev :vsp <c-r>=expand("%:p:h") . "/" <cr>
-map <leader>lf :!~/app/time_consuming/time_consuming.rb feature
-map <leader>lm :!~/app/time_consuming/time_consuming.rb maintenance
 nmap <leader>rmc :RailsMigrationInPlace <c-r>=expand("%:p:h") . "/"<cr>
 nmap <leader>rmh :RailsMigrationHorizontalSplit <c-r>=expand("%:p:h") . "/"<cr>
 nmap <leader>rmv :RailsMigrationVerticalSplit <c-r>=expand("%:p:h") . "/"<cr>
@@ -77,8 +65,6 @@ vmap <Leader>/ :TComment<cr>gv<esc>
 vmap <Leader>t <Plug>(EasyAlign)
 vmap <Leader>ocd :ObsessiveCompulsiveDisorder<cr>
 noremap <Leader>ro :OldToNewHash<cr>
-noremap <Leader>Tl :T fc -e : -1<cr>
-
 nmap <silent> <leader>tt :TestNearest<CR>
 nmap <silent> <leader>tT :TestFile<CR>
 nmap <silent> <leader>ta :TestSuite<CR>
@@ -88,10 +74,10 @@ nmap <silent> <leader>tg :TestVisit<CR>
 " Test {{{
 let test#strategy = "dispatch"
 let test#ruby#minitest#file_pattern = '_spec\.rb\|test\.rb$'
-
 " }}}
 
 " Airline {{{
+let g:airline_theme = "powerlineish"
 let g:airline_powerline_fonts = 1
 " }}}
 
@@ -101,7 +87,6 @@ let g:gitgutter_escape_grep = 1
 highlight GitGutterAdd ctermfg=28
 highlight GitGutterChange ctermfg=100
 highlight GitGutterDelete ctermfg=131
-
 " }}}
 
 " CtrlP  {{{
@@ -110,11 +95,6 @@ let g:ctrlp_follow_symlinks = 2
 let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
 let g:ctrlp_use_caching = 0
 let g:ctrlp_working_path_mode = 'ra'
-" }}}
-
-" Numbers {{{
-let g:enable_numbers = 0
-nnoremap <F3> :NumbersToggle<CR>
 " }}}
 
 " Trailing Whitespace {{{
@@ -137,10 +117,6 @@ let g:markdown_fenced_languages = ['coffee', 'css', 'erb=eruby', 'http', 'javasc
 " Vim Rooter {{{
 let g:rooter_patterns = ['Rakefile', '.git/']
 let g:rooter_silent_chdir = 1
-" }}}
-
-" Vimix {{{
-let g:vimix_map_keys = 1
 " }}}
 
 if filereadable("~/.vimrc.local")
