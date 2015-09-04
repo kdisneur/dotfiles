@@ -19,6 +19,7 @@
   l  = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue)<%an>%Creset' --abbrev-commit
   oops = commit -S --amend --no-edit
   s  = status --branch --short
+  serve = !git daemon --reuseaddr --verbose  --base-path=. --export-all ./.git
 [grep]
   extendRegexp = true
   lineNumber = true

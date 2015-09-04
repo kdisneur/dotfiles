@@ -25,6 +25,7 @@ alias tmc="tmux new-session -s $1"
 alias tml="tmux list-sessions"
 alias tma="tmux -2 attach -t $1"
 alias tmk="tmux kill-session -t $1"
+alias serve="ruby -run -e httpd . -p 8000"
 
 [[ -r ${WORKSPACE}/others/liquidprompt/liquidprompt ]] && source ${WORKSPACE}/others/liquidprompt/liquidprompt
 [[ -r ${HOME}/.zshrc.local ]] && source ${HOME}/.zshrc.local
