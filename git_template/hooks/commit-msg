@@ -1,0 +1,38 @@
+#! /bin/sh
+
+isFeature() {
+  git current | grep -E 'feature-#[0-9]+' &> /dev/null
+}
+
+isHotfix() {
+  git current | grep -E 'hotfix-#[0-9]+' &> /dev/null
+}
+
+isGuessable() {
+  isFeature || isHotfix
+}
+
+issueNumber() {
+  git current | sed -E 's/.*#([0-9]+)/\1/'
+}
+
+hasNoIssueInMessage() {
+  ! grep "$(issueNumber)" $1 &> /dev/null
+}
+
+if isGuessable; then
+  message="Fix $(issueNumber)"
+  if isFeature; then
+    message="Resolve $(issueNumber)"
+  fi
+
+  if hasNoIssueInMessage $1; then
+    echo "Insert issue $(issueNumber) in the commit"
+    echo >> $1
+    echo ${message} >> $1
+  else
+    echo "Issue number already present"
+  fi
+else
+  echo "Not found any issue number to add in your commit"
+fi

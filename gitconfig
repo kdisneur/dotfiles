@@ -6,6 +6,8 @@
 [core]
   excludesfile = ~/.gitignore
   pager = less -F -X
+[init]
+  templatedir = ~/.git_template
 [push]
   default = current
 [alias]
