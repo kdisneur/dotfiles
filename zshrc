@@ -18,6 +18,7 @@ export DISPLAY=:1
 export EDITOR=vim
 export LC_ALL=en_US.UTF-8
 export TERM=xterm-256color
+[ -n "$TMUX" ] && export TERM=screen-256color
 
 alias vi=vim
 alias vim=nvim
