@@ -34,3 +34,6 @@ alias serve="ruby -run -e httpd . -p 8000"
 eval "$(rbenv init -)"
 
 source $ZSH/oh-my-zsh.sh
+
+# Has to be after rbenv to ensure binstubs has highest priority
+export PATH="./bin:${PATH}"
