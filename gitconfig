@@ -20,6 +20,7 @@
   g  = grep --break --heading --line-number
   l  = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue)<%an>%Creset' --abbrev-commit
   oops = commit -S --amend --no-edit
+  pf = push --force-with-lease
   pr = !open "https://github.com/$(git remote -v | awk '{ print $2 }' | sed -e 's/.*://g' -e 's/\\.git$//' | head -n 1)/compare/$(git current | sed 's/#/%23/g')?expand=1"
   s  = status --branch --short
   serve = !git daemon --reuseaddr --verbose  --base-path=. --export-all ./.git
