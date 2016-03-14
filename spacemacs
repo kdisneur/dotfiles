@@ -17,6 +17,7 @@ values."
    dotspacemacs-configuration-layers
    '(
      alchemist
+     auto-completion
      arenaflowers
      clipboard
      colors
@@ -34,6 +35,7 @@ values."
             shell-default-shell 'ansi-term
             shell-default-position 'bottom)
      spell-checking
+     osx-spotify
      syntax-checking
      '(version-control :variables
                        version-control-global-margin t)
