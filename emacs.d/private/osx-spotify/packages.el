@@ -42,10 +42,14 @@
         (url-request-extra-headers `(("Accept" . "application/json")
                                      ("Content-Type" . "application/json")
                                      ("Authorization" . ,(format "Bearer %s" token)))))
+
     (with-current-buffer
-        (url-retrieve-synchronously (format "https://api.spotify.com/v1%s" path))
-      (goto-char (+ 1 url-http-end-of-headers))
-      (json-read-object))))
+      (url-retrieve-synchronously (format "https://api.spotify.com/v1%s" path))
+      (json-read-from-string
+       (decode-coding-string
+        (buffer-substring (goto-char (+ 1 url-http-end-of-headers))
+                          (point-max))
+        'utf-8)))))
 
 (defun osx-spotify/display-albums-information (albums)
   (mapcar (lambda (album)
