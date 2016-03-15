@@ -1,5 +1,5 @@
 (setq osx-spotify-packages '(helm))
-(setq debug-on-error t)
+;(setq debug-on-error t)
 
 (defvar path-to-config-folder "/Users/work/.config")
 
