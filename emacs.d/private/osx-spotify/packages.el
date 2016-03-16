@@ -1,7 +1,7 @@
 (setq osx-spotify-packages '(helm))
 ;(setq debug-on-error t)
 
-(defvar path-to-config-folder "/Users/work/.config")
+(defvar path-to-config-folder "~/.config")
 
 ;;; In the following file you need to add your Spotify credentials.
 ;;; following the format:
