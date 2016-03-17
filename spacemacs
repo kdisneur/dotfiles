@@ -30,20 +30,19 @@ values."
      markdown
      minitest
      org
+     osx-spotify
      (shell :variables
             shell-default-height 30
             shell-default-shell 'ansi-term
             shell-default-position 'bottom)
      spell-checking
-     osx-spotify
      syntax-checking
      '(version-control :variables
                        version-control-global-margin t)
      (ruby :variables
            ruby-enable-enh-ruby-mode t
            ruby-version-manager 'rbenv
-           ruby-test-runner 'ruby-test
-     )
+           ruby-test-runner 'ruby-test)
      robe
      themes-megapack
    )
@@ -255,7 +254,6 @@ in `dotspacemacs/user-config'."
   "Configuration function for user code.
 This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
-
   (setq-default evil-escape-key-sequence "jk")
   (add-hook 'ruby-mode-hook 'minitest-mode)
   (add-hook 'alchemist-mode-hook 'company-mode)
