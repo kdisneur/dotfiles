@@ -24,6 +24,8 @@
   pr = !open "https://github.com/$(git remote -v | awk '{ print $2 }' | sed -e 's/.*://g' -e 's/\\.git$//' | head -n 1)/compare/$(git current | sed 's/#/%23/g')?expand=1"
   s  = status --branch --short
   serve = !git daemon --reuseaddr --verbose  --base-path=. --export-all ./.git
+[user]
+  useconfigonly = true
 [grep]
   extendRegexp = true
   lineNumber = true
