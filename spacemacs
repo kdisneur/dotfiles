@@ -274,21 +274,10 @@ layers configuration. You are free to put any user code."
 
   (spacemacs/set-leader-keys "psf" 'my-open-in-vsplit)
 
-  (spacemacs/set-leader-keys "oof" 'open-tasks-file)
-  (spacemacs/set-leader-keys "ooc" 'org-capture)
-  (setq org-agenda-files (quote ("/Users/work/app/documents/tasks.org" "/Users/work/app/documents/sites.org" "/Users/work/app/documents/articles.org")))
-  (setq org-capture-templates
-        (quote (("m" "todo AF maintenance" entry (file+headline "/Users/work/app/documents/tasks.org" "Arena Flowers")
-                 "** TODO %? :maintenance:")
-                ("f" "todo AF feature" entry (file+headline "/Users/work/app/documents/tasks.org" "Arena Flowers")
-                  "** TODO %? :feature:")
-                ("p" "todo Perso" entry (file+headline "/Users/work/app/documents/tasks.org" "Personal")
-                 "** TODO %?"))))
-)
 
-(defun open-tasks-file ()
-  (interactive)
-  (find-file "/Users/work/app/documents/tasks.org"))
+  (spacemacs/set-leader-keys "ooc" 'org-clock-goto)
+  (setq org-agenda-files (quote ("/Users/work/app/documents/arenaflowers/log_book/2016/")))
+)
 
 (defun old_to_new_hash (begin end)
   (interactive "r")
@@ -313,7 +302,7 @@ layers configuration. You are free to put any user code."
  ;; If there is more than one, they won't work right.
  '(org-agenda-files
    (quote
-    ("~/.spacemacs" "/Users/work/app/documents/tasks.org")))
+    ("~/.spacemacs" "/Users/work/app/documents/arenaflowers/log_book/2016/")))
  '(safe-local-variable-values (quote ((encoding . utf-8)))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
