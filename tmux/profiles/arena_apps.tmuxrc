@@ -1,0 +1,16 @@
+# vim: syntax=tmux
+
+rename-window code
+set-buffer "vim\n"
+paste-buffer
+splitw -v -p 20 'exec $SHELL -l'
+
+neww -n servers
+set-buffer "cd arenaflowers.com\n bundle exec rails s\n"
+paste-buffer
+
+splitw -v -p 50
+set-buffer "cd arenaflowers.net\n bundle exec rails s -p 3002\n"
+paste-buffer
+
+selectw -t code

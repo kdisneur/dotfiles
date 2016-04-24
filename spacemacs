@@ -267,6 +267,7 @@ you should place your code here."
   (add-hook 'ruby-mode-hook 'minitest-mode)
   (add-hook 'alchemist-mode-hook 'company-mode)
   (setq-default tab-width 4)
+  (setq-default parens-require-spaces 'nil)
   (setq js-indent-level 2)
   (setq vc-follow-symlinks t)
   (evil-define-key 'hybrid company-active-map (kbd "C-j") 'company-select-next)

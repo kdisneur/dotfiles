@@ -1,0 +1,12 @@
+# vim: syntax=tmux
+
+rename-window code
+set-buffer "vim\n"
+paste-buffer
+splitw -v -p 20 'exec $SHELL -l'
+
+neww -n servers
+set-buffer "mix phoenix.server\n"
+paste-buffer
+
+selectw -t code
