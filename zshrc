@@ -9,6 +9,7 @@ PATH="/usr/local/lib/python2.7/site-packages:${PATH}"
 PATH="${HOME}/.local/bin:${PATH}"
 PATH="${HOME}/.rbenv/bin:${PATH}"
 PATH="$HOME/.rbenv/shims:${PATH}"
+PATH="$HOME/.asdf/shims:${PATH}"
 
 export PATH
 
@@ -31,6 +32,7 @@ alias serve="ruby -run -e httpd . -p 8000"
 
 [[ -r ${WORKSPACE}/others/liquidprompt/liquidprompt ]] && source ${WORKSPACE}/others/liquidprompt/liquidprompt
 [[ -r ${HOME}/.zshrc.local ]] && source ${HOME}/.zshrc.local
+[[ -r ${HOME}/.asdf/asdf.sh ]] && source ${HOME}/.asdf/asdf.sh
 
 eval "$(rbenv init -)"
 
