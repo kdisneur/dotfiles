@@ -1,4 +1,6 @@
 ;; -*- mode: emacs-lisp -*-
+;; This file is loaded by Spacemacs at startup.
+;; It must be stored in your home directory.
 
 (defun dotspacemacs/layers ()
   "Configuration Layers declaration.
@@ -16,36 +18,43 @@ values."
    ;; of a list then all discovered layers will be installed.
    dotspacemacs-configuration-layers
    '(
+     auto-completion
+     better-defaults
      alchemist
      auto-completion
      arenaflowers
      clipboard
      colors
      company-mode
+     emacs-lisp
+     git
+     github
      html
      emacs-lisp
      distel
      elixir
      erlang
+     own_elixir
      markdown
      minitest
      org
      osx-spotify
      (shell :variables
-            shell-default-height 30
-            shell-default-shell 'ansi-term
-            shell-default-position 'bottom)
+           shell-default-height 30
+           shell-default-shell 'ansi-term
+           shell-default-position 'bottom)
+     slack
      spell-checking
      syntax-checking
-     '(version-control :variables
-                       version-control-global-margin t)
      (ruby :variables
            ruby-enable-enh-ruby-mode t
            ruby-version-manager 'rbenv
            ruby-test-runner 'ruby-test)
      robe
      themes-megapack
-   )
+     unimpaired
+     version-control
+     yaml)
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
@@ -154,7 +163,7 @@ values."
    ;; auto-save the file in-place, `cache' to auto-save the file to another
    ;; file stored in the cache directory and `nil' to disable auto-saving.
    ;; (default 'cache)
-   dotspacemacs-auto-save-file-location nil
+   dotspacemacs-auto-save-file-location 'cache
    ;; Maximum number of rollback slots to keep in the cache. (default 5)
    dotspacemacs-max-rollback-slots 5
    ;; If non nil then `ido' replaces `helm' for some commands. For now only
@@ -240,30 +249,30 @@ values."
 
 (defun dotspacemacs/user-init ()
   "Initialization function for user code.
-It is called immediately after `dotspacemacs/init'.  You are free to put almost
-any user code here.  The exception is org related code, which should be placed
-in `dotspacemacs/user-config'."
+It is called immediately after `dotspacemacs/init', before layer configuration
+executes.
+ This function is mostly useful for variables that need to be set
+before packages are loaded. If you are unsure, you should try in setting them in
+`dotspacemacs/user-config' first."
   (setq require-final-newline 'visit-save))
-
-(defun my-open-in-vsplit ()
-  (interactive)
-  (split-window-right)
-  (helm-projectile-find-file))
 
 (defun dotspacemacs/user-config ()
   "Configuration function for user code.
 This function is called at the very end of Spacemacs initialization after
-layers configuration. You are free to put any user code."
+layers configuration.
+This is the place where most of your configurations should be done. Unless it is
+explicitly specified that a variable should be set before a package is loaded,
+you should place your code here."
   (setq-default evil-escape-key-sequence "jk")
   (add-hook 'ruby-mode-hook 'minitest-mode)
   (add-hook 'alchemist-mode-hook 'company-mode)
   (setq-default tab-width 4)
   (setq js-indent-level 2)
+  (setq vc-follow-symlinks t)
   (evil-define-key 'hybrid company-active-map (kbd "C-j") 'company-select-next)
   (evil-define-key 'hybrid company-active-map (kbd "C-k") 'company-select-previous)
   (spacemacs/set-leader-keys "mxh" 'old_to_new_hash)
   (define-key evil-normal-state-map ";;" 'save-buffer)
-  (global-linum-mode)
   (golden-ratio-mode)
   (global-company-mode)
 
@@ -272,12 +281,18 @@ layers configuration. You are free to put any user code."
       '(push 'company-robe company-backends))
   (add-hook 'robe-mode-hook 'ac-robe-setup)
 
+  (add-hook 'web-mode-hook
+            (lambda ()
+              (setq web-mode-markup-indent-offset 2)
+              (setq web-mode-css-indent-offset 2)
+              (setq web-mode-code-indent-offset 2)))
+
   (spacemacs/set-leader-keys "psf" 'my-open-in-vsplit)
 
 
   (spacemacs/set-leader-keys "ooc" 'org-clock-goto)
-  (setq org-agenda-files (quote ("/Users/work/app/documents/arenaflowers/log_book/2016/")))
-)
+  (setq org-agenda-files (quote ("/Users/work/app/documents/arenaflowers/log_book/2016/"))))
+
 
 (defun old_to_new_hash (begin end)
   (interactive "r")
@@ -291,7 +306,12 @@ layers configuration. You are free to put any user code."
 
 (defun ruby-hash-syntax--replace (from to end)
   (while (re-search-forward from end t)
-        (replace-match to nil nil)))
+    (replace-match to nil nil)))
+
+(defun my-open-in-vsplit ()
+  (interactive)
+  (split-window-right)
+  (helm-projectile-find-file))
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
@@ -300,13 +320,9 @@ layers configuration. You are free to put any user code."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(magit-commit-arguments (quote ("--gpg-sign=Kevin Disneur <kevin@disneur.me>")))
  '(org-agenda-files
    (quote
-    ("~/.spacemacs" "/Users/work/app/documents/arenaflowers/log_book/2016/")))
+    ("~/.spacemacs" "/Users/work/app/documents/arenaflowers/log_book/2016/")) t)
+ '(paradox-github-token t)
  '(safe-local-variable-values (quote ((encoding . utf-8)))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((t (:background nil)))))
