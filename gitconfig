@@ -13,6 +13,7 @@
 [alias]
   br = branch
   ci = commit -S
+  cleanlocal = !git branch --merged master | grep -v master | grep -v develop | xargs git branch -d
   co = checkout
   current = !git branch | awk '/^* (.*)/ { print $2 }' | sed /^$/d
   d  = diff
