@@ -1,4 +1,4 @@
-(setq osx-spotify-packages '(alchemist))
+(setq own-elixir-packages '(alchemist))
 
 (defun own-elixir-wrap-region-with (left right)
   (let ((beginning (region-beginning))
