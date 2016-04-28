@@ -35,6 +35,7 @@ values."
      elixir
      erlang
      own_elixir
+     own_ruby
      markdown
      minitest
      org
@@ -59,7 +60,7 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '()
+   dotspacemacs-additional-packages '(ruby-refactor)
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
@@ -268,6 +269,7 @@ you should place your code here."
   (add-hook 'alchemist-mode-hook 'company-mode)
   (setq-default tab-width 4)
   (setq-default parens-require-spaces 'nil)
+  (setq-default ruby-refactor-add-parens t)
   (setq js-indent-level 2)
   (setq vc-follow-symlinks t)
   (evil-define-key 'hybrid company-active-map (kbd "C-j") 'company-select-next)
