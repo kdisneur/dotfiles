@@ -15,28 +15,32 @@
                             (s-matches? "Ctrl-C to shutdown server" output))
                                         (prodigy-set-status service 'ready)))))
   (prodigy-define-service
-    :name "arenaflowers.net:3002"
+    :name "www.arenaflowers.net"
+    :url "http://dev.arenaflowers.net:3002"
     :command "bundle"
     :args '("exec" "rails" "server" "-p" "3002")
     :cwd (concatenate 'string arena-apps-path "/arenaflowers.net")
     :tags '(arenaflowers rails))
 
   (prodigy-define-service
-    :name "arenaflowers.com:3000"
+    :name "www.arenaflowers.com"
+    :url "http://dev.arenaflowers.com:3000"
     :command "bundle"
     :args '("exec" "rails" "server" "-p" "3000")
     :cwd (concatenate 'string arena-apps-path "/arenaflowers.com")
     :tags '(arenaflowers rails))
 
   (prodigy-define-service
-    :name "api.arenaflowers.net:3003"
+    :name "api.arenaflowers.net"
+    :url "http://dev.api.arenaflowers.net:3003"
     :command "bundle"
     :args '("exec" "rails" "server" "-p" "3003")
     :cwd (concatenate 'string arena-apps-path "/api.arenaflowers.net")
     :tags '(arenaflowers rails))
 
   (prodigy-define-service
-    :name "pi.arenaflowers.net:3004"
+    :name "pi.arenaflowers.net"
+    :url "http://dev.pi.arenaflowers.net:3004"
     :command "bundle"
     :args '("exec" "rails" "server" "-p" "3004")
     :cwd (concatenate 'string arena-apps-path "/pi.arenaflowers.net")
