@@ -13,7 +13,7 @@ isGuessable() {
 }
 
 issueNumber() {
-  git current | sed -E 's/.*(#[0-9]+)/\1/'
+  git current | sed -E 's/.*(#[0-9]+)([-_].*)?/\1/'
 }
 
 hasNoIssueInMessage() {
