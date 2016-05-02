@@ -1,0 +1,5 @@
+(spacemacs/declare-prefix "ob" "blog")
+(spacemacs/set-leader-keys "obc" 'own-blog/create-draft)
+(spacemacs/set-leader-keys "obd" 'own-blog/deploy)
+(spacemacs/set-leader-keys "obp" 'own-blog/publish-draft)
+(spacemacs/set-leader-keys "obu" 'own-blog/unpublish-post)
