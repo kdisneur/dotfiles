@@ -1,7 +1,6 @@
 ;; -*- mode: emacs-lisp -*-
 ;; This file is loaded by Spacemacs at startup.
 ;; It must be stored in your home directory.
-
 (defun dotspacemacs/layers ()
   "Configuration Layers declaration.
 You should not put any user code in this function besides modifying the variable
@@ -34,6 +33,7 @@ values."
      distel
      elixir
      erlang
+     own_blog
      own_elixir
      own_ruby
      markdown
@@ -41,9 +41,9 @@ values."
      org
      osx-spotify
      (shell :variables
-           shell-default-height 30
-           shell-default-shell 'ansi-term
-           shell-default-position 'bottom)
+            shell-default-height 30
+            shell-default-shell 'ansi-term
+            shell-default-position 'bottom)
      slack
      spell-checking
      syntax-checking
@@ -245,8 +245,7 @@ values."
    ;; `trailing' to delete only the whitespace at end of lines, `changed'to
    ;; delete only whitespace for changed lines or `nil' to disable cleanup.
    ;; (default nil)
-   dotspacemacs-whitespace-cleanup 'all
-   ))
+   dotspacemacs-whitespace-cleanup 'all))
 
 (defun dotspacemacs/user-init ()
   "Initialization function for user code.
@@ -265,7 +264,7 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
   (setq-default evil-escape-key-sequence "jk")
-  (add-hook 'ruby-mode-hook 'minitest-mode)
+  (add-hook 'enh-ruby-mode-hook 'minitest-mode)
   (add-hook 'alchemist-mode-hook 'company-mode)
   (setq-default tab-width 4)
   (setq-default parens-require-spaces 'nil)
@@ -279,23 +278,21 @@ you should place your code here."
   (golden-ratio-mode)
   (global-company-mode)
 
-  (add-hook 'ruby-mode-hook 'robe-mode)
-  (eval-after-load 'company
-      '(push 'company-robe company-backends))
-  (add-hook 'robe-mode-hook 'ac-robe-setup)
+  (add-hook 'enh-ruby-mode-hook
+            (lambda ()
+              (modify-syntax-entry ?_ "w")))
 
   (add-hook 'web-mode-hook
             (lambda ()
+              (modify-syntax-entry ?_ "w")
               (setq web-mode-markup-indent-offset 2)
               (setq web-mode-css-indent-offset 2)
               (setq web-mode-code-indent-offset 2)))
 
   (spacemacs/set-leader-keys "psf" 'my-open-in-vsplit)
 
-
   (spacemacs/set-leader-keys "ooc" 'org-clock-goto)
-  (setq org-agenda-files (quote ("/Users/work/app/documents/arenaflowers/log_book/2016/"))))
-
+  (setq org-agenda-files (quote ("/Users/work/Dropbox/arenaflowers/log_book/2016/"))))
 
 (defun old_to_new_hash (begin end)
   (interactive "r")
@@ -304,8 +301,7 @@ you should place your code here."
   (save-excursion
     (let ((limit (copy-marker (max begin end))))
       (goto-char (min begin end))
-      (ruby-hash-syntax--replace ":\\([a-zA-Z0-9_]+\\) *=> *" "\\1: " limit)
-      )))
+      (ruby-hash-syntax--replace ":\\([a-zA-Z0-9_]+\\) *=> *" "\\1: " limit))))
 
 (defun ruby-hash-syntax--replace (from to end)
   (while (re-search-forward from end t)
