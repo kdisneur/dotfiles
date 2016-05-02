@@ -2,7 +2,7 @@
 
 (defun own-ruby/init-ruby-refactor ()
   (use-package ruby-refactor)
-  (add-hook 'ruby-mode-hook 'ruby-refactor-mode-launch))
+  (add-hook 'enh-ruby-mode-hook 'ruby-refactor-mode-launch))
 
 (defun own-ruby/previous-block-to-oneline ()
   (interactive)
