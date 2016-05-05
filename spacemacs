@@ -33,9 +33,11 @@ values."
      distel
      elixir
      erlang
+     haskell
      own_blog
      own_elixir
      own_ruby
+     own_tmux
      markdown
      minitest
      org
@@ -292,7 +294,38 @@ you should place your code here."
   (spacemacs/set-leader-keys "psf" 'my-open-in-vsplit)
 
   (spacemacs/set-leader-keys "ooc" 'org-clock-goto)
-  (setq org-agenda-files (quote ("/Users/work/Dropbox/arenaflowers/log_book/2016/"))))
+  (setq org-agenda-files (quote ("/Users/work/Dropbox/arenaflowers/log_book/2016/")))
+
+  (spacemacs|define-custom-layout "Dotfiles"
+    :binding "c"
+    :body
+    (find-file "~/app/dotfiles"))
+
+  (spacemacs|define-custom-layout "Documents"
+    :binding "d"
+    :body
+    (find-file "~/Dropbox"))
+
+
+  (spacemacs|define-custom-layout "Groom Groom - Documentation"
+    :binding "gd"
+    :body
+    (find-file "~/app/developers.groomgroom.co"))
+
+  (spacemacs|define-custom-layout "Groom Groom - API"
+    :binding "ga"
+    :body
+    (find-file "~/app/api.groomgroom.co"))
+
+  (spacemacs|define-custom-layout "Arena Flowers"
+    :binding "a"
+    :body
+    (find-file "~/app/arena_apps"))
+
+  (spacemacs|define-custom-layout "Blog"
+    :binding "b"
+    :body
+    (find-file "~/app/website")))
 
 (defun old_to_new_hash (begin end)
   (interactive "r")
