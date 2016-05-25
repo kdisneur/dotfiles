@@ -1,8 +1,0 @@
-(spacemacs/set-leader-keys "amsp" 'osx-spotify-play-pause)
-(spacemacs/set-leader-keys "amsn" 'osx-spotify-next)
-(spacemacs/set-leader-keys "amsb" 'osx-spotify-previous)
-(spacemacs/set-leader-keys "amssl" 'osx-spotify-search-by-my-playlists)
-(spacemacs/set-leader-keys "amssa" 'osx-spotify-search-by-artists)
-(spacemacs/set-leader-keys "amssb" 'osx-spotify-search-by-albums)
-(spacemacs/set-leader-keys "amsst" 'osx-spotify-search-by-tracks)
-(spacemacs/set-leader-keys "amssp" 'osx-spotify-search-by-playlists)
