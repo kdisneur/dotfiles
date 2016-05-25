@@ -33,7 +33,8 @@
   (shell-pop-term 1)
   (comint-send-string "*term-1*"
                       (concat "cd " own-blog/application-path "\n"
-                              "bundle exec jekyll deploy\n")))
+                              "rbenv shell $(rbenv local)\n"
+                              "JEKYLL_ENV=production bundle exec jekyll deploy\n")))
 
 (defun own-blog/publish-draft ()
   (interactive)
