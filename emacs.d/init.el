@@ -62,11 +62,6 @@
   (setq helm-lisp-fuzzy-completion t)
   (setq helm-mode-fuzzy-match t)
   (setq helm-completion-in-region-fuzzy-match t)
-  (add-to-list 'display-buffer-alist
-               `(,(rx bos "*helm" (* not-newline) "*" eos)
-                 (display-buffer-in-side-window)
-                 (inhibit-same-window . t)
-                 (window-height . 0.4)))
   :init
   (use-package helm-ag)
   (use-package helm-flyspell)
@@ -115,6 +110,10 @@
   (setq relative-line-numbers-max-count 200))
 
 (use-package restart-emacs)
+
+(use-package shackle
+  :init
+  (setq shackle-rules '(("\\`\\*helm.*?\\*\\'" :regexp t :align t :ratio 0.4))))
 
 (use-package rubocop
   :init
