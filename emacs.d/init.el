@@ -10,6 +10,8 @@
 (setq-default tab-width 2)
 (add-hook 'before-save-hook 'whitespace-cleanup)
 
+(setq vc-follow-symlinks t)
+
 (require 'package)
 (setq package-enable-at-startup nil)
 (add-to-list 'package-archives
