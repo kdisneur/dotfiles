@@ -19,6 +19,7 @@ export DISPLAY=:1
 export EDITOR=vim
 export LC_ALL=en_US.UTF-8
 export TERM=xterm-256color
+
 [ -n "$TMUX" ] && export TERM=screen-256color
 
 alias e="emacsclient -t -a ''"
@@ -30,7 +31,6 @@ alias tma="tmux -2 attach -t $1"
 alias tmk="tmux kill-session -t $1"
 alias serve="ruby -run -e httpd . -p 8000"
 
-[[ -r ${WORKSPACE}/others/liquidprompt/liquidprompt ]] && source ${WORKSPACE}/others/liquidprompt/liquidprompt
 [[ -r ${HOME}/.zshrc.local ]] && source ${HOME}/.zshrc.local
 [[ -r ${HOME}/.asdf/asdf.sh ]] && source ${HOME}/.asdf/asdf.sh
 
@@ -41,3 +41,4 @@ source $ZSH/oh-my-zsh.sh
 # Has to be after rbenv to ensure binstubs has highest priority
 export PATH="./bin:${PATH}"
 export FPATH=${HOME}/app/dotfiles/z-shell-completion:${FPATH}
+export PS1='[%n %B%~%b] '
