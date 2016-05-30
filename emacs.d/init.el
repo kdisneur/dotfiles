@@ -6,11 +6,15 @@
 
 (tool-bar-mode 0)
 (menu-bar-mode 0)
+(scroll-bar-mode 0)
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 2)
 (add-hook 'before-save-hook 'whitespace-cleanup)
 
 (setq vc-follow-symlinks t)
+
+(set-terminal-coding-system 'utf-8-unix)
+(setq default-process-coding-system '(utf-8-unix . utf-8-unix))
 
 (require 'package)
 (setq package-enable-at-startup nil)
@@ -28,7 +32,14 @@
 (require 'bind-key)
 (setq use-package-always-ensure t)
 
-(use-package alchemist)
+(use-package alchemist
+  :config
+  (setq alchemist-key-command-prefix (kbd "C-c ,"))
+  (setq alchemist-compile-command "elixirc"))
+
+(use-package multi-term
+  :config
+  (setq multi-term-program "/bin/zsh"))
 
 (use-package company
   :defer t
@@ -47,11 +58,6 @@
                             '(json-jsonlist)))
   (flycheck-add-mode 'javascript-eslint 'web-mode)
   :init
-  (use-package flycheck-elixir-dogma
-    :ensure f
-    :load-path "private/"
-    :init
-    (add-hook 'elixir-mode-hook 'flycheck-elixir-dogma-setup))
   (global-flycheck-mode))
 
 (use-package helm
@@ -91,6 +97,8 @@
   (setq markdown-command "multimarkdown"))
 
 (use-package multiple-cursors)
+
+(use-package open-junk-file)
 
 (use-package smartparens
   :init
@@ -158,16 +166,18 @@
 (use-package which-key
   :config
   (setq which-key-idle-delay 1.0)
-  (which-key-declare-prefixes "C-c a" "Application")
-  (which-key-declare-prefixes "C-c e" "Error")
-  (which-key-declare-prefixes "C-c f" "File")
-  (which-key-declare-prefixes "C-c j" "Jump")
-  (which-key-declare-prefixes "C-c p" "Project")
-  (which-key-declare-prefixes "C-c q" "Quit & Restart")
-  (which-key-declare-prefixes "C-c r" "Refactoring")
-  (which-key-declare-prefixes "C-c s" "Text")
-  (which-key-declare-prefixes "C-c t" "Test")
-  (which-key-declare-prefixes "C-c x" "Execution")
+  (which-key-declare-prefixes "C-. a" "Application")
+  (which-key-declare-prefixes "C-. a t" "Terminal")
+  (which-key-declare-prefixes "C-. b" "Buffers")
+  (which-key-declare-prefixes "C-. e" "Error")
+  (which-key-declare-prefixes "C-. f" "File")
+  (which-key-declare-prefixes "C-. j" "Jump")
+  (which-key-declare-prefixes "C-. p" "Project")
+  (which-key-declare-prefixes "C-. q" "Quit & Restart")
+  (which-key-declare-prefixes "C-. r" "Refactoring")
+  (which-key-declare-prefixes "C-. s" "Text")
+  (which-key-declare-prefixes "C-. t" "Test")
+  (which-key-declare-prefixes "C-. x" "Execution")
   :init
   (which-key-mode))
 
