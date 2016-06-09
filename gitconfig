@@ -24,7 +24,8 @@
   pf = push --force-with-lease
   pr = !open "https://github.com/$(git remote -v | awk '{ print $2 }' | sed -e 's/.*://g' -e 's/\\.git$//' | head -n 1)/compare/$(git current | sed 's/#/%23/g')?expand=1"
   s  = status --branch --short
-  serve = !git daemon --reuseaddr --verbose  --base-path=. --export-all ./.git
+  serve-ro = !git daemon --reuseaddr --verbose  --base-path=. --export-all --informative-errors --verbose ./.git
+  serve-rw = !git daemon --reuseaddr --verbose  --base-path=. --export-all --enable=receive-pack --informative-errors --verbose ./.git
 [user]
   useconfigonly = true
 [grep]
