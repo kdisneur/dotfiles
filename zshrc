@@ -1,6 +1,4 @@
 export WORKSPACE=${HOME}/app
-export ZSH=/Users/work/.oh-my-zsh
-plugins=(git)
 
 PATH="/usr/local/bin:${PATH}"
 PATH="${HOME}/.bin.local${PATH}"
@@ -12,9 +10,6 @@ PATH="$HOME/.rbenv/shims:${PATH}"
 PATH="$HOME/.asdf/shims:${PATH}"
 
 export PATH
-
-export CDPATH="${CDPATH}:${HOME}/app"
-
 export DISPLAY=:1
 export EDITOR=vim
 export LC_ALL=en_US.UTF-8
@@ -36,9 +31,10 @@ alias serve="ruby -run -e httpd . -p 8000"
 
 eval "$(rbenv init -)"
 
-source $ZSH/oh-my-zsh.sh
-
 # Has to be after rbenv to ensure binstubs has highest priority
 export PATH="./bin:${PATH}"
-export FPATH=${HOME}/app/dotfiles/z-shell-completion:${FPATH}
-export PS1='[%n %B%~%b] '
+
+export CDPATH="${CDPATH}:${HOME}/app"
+if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
+  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+fi
