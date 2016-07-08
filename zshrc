@@ -1,12 +1,10 @@
-export WORKSPACE=${HOME}/app
+export WORKSPACE=${HOME}/Workspace
 
 PATH="/usr/local/bin:${PATH}"
 PATH="${HOME}/.bin.local${PATH}"
 PATH="${HOME}/.bin:${PATH}"
 PATH="/usr/local/lib/python2.7/site-packages:${PATH}"
 PATH="${HOME}/.local/bin:${PATH}"
-PATH="${HOME}/.rbenv/bin:${PATH}"
-PATH="$HOME/.rbenv/shims:${PATH}"
 PATH="$HOME/.asdf/shims:${PATH}"
 
 export PATH
@@ -28,8 +26,6 @@ alias serve="ruby -run -e httpd . -p 8000"
 
 [[ -r ${HOME}/.zshrc.local ]] && source ${HOME}/.zshrc.local
 [[ -r ${HOME}/.asdf/asdf.sh ]] && source ${HOME}/.asdf/asdf.sh
-
-eval "$(rbenv init -)"
 
 # Has to be after rbenv to ensure binstubs has highest priority
 export PATH="./bin:${PATH}"
