@@ -1,6 +1,6 @@
 (setq arenaflowers-packages '(prodigy shell-pop))
 
-(defvar application-path "/Users/work/app")
+(defvar application-path "/Users/kdisneur/Workspace/fewlines")
 
 (with-eval-after-load 'prodigy
   (prodigy-define-tag

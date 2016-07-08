@@ -304,7 +304,7 @@ you should place your code here."
     (spacemacs|define-custom-layout "Dotfiles"
       :binding "c"
       :body
-      (find-file "~/app/dotfiles"))
+      (find-file "~/Workspace/kdisneur/dotfiles"))
 
     (spacemacs|define-custom-layout "Documents"
       :binding "d"
@@ -315,28 +315,22 @@ you should place your code here."
     (spacemacs|define-custom-layout "Groom Groom - Documentation"
       :binding "gd"
       :body
-      (find-file "~/app/developers.groomgroom.co"))
+      (find-file "~/Workspace/fewlines/developers.groomgroom.co"))
 
     (spacemacs|define-custom-layout "Groom Groom - API"
       :binding "ga"
       :body
-      (find-file "~/app/api.groomgroom.co"))
-
-    (spacemacs|define-custom-layout "Arena Flowers"
-      :binding "a"
-      :body
-      (find-file "~/app/arena_apps"))
+      (find-file "~/Workspace/fewlines/api.groomgroom.co"))
 
     (spacemacs|define-custom-layout "Kata"
       :binding "k"
       :body
-      (find-file "~/app/kata"))
-
+      (find-file "~/Workspace/kdisneur/kata"))
 
     (spacemacs|define-custom-layout "Blog"
       :binding "b"
       :body
-      (find-file "~/app/website")))
+      (find-file "~/Workspace/kdisneur/website")))
 
 (defun old_to_new_hash (begin end)
   (interactive "r")
@@ -365,9 +359,6 @@ you should place your code here."
  ;; If there is more than one, they won't work right.
  '(magit-commit-arguments (quote ("--gpg-sign=Kevin Disneur <kevin@disneur.me>")))
  '(magit-pull-arguments nil)
- '(org-agenda-files
-   (quote
-    ("~/.spacemacs" "/Users/work/app/documents/arenaflowers/log_book/2016/")) t)
  '(paradox-github-token t)
  '(safe-local-variable-values (quote ((encoding . utf-8)))))
 (custom-set-faces

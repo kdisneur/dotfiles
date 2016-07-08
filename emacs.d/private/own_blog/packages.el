@@ -1,6 +1,6 @@
 (setq own-blog-packages '(prodigy shell-pop))
 
-(defvar own-blog/application-path "/Users/work/app/website")
+(defvar own-blog/application-path "/Users/kdisneur/Workspace/kdisneur/website")
 (defvar own-blog/drafts-folder-path (concat own-blog/application-path "/source/_drafts"))
 (defvar own-blog/posts-folder-path (concat own-blog/application-path "/source/_posts"))
 

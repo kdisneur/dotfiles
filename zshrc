@@ -30,7 +30,7 @@ alias serve="ruby -run -e httpd . -p 8000"
 # Has to be after rbenv to ensure binstubs has highest priority
 export PATH="./bin:${PATH}"
 
-export CDPATH="${CDPATH}:${HOME}/app"
+export CDPATH="${CDPATH}:${HOME}/Workspace"
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
