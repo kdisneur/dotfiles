@@ -34,3 +34,9 @@ export CDPATH="${CDPATH}:${HOME}/Workspace"
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
+
+# Override zpresto configuration
+alias cp='nocorrect cp'
+alias ln='nocorrect ln'
+alias mv='nocorrect mv'
+alias rm='nocorrect rm'
