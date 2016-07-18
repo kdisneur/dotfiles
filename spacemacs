@@ -21,13 +21,13 @@ values."
        better-defaults
        alchemist
        auto-completion
-       arenaflowers
        clipboard
        colors
        company-mode
        emacs-lisp
        git
        github
+       groomgroom
        html
        emacs-lisp
        distel
@@ -311,6 +311,10 @@ you should place your code here."
       :body
       (find-file "~/Dropbox"))
 
+    (spacemacs|define-custom-layout "Groom Groom - Car Selector API"
+      :binding "gc"
+      :body
+      (find-file "~/Workspace/fewlines/carselector_api"))
 
     (spacemacs|define-custom-layout "Groom Groom - Documentation"
       :binding "gd"

@@ -29,6 +29,15 @@
     :tags '(groomgroom phoenix))
 
   (prodigy-define-service
+    :name "car-selector.groomgroom.co"
+    :url "http://127.0.0.1:4001"
+    :env '(("PORT" "4001"))
+    :command "mix"
+    :args '("phoenix.server")
+    :cwd (concatenate 'string application-path "/carselector_api")
+    :tags '(groomgroom phoenix))
+
+  (prodigy-define-service
     :name "developers.groomgroom.co"
     :url "http://127.0.0.1:4567"
     :command "bundle"
