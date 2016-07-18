@@ -10,14 +10,12 @@ PATH="$HOME/.asdf/shims:${PATH}"
 export PATH
 export DISPLAY=:1
 export EDITOR=vim
+export GIT_EDITOR=vi
 export LC_ALL=en_US.UTF-8
 export TERM=xterm-256color
 
 [ -n "$TMUX" ] && export TERM=screen-256color
 
-alias e="emacsclient -t -a ''"
-alias vi=e
-alias vim=e
 alias tmc="tmux new-session -s $1"
 alias tml="tmux list-sessions"
 alias tma="tmux -2 attach -t $1"
