@@ -1,11 +1,11 @@
 #! /bin/sh
 
 isFeature() {
-  git current | grep -E 'feature-#[0-9]+' &> /dev/null
+  git current | grep -E 'feature/#[0-9]+' &> /dev/null
 }
 
 isHotfix() {
-  git current | grep -E 'hotfix-#[0-9]+' &> /dev/null
+  git current | grep -E 'hotfix/#[0-9]+' &> /dev/null
 }
 
 isGuessable() {

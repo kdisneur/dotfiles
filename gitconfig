@@ -35,3 +35,5 @@
   path = ~/.gitconfig.local
 [fetch]
   prune = true
+[commit]
+  gpgsign = true

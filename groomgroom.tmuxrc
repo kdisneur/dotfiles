@@ -1,0 +1,10 @@
+# vim: syntax=tmux
+
+set-option default-path "~/Workspace/fewlines/groomgroom_web"
+
+rename-window code
+set-buffer "vim\n"
+paste-buffer
+splitw -v -p 20 'exec $SHELL -l'
+
+selectw -t code

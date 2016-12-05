@@ -5,22 +5,20 @@ PATH="${HOME}/.bin.local${PATH}"
 PATH="${HOME}/.bin:${PATH}"
 PATH="/usr/local/lib/python2.7/site-packages:${PATH}"
 PATH="${HOME}/.local/bin:${PATH}"
-PATH="$HOME/.asdf/shims:${PATH}"
+PATH="${HOME}/.asdf/shims:${PATH}"
+PATH="${HOME}/.tmuxifier/bin::${PATH}"
 
 export PATH
 export DISPLAY=:1
-export EDITOR=vim
-export GIT_EDITOR=vi
+export EDITOR=nvim
+export GIT_EDITOR=nvim
 export LC_ALL=en_US.UTF-8
 export TERM=xterm-256color
 
 [ -n "$TMUX" ] && export TERM=screen-256color
 
-alias tmc="tmux new-session -s $1"
-alias tml="tmux list-sessions"
-alias tma="tmux -2 attach -t $1"
-alias tmk="tmux kill-session -t $1"
 alias serve="ruby -run -e httpd . -p 8000"
+alias vim=nvim
 
 [[ -r ${HOME}/.zshrc.local ]] && source ${HOME}/.zshrc.local
 [[ -r ${HOME}/.asdf/asdf.sh ]] && source ${HOME}/.asdf/asdf.sh
@@ -33,8 +31,31 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
+if [[ -x ${HOME}/.bin/environment ]]; then
+  source ${HOME}/.bin/environment
+fi
+
+if [[ -x ${HOME}/.tmuxifier/bin/tmuxifier ]]; then
+  eval "$(tmuxifier init -)"
+
+  alias tmc="tmuxifier load-session $1"
+  alias tma="tmc"
+  alias tml="tmux list-sessions"
+  alias tmk="tmux kill-session -t $1"
+else
+  alias tmc="tmux new-session -s $1"
+  alias tma="tmux -2 attach -t $1"
+  alias tml="tmux list-sessions"
+  alias tmk="tmux kill-session -t $1"
+fi
+
 # Override zpresto configuration
 alias cp='nocorrect cp'
 alias ln='nocorrect ln'
 alias mv='nocorrect mv'
 alias rm='nocorrect rm'
+setopt CLOBBER
+
+port_in_use() {
+  lsof -n -i:${1} | grep LISTEN
+}

@@ -1,0 +1,66 @@
+#! /bin/sh
+
+ENV_VARS_FOLDER="${HOME}/.config/env_vars"
+
+env_vars___find_root_folder () {
+  if [[ ${1} == "/" ]]; then
+    echo "/"
+  elif [[ -d ${1}/.git ]]; then
+    echo $1
+  else
+    env_vars___find_root_folder $(dirname $1)
+  fi
+}
+
+env_vars___install_environment () {
+  if [[ "${1}" == "" ]]; then
+    echo "An environment is needed as parameter"
+    return 1
+  elif [[ -d $(pwd)/.git ]]; then
+    if [[ "$(env_vars___find_root_folder $(pwd))" == "/" ]]; then
+      echo "Install has to be done inside a folder versionned by GIT"
+      return 1
+    fi
+
+    env_file=${ENV_VARS_FOLDER}/${1}
+    if [[ -f ${env_file} ]]; then
+      ln -s ${env_file} $(env_vars___find_root_folder $(pwd))/.env_vars
+    else
+      echo "'${1}' is not a valid environment"
+      return 1
+    fi
+  else
+    echo "The installation has to be done at the top GIT folder"
+    return 1
+  fi
+}
+
+env_vars___load_environment () {
+  if [[ "$(env_vars___find_root_folder $(pwd))" != "/" ]]; then
+    if [[ -e $(env_vars___find_root_folder $(pwd))/.env_vars ]]; then
+      source $(env_vars___find_root_folder $(pwd))/.env_vars
+    else
+      echo "The folder doesn't contain an environment definition"
+      return 1
+    fi
+  else
+    echo "Load has to be done inside a folder versionned by GIT"
+    return 1
+  fi
+}
+
+function environment () {
+  case "${1}" in
+    install)
+      env_vars___install_environment "${2}"
+      return $?
+      ;;
+    load)
+      env_vars___load_environment
+      return $?
+      ;;
+    *)
+      echo "Command not supported. Usage: $(basename ${0}) install <project-name> | load"
+      return 1
+  esac
+}

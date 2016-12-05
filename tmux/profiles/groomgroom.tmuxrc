@@ -1,5 +1,7 @@
 # vim: syntax=tmux
 
+set-option default-command "cd ${HOME}/Workspace/fewlines/groomgroom_web; exec ${SHELL}"
+
 rename-window code
 set-buffer "vim\n"
 paste-buffer
