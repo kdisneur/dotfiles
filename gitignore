@@ -6,4 +6,4 @@ tmp/**/*
 .rubocop.yml
 **/*#
 *~
-/.env_vars
+/.env_vars.*

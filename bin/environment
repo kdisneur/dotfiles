@@ -12,6 +12,29 @@ env_vars___find_root_folder () {
   fi
 }
 
+env_vars___export_to_heroku () {
+  if [[ "${1}" == "" || "${2}" == "" ]]; then
+    echo "An application name and an environment is needed as parameters"
+    return 1
+  fi
+  if [[ "$(env_vars___find_root_folder $(pwd))" != "/" ]]; then
+    if [[ -e $(env_vars___find_root_folder $(pwd))/.env_vars.${2} ]]; then
+      cat .env_vars.${2} | ruby -e "\
+        variables=[]; \
+        while line = gets do \
+          variables << line.chomp.gsub(/export[ ]+/, '') \
+        end; \
+        system 'heroku config:set ' + variables.join(' ') + ' -a ${1}'"
+    else
+      echo "The folder doesn't contain any ${environment} environment definition"
+      return 1
+    fi
+  else
+    echo "Load has to be done inside a folder versionned by GIT"
+    return 1
+  fi
+}
+
 env_vars___install_environment () {
   if [[ "${1}" == "" ]]; then
     echo "An environment is needed as parameter"
@@ -22,9 +45,12 @@ env_vars___install_environment () {
       return 1
     fi
 
-    env_file=${ENV_VARS_FOLDER}/${1}
-    if [[ -f ${env_file} ]]; then
-      ln -s ${env_file} $(env_vars___find_root_folder $(pwd))/.env_vars
+    env_files=${ENV_VARS_FOLDER}/${1}
+    if ls ${env_files}.* &> /dev/null; then
+      for file in ${env_files}.*; do
+        env=${file##*.}
+        ln -s ${file} $(env_vars___find_root_folder $(pwd))/.env_vars.${env}
+      done
     else
       echo "'${1}' is not a valid environment"
       return 1
@@ -36,11 +62,16 @@ env_vars___install_environment () {
 }
 
 env_vars___load_environment () {
+  env="${1}"
+  if [[ "${env}" == "" ]]; then
+    env="dev"
+  fi
+
   if [[ "$(env_vars___find_root_folder $(pwd))" != "/" ]]; then
-    if [[ -e $(env_vars___find_root_folder $(pwd))/.env_vars ]]; then
-      source $(env_vars___find_root_folder $(pwd))/.env_vars
+    if [[ -e $(env_vars___find_root_folder $(pwd))/.env_vars.${env} ]]; then
+      source $(env_vars___find_root_folder $(pwd))/.env_vars.${env}
     else
-      echo "The folder doesn't contain an environment definition"
+      echo "The folder doesn't contain an ${env} environment definition"
       return 1
     fi
   else
@@ -56,7 +87,11 @@ function environment () {
       return $?
       ;;
     load)
-      env_vars___load_environment
+      env_vars___load_environment "${2}"
+      return $?
+      ;;
+    export)
+      env_vars___export_to_heroku "${2}" "${3}"
       return $?
       ;;
     *)
