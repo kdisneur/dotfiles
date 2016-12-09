@@ -1,0 +1,20 @@
+#!/bin/sh
+
+source ~/.config/build_changelog/config
+
+start=${1}
+end=${2:-"develop"}
+repo=$(git remote show origin | grep "Fetch URL" | sed -E 's#[ ]*Fetch URL:[^:]+:([a-zA-Z0-9_]+/[a-zA-Z0-9_]+)(.git)?#\1#')
+prs=$(git log --oneline ${end}...${start} | grep "Merge pull request" | sed -E 's/[^#]+#([0-9]+).*/\1/');
+
+for pr in ${prs}; do
+  curl -H "Authorization: token ${OAUTH_TOKEN}" https://api.github.com/repos/${repo}/pulls/${pr} 2> /dev/null \
+    | grep '"title": ' \
+    | sed -E "s/[ ]*\"title\":[ ]+\"(.*)\",/* \1 ([#${pr}])/"
+done
+
+echo
+
+for pr in ${prs}; do
+  echo "[#${pr}]: https://github.com/${repo}/pull/${pr}"
+done
