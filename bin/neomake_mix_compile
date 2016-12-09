@@ -1,0 +1,25 @@
+#! /bin/sh
+
+tmpfile=$(mktemp /tmp/mix-compile.XXXXXX)
+
+mix compile &> "${tmpfile}"
+
+cat "${tmpfile}" | ruby -e 'app=""; \
+  while line = gets do \
+    line = line.chomp; \
+    if /==> (?<app_name>.*)/ =~ line then \
+      app=app_name; \
+    end; \
+    if /  (?<path>.*):(?<line_number>[0-9]+)/ =~ line then \
+      full_path = "apps/#{app}/#{path}";
+      if File.exists?(full_path) then \
+        puts "  #{full_path}:#{line_number}"; \
+      else \
+        puts line; \
+      end;
+    else \
+      puts line; \
+    end; \
+  end'
+
+rm "${tmpfile}"

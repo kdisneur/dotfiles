@@ -44,6 +44,7 @@ autocmd FileType gitcommit setlocal spell
 autocmd FileType eruby,html,slim setlocal cursorcolumn
 autocmd BufWritePre * FixWhitespace
 autocmd BufWritePost * Neomake
+autocmd BufEnter * Neomake
 autocmd Filetype elm setlocal shiftwidth=4
 
 syntax on
@@ -77,10 +78,10 @@ xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
 " }}}
 
 " {{{ Jumps - j
-  noremap <leader>jd <c-]>
-  noremap <leader>jb <c-o>
-  noremap <leader>jen :lnext<cr>
-  noremap <leader>jep :lprev<cr>
+  nmap <leader>jd <c-]>
+  nmap <leader>jb <c-o>
+  nnoremap <leader>jen :lnext<cr>
+  nnoremap <leader>jep :lprev<cr>
 " }}}
 
 " {{{ Buffers - b
@@ -101,6 +102,12 @@ xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
   nmap <leader>tsc <Plug>CtrlSFQuickfixPwordPath
   nmap <leader>trg <Plug>CtrlSFPrompt
   nmap <leader>trc <Plug>CtrlSFCwordPath
+  nmap <leader>tfp z=
+  nmap <leader>tfc zg
+  nmap <leader>tfi zw
+  nmap <leader>tflu :set spell spelllang=en_us<cr>
+  nmap <leader>tflg :set spell spelllang=en_gb<cr>
+  nmap <leader>tflf :set spell spelllang=fr_fr<cr>
   nnoremap <silent> <leader>ttt :TestNearest<cr>
   nnoremap <silent> <leader>ttb :TestFile<cr>
   nnoremap <silent> <leader>tta :TestSuite<cr>
@@ -143,13 +150,25 @@ let g:ag_working_path_mode = "r"
 let g:elm_format_autosave = 1
 
 " Neomake
+function! neomake#makers#ft#elixir#credo() abort
+  return {
+    \ 'exe': 'mix',
+    \ 'args': ['credo', 'list', '%:p', '--format=oneline'],
+    \ 'errorformat': '[%t] %. %f:%l:%c %m'
+    \ }
+endfunction
+function! neomake#makers#ft#elixir#mix() abort
+  return {
+    \ 'exe' : 'neomake_mix_compile',
+    \ 'args': [],
+    \ 'cwd': getcwd(),
+    \ 'errorformat':
+      \ '%Wwarning: %m,%Z%f:%l'
+    \ }
+endfunction
 let g:neomake_error_sign = { 'text': '⊗', 'texthl': 'ErrorMsg' }
 let g:neomake_warning_sign = { 'text': '⚠', 'texthl': 'WarningMsg' }
-let g:neomake_elixir_lint_maker = { 'exe': 'mix', 'args': ['dogma', '%:p', '--format=flycheck'], 'warningformat': '%E%f:%l:%c: %.: %m' }
-let g:neomake_elixir_enabled_makers = ['lint']
-let g:neomake_serialize = 1
-let g:neomake_serialize_abort_on_error = 1
-let g:neomake_verbose = 0
+let g:neomake_elixir_enabled_makers = ['mix', 'credo', 'dogma']
 
 " NERDCommenter
 let g:NERDSpaceDelims = 1
