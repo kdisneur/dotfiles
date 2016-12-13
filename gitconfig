@@ -15,6 +15,10 @@
   ci = commit -S
   cleanlocal = "!git_cleanlocal() { git branch --merged ${1:-develop} | grep -v master | grep -v develop | xargs git branch -d; }; git_cleanlocal"
   co = checkout
+  create-feature = !sh -c 'git checkout -b feature/$1' -
+  create-hotfix = !sh -c 'git checkout -b hotfix/$1' -
+  create-release = !sh -c 'git checkout -b release/v$1' -
+  create-tag = !sh -c 'git tag -s --message=\"Bump to v$1\" v$1 $2' -
   current = !git branch | awk '/^* (.*)/ { print $2 }' | sed /^$/d
   d  = diff
   dc = diff --cached
@@ -27,6 +31,8 @@
   serve-ro = !git daemon --reuseaddr --verbose  --base-path=. --export-all --informative-errors --verbose ./.git
   serve-rw = !git daemon --reuseaddr --verbose  --base-path=. --export-all --enable=receive-pack --informative-errors --verbose ./.git
 [user]
+  email = kevin@disneur.me
+  name  = Kevin Disneur
   useconfigonly = true
 [grep]
   extendRegexp = true
