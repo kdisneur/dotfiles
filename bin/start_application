@@ -1,0 +1,12 @@
+#! /bin/bash
+
+env=${1:-"development"}
+
+if [[ -f .env.${env} ]]; then
+  environment load ${env}
+fi
+
+if [[ -f mix.exs ]]; then
+  mix deps.get
+  iex -S mix phoenix.server
+fi

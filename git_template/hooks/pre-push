@@ -1,0 +1,8 @@
+#! /bin/bash
+
+echo "Check test and style"
+if [[ -f mix.exs ]]; then
+  mix test && mix dogma
+  exit $?
+fi
+

@@ -47,6 +47,10 @@ autocmd BufWritePost * Neomake
 autocmd BufEnter * Neomake
 autocmd Filetype elm setlocal shiftwidth=4
 
+command! FRSpelling setlocal spell spelllang=fr_fr
+command! GBSpelling setlocal spell spelllang=en_gb
+command! USSpelling setlocal spell spelllang=en_us
+
 syntax on
 highlight Search ctermfg=Black ctermbg=LightYellow cterm=NONE
 
@@ -62,9 +66,7 @@ noremap <up> <nop>
 noremap <down> <nop>
 inoremap <esc> <nop>
 inoremap jk <esc>
-inoremap ;; <esc>:w<cr>a
-noremap ;; <esc>:w<cr>
-nnoremap * *``
+nnoremap *`` *
 nnoremap ** *
 xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
 
@@ -84,8 +86,15 @@ xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
   nnoremap <leader>jep :lprev<cr>
 " }}}
 
+" {{{  Projects - p
+nnoremap <leader>pc :tabnew <bar> cd <c-r>= '~/Workspace/' <cr>
+nnoremap <leader>pn :tabnext<cr>Application.get_env(:api, API.Endpoint)[:http][:port]
+nnoremap <leader>pp :tabprevious<cr>
+" }}}
+
 " {{{ Buffers - b
   nnoremap <leader>bp :BuffergatorMruCyclePrev<cr>
+  nnoremap <leader>bs :write<cr>
   nnoremap <leader>bn :BuffergatorMruCycleNext<cr>
   nnoremap <leader>bcw :FixWhitespace<cr>
 " }}}
@@ -97,6 +106,12 @@ xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
   autocmd Filetype elixir noremap <leader>ci o\|> IO.inspect<esc>
 " }}}
 
+" {{{ Markdown - m
+nnoremap <leader>mhd :.,. HeaderDecrease<cr>
+nnoremap <leader>mhi :.,. HeaderIncrease<cr>
+nnoremap <leader>mtf :.,. TableFormat<cr>
+" }}}
+
 " {{{ Tests & Texts - t
   nmap <leader>tsg <Plug>CtrlSFQuickfixPrompt
   nmap <leader>tsc <Plug>CtrlSFQuickfixPwordPath
@@ -105,9 +120,6 @@ xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
   nmap <leader>tfp z=
   nmap <leader>tfc zg
   nmap <leader>tfi zw
-  nmap <leader>tflu :set spell spelllang=en_us<cr>
-  nmap <leader>tflg :set spell spelllang=en_gb<cr>
-  nmap <leader>tflf :set spell spelllang=fr_fr<cr>
   nnoremap <silent> <leader>ttt :TestNearest<cr>
   nnoremap <silent> <leader>ttb :TestFile<cr>
   nnoremap <silent> <leader>tta :TestSuite<cr>
@@ -178,14 +190,16 @@ let g:NERDDefaultAlign = 'left'
 let test#strategy = "dispatch"
 let test#filename_modifier = ':p'
 
+" Markdown
+let g:vim_markdown_folding_disabled = 1
+
 " Syntastic
 let g:syntastic_always_populate_loc_list = 1
 
 " Ultisnips
-let g:UltiSnipsSnippetsDir = "~/.config/nvim/UltiSnips"
-let g:UltiSnipsExpandTrigger="<c-;>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-n>"
+let g:UltiSnipsSnippetsDir = $HOME."/.config/nvim/UltiSnips"
+let g:UltiSnipsSnippetDirectories=["UltiSnips"]
+let g:UltiSnipsExpandTrigger="<c-e>"
 
 " YouCompleteMe
 let g:ycm_use_ultisnips_completer = 1

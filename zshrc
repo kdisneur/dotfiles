@@ -7,6 +7,7 @@ PATH="/usr/local/lib/python2.7/site-packages:${PATH}"
 PATH="${HOME}/.local/bin:${PATH}"
 PATH="${HOME}/.asdf/shims:${PATH}"
 PATH="${HOME}/.tmuxifier/bin::${PATH}"
+PATH="${PATH}:$(yarn global bin)"
 
 export PATH
 export DISPLAY=:1

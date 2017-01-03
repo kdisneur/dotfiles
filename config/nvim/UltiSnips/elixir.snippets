@@ -3,3 +3,15 @@ defmodule $1 do
   $2
 end
 endsnippet
+snippet defcontroller
+defmodule $1 do
+  use $2.Web, :controller
+
+  $3
+end
+endsnippet
+snippet deftest
+test "$1: $2" do
+  $0
+end
+endsnippet
