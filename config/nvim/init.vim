@@ -16,7 +16,8 @@ set complete=.,b,u,]
 set cursorline
 set diffopt+=vertical
 set expandtab
-set history=50
+set formatoptions-=t "prevent auto word wrapping
+set history=500
 set incsearch
 set laststatus=2
 set nobackup
@@ -27,12 +28,14 @@ set nowrap
 set nowritebackup
 set path+=**
 set wildignore+=**/_build/**
+set wildignore+=**/_deps/**
 set relativenumber
 set ruler
 set shiftwidth=2
 set showcmd
 set spellfile=$HOME/.vim-spell-en.utf-8.add
 set tabstop=4
+set textwidth=120
 
 colorscheme one
 
