@@ -1,3 +1,7 @@
+if exists('g:my_elixir_plugin')
+  finish
+endif
+
 function! s:scope(path)
   if isdirectory("apps")
     execute "CtrlP apps/*/" . a:path
@@ -23,6 +27,33 @@ endfunction
 
 function! s:view()
   call s:scope("web/views")
+endfunction
+
+function! s:istestfile(filename)
+  return match(a:filename, "_test.exs$") >= 0
+endfunction
+
+function! s:movetoalternate(filename)
+  if filereadable(a:filename)
+    execute "edit " . a:filename
+  else
+    echom "No alternative file found: " . a:filename
+  endif
+endfunction
+
+function! s:alternate(filename)
+  if s:istestfile(a:filename)
+    if match(a:filename, "\\\(controllers\\\|views\\\|models\\\|services\\\|queries\\\|commands\\\)")
+      let l:sourcefile = substitute(substitute(a:filename, "/test/", "/web/", ""), "_test.exs$", ".ex", "")
+      call s:movetoalternate(l:sourcefile)
+    else
+      let l:sourcefile = substitute(substitute(a:filename, "/test/", "/lib/", ""), "_test.exs$", ".ex", "")
+      call s:movetoalternate(l:sourcefile)
+    endif
+  else
+    let l:testfile = substitute(substitute(a:filename, "/\\\(web\\\|lib\\\)/", "/test/", ""), ".ex$", "_test.exs", "")
+    call s:movetoalternate(l:testfile)
+  endif
 endfunction
 
 function! s:searchsyn(pattern, syn, flags, mode) abort
@@ -56,7 +87,9 @@ command! ECommand call s:command()
 command! EQuery call s:query()
 command! EModel call s:model()
 command! EView call s:view()
+command! EAlternate call s:alternate(expand("%"))
 
+nnoremap <silent> fsa :EAlternate<cr>
 nnoremap <silent> fsc :EController<cr>
 nnoremap <silent> fsk :ECommand<cr>
 nnoremap <silent> fsq :EQuery<cr>
@@ -67,3 +100,5 @@ nnoremap <silent> <buffer> [m :<C-U>call <SID>searchsyn('\<\%(def\<Bar>defp\<Bar
 nnoremap <silent> <buffer> ]m :<C-U>call <SID>searchsyn('\<\%(def\<Bar>defp\<Bar>defmacro\<Bar>defmacrop\)\>','elixirDefine\<Bar>elixirPrivateDefine\<Bar>elixirMacroDefine\<Bar>elixirPrivateMacroDefine','','n')<CR>
 nnoremap <silent> <buffer> [[ :<C-U>call <SID>searchsyn('\<\%(defmodule\<Bar>defprotocol\<Bar>defimpl\)\>','elixirModuleDefine\<Bar>elixirProtocolDefine\<Bar>elixirImplDefine','b','n')<CR>
 nnoremap <silent> <buffer> ]] :<C-U>call <SID>searchsyn('\<\%(defmodule\<Bar>defprotocol\<Bar>defimpl\)\>','elixirModuleDefine\<Bar>elixirProtocolDefine\<Bar>elixirImplDefine','','n')<CR>
+
+let g:my_elixir_plugin = 1
