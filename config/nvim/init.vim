@@ -3,7 +3,6 @@ if filereadable(expand("~/.config/nvim/bundles.vim"))
 endif
 
 if filereadable("/usr/local/bin/python")
-  " Support python in Neovim: `sudo pip2 install --upgrade neovim`
   let g:python_host_prog = "/usr/local/bin/python"
 end
 
@@ -26,9 +25,12 @@ set nohlsearch
 set noswapfile
 set nowrap
 set nowritebackup
-set path+=**
+set path=.,**
+set wildignore+=**/.git/**
 set wildignore+=**/_build/**
-set wildignore+=**/_deps/**
+set wildignore+=**/deps/**
+set wildignore+=**/node_modules/**
+set wildignore+=**/*.jpg,**/*.JPG,**/*.png,**/*.PNG,**/*.pdf,**/*.PDF
 set relativenumber
 set ruler
 set shiftwidth=2
@@ -36,6 +38,7 @@ set showcmd
 set spellfile=$HOME/.vim-spell-en.utf-8.add
 set tabstop=4
 set textwidth=120
+set wildmode=full
 
 colorscheme one
 
@@ -71,7 +74,11 @@ inoremap <esc> <nop>
 inoremap jk <esc>
 nnoremap *`` *
 nnoremap ** *
-xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
+
+" {{{ motions
+xmap ga <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
+" }}}
 
 " {{{ File management - f
   nnoremap <silent> <leader>fd :!mkdir -p %:p:h<cr>
@@ -79,40 +86,11 @@ xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
   nnoremap <leader>fj :edit <c-r>= '~/.config/nvim/junks/' . strftime('%Y%m%d') . '.' <cr>
   nnoremap <leader>fD :Remove<cr>
   nnoremap <leader>fR :Move <c-r>=expand("%:p:h")<cr>
-  nnoremap <leader>fs :CtrlP<cr>
-" }}}
-
-" {{{ Jumps - j
-  nmap <leader>jd <c-]>
-  nmap <leader>jb <c-o>
-  nnoremap <leader>jen :lnext<cr>
-  nnoremap <leader>jep :lprev<cr>
-" }}}
-
-" {{{  Projects - p
-nnoremap <leader>pc :tabnew <bar> cd <c-r>= '~/Workspace/' <cr>
-nnoremap <leader>pn :tabnext<cr>Application.get_env(:api, API.Endpoint)[:http][:port]
-nnoremap <leader>pp :tabprevious<cr>
-" }}}
-
-" {{{ Buffers - b
-  nnoremap <leader>bp :BuffergatorMruCyclePrev<cr>
-  nnoremap <leader>bs :write<cr>
-  nnoremap <leader>bn :BuffergatorMruCycleNext<cr>
-  nnoremap <leader>bcw :FixWhitespace<cr>
 " }}}
 
 " {{{ Code - c
   noremap <leader>cc :Commentary<cr>
   nmap <leader>cd <Plug>DashSearch
-  noremap <leader>cf :normal! gg=G``<CR>
-  autocmd Filetype elixir noremap <leader>ci o\|> IO.inspect<esc>
-" }}}
-
-" {{{ Markdown - m
-nnoremap <leader>mhd :.,. HeaderDecrease<cr>
-nnoremap <leader>mhi :.,. HeaderIncrease<cr>
-nnoremap <leader>mtf :.,. TableFormat<cr>
 " }}}
 
 " {{{ Tests & Texts - t
@@ -120,9 +98,6 @@ nnoremap <leader>mtf :.,. TableFormat<cr>
   nmap <leader>tsc <Plug>CtrlSFQuickfixPwordPath
   nmap <leader>trg <Plug>CtrlSFPrompt
   nmap <leader>trc <Plug>CtrlSFCwordPath
-  nmap <leader>tfp z=
-  nmap <leader>tfc zg
-  nmap <leader>tfi zw
   nnoremap <silent> <leader>ttt :TestNearest<cr>
   nnoremap <silent> <leader>ttb :TestFile<cr>
   nnoremap <silent> <leader>tta :TestSuite<cr>
@@ -130,22 +105,8 @@ nnoremap <leader>mtf :.,. TableFormat<cr>
   nnoremap <silent> <leader>ttg :TestVisit<cr>
 " }}}
 
-" {{{ Viewports - w
-  nnoremap <leader>wl <c-w>l
-  nnoremap <leader>wh <c-w>h
-  nnoremap <leader>wj <c-w>j
-  nnoremap <leader>wk <c-w>k
-  nnoremap <leader>wc :q<cr>
-  nnoremap <leader>wr <c-w>r
-  nnoremap <leader>ws :split <cr>
-  nnoremap <leader>wv :vsplit <cr>
-  nnoremap <leader>wS :split <c-r>=expand("%:p:h") . "/" <cr>
-  nnoremap <leader>wV :vsplit <c-r>=expand("%:p:h") . "/" <cr>
-" }}}
-" }}}
-
 if executable('ag')
-  let grepprg = 'ag --nogroup --nocolor'
+  " let grepprg = 'ag --nogroup --nocolor'
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
   let g:ctrlp_use_caching = 0
 endif
@@ -185,10 +146,6 @@ let g:neomake_error_sign = { 'text': '⊗', 'texthl': 'ErrorMsg' }
 let g:neomake_warning_sign = { 'text': '⚠', 'texthl': 'WarningMsg' }
 let g:neomake_elixir_enabled_makers = ['mix', 'credo', 'dogma']
 
-" NERDCommenter
-let g:NERDSpaceDelims = 1
-let g:NERDDefaultAlign = 'left'
-
 " Test
 let test#strategy = "dispatch"
 let test#filename_modifier = ':p'
@@ -201,7 +158,7 @@ let g:syntastic_always_populate_loc_list = 1
 
 " Ultisnips
 let g:UltiSnipsSnippetsDir = $HOME."/.config/nvim/UltiSnips"
-let g:UltiSnipsSnippetDirectories=["UltiSnips"]
+let g:UltiSnipsSnippetDirectories = ["UltiSnips"]
 let g:UltiSnipsExpandTrigger="<c-e>"
 
 " YouCompleteMe
@@ -210,8 +167,3 @@ let g:ycm_use_ultisnips_completer = 1
 if filereadable("~/.vimrc.local")
   source ~/.vimrc.local
 endif
-
-function! ExecuteMacroOverVisualRange()
-  echo "@".getcmdline()
-  execute ":'<,'>normal @".nr2char(getchar())
-endfunction
