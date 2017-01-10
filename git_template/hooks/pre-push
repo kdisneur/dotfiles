@@ -2,7 +2,18 @@
 
 echo "Check test and style"
 if [[ -f mix.exs ]]; then
-  mix test && mix dogma
-  exit $?
+  if ! mix test; then
+    exit 1
+  fi
+
+  if mix help | grep dogma > /dev/null; then
+    mix dogma
+    exit $?
+  fi
+
+  if mix help | grep credo > /dev/null; then
+    mix credo --strict
+    exit $?
+  fi
 fi
 
