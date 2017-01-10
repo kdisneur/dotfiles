@@ -1,0 +1,46 @@
+snippet code "Code block"
+\`\`\`$1
+$0
+\`\`\`
+endsnippet
+
+snippet link "Link"
+[${1:${VISUAL:Text}}](${2:https://www.host.com})$0
+endsnippet
+
+snippet img "Image"
+![${1:${VISUAL:Text}}](${2:https://www.host.com})$0
+endsnippet
+
+snippet apit "API table"
+| Attribute | Type     | Description                                                                                      |
+|-----------|----------|--------------------------------------------------------------------------------------------------|
+| id        | uuid(16) | This value is only set by us, respecting the [RFC4122](https://tools.ietf.org/html/rfc4122.html) |
+| $1        | $2   | $3          |
+$0
+endsnippet
+
+snippet apitl "API tableline"
+| $1 | $2 | $3 |
+$0
+endsnippet
+
+snippet apireq "API Request code"
+\`\`\`http
+${1:GET} $2 HTTP/1.1
+Host: api.groomgroom.co
+Accept: application/vnd.api+json
+${3:Authorization: Token=<oauth-token>}
+\`\`\`
+
+$0
+endsnippet
+
+snippet apiresp "API Response code"
+\`\`\`http
+HTTP/1.1 ${1:200 Success}
+Content-Type: application/vnd.api+json
+
+$0
+\`\`\`
+endsnippet
