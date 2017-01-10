@@ -15,8 +15,11 @@ export EDITOR=nvim
 export GIT_EDITOR=nvim
 export LC_ALL=en_US.UTF-8
 export TERM=xterm-256color
+export BASE16_SHELL=$HOME/.config/base16-shell/
 
 [ -n "$TMUX" ] && export TERM=screen-256color
+
+[ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
 
 alias serve="ruby -run -e httpd . -p 8000"
 alias vim=nvim
