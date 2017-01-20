@@ -13,6 +13,7 @@ set backspace=indent,eol,start
 set colorcolumn=120
 set complete=],.,b,u
 set cursorline
+set conceallevel=1
 set diffopt+=vertical
 set expandtab
 set formatoptions-=t "prevent auto word wrapping
@@ -48,6 +49,7 @@ if filereadable(expand("~/.vimrc_background"))
 endif
 
 autocmd BufRead,BufNewFile *.slim set filetype=slim
+autocmd BufRead,BufNewFile *.ex,*.exs,*.eex set filetype=elixir
 autocmd Filetype csv hi CSVColumnEven ctermfg=black ctermbg=lightgray
 autocmd Filetype csv hi CSVColumnOdd  ctermfg=black
 autocmd FileType markdown setlocal spell

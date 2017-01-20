@@ -21,8 +21,13 @@ endfunction
 function! s:model()
   call s:scope("web/models")
 endfunction
+
 function! s:query()
   call s:scope("web/queries")
+endfunction
+
+function! s:service()
+  call s:scope("web/services")
 endfunction
 
 function! s:view()
@@ -86,6 +91,7 @@ command! EController call s:controller()
 command! ECommand call s:command()
 command! EQuery call s:query()
 command! EModel call s:model()
+command! EService call s:service()
 command! EView call s:view()
 command! EAlternate call s:alternate(expand("%"))
 
@@ -94,6 +100,7 @@ nnoremap <silent> fsc :EController<cr>
 nnoremap <silent> fsk :ECommand<cr>
 nnoremap <silent> fsq :EQuery<cr>
 nnoremap <silent> fsm :EModel<cr>
+nnoremap <silent> fss :EService<cr>
 nnoremap <silent> fsv :EView<cr>
 
 nnoremap <silent> <buffer> [m :<C-U>call <SID>searchsyn('\<\%(def\<Bar>defp\<Bar>defmacro\<Bar>defmacrop\)\>','elixirDefine\<Bar>elixirPrivateDefine\<Bar>elixirMacroDefine\<Bar>elixirPrivateMacroDefine','b','n')<CR>
