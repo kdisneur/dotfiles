@@ -16,4 +16,3 @@ if [[ -f mix.exs ]]; then
     exit $?
   fi
 fi
-
