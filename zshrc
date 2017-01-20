@@ -11,6 +11,7 @@ PATH="${PATH}:$(yarn global bin)"
 
 export PATH
 export DISPLAY=:1
+export DISABLE_AUTO_TITLE="true"
 export EDITOR=nvim
 export GIT_EDITOR=nvim
 export LC_ALL=en_US.UTF-8
@@ -63,3 +64,13 @@ setopt CLOBBER
 port_in_use() {
   lsof -n -i:${1} | grep LISTEN
 }
+
+tt() {
+  echo -e "\033];$@\007"
+}
+
+current_tt() {
+  tt $(basename $(pwd))
+}
+
+current_tt
