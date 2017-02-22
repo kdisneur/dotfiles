@@ -4,12 +4,11 @@ function! StatuslineMode(mode)
     \ 'no' : 'N·OPERATOR PENDING',
     \ 'v'  : 'V',
     \ 'V'  : 'V·LINE',
-    \ '^V' : 'V·BLOCK',
+    \ '' : 'V·BLOCK',
     \ 's'  : 'SELECT',
     \ 'S'  : 'S·LINE',
-    \ '^S' : 'S·BLOCK',
-    \ 'i'  : 'I',
-    \ 'R'  : 'R',
+    \ 'i'  : 'INSERT',
+    \ 'R'  : 'REPLACE',
     \ 'Rv' : 'V·REPLACE',
     \ 'c'  : 'COMMAND',
     \ 'cv' : 'VIM EX',
@@ -29,5 +28,13 @@ function! StatuslineIsReadOnly()
     return ''
 endfunction
 
-set statusline=[%{StatuslineMode(mode())}]\ %f%{StatuslineIsReadOnly()}%=%y\ \|\ %{ALEGetStatusLine()}\ \|\ %{(&fenc!=''?&fenc:&enc)}\[%{&ff}]\ %l/%L
+function! StatuslineIsModified()
+  if &modified
+    return '+'
+  else
+    return ''
+  endif
+endfunction
+
+set statusline=[%{StatuslineMode(mode())}]\ %f%{StatuslineIsModified()}%{StatuslineIsReadOnly()}%=%y\ \|\ %{ALEGetStatusLine()}\ \|\ %{(&fenc!=''?&fenc:&enc)}\[%{&ff}]\ %l/%L
 

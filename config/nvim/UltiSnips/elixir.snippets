@@ -1,11 +1,6 @@
 priority 1
-snippet defmodule
-defmodule $1 do
-  $2
-end
-endsnippet
 snippet defcontroller
-defmodule $1 do
+defmodule ${1:`substitute(vim_snippets#Filename(), '\(_\|^\)\(.\)', '\u\2', 'g')`} do
   use $2.Web, :controller
 
   $3
@@ -16,7 +11,7 @@ def $1($2) do
   $0
 end
 endsnippet
-snippet defi
+snippet def:
 def $1($2), do: $0
 endsnippet
 snippet defp
@@ -24,7 +19,7 @@ defp $1($2) do
   $0
 end
 endsnippet
-snippet defpi
+snippet defp:
 defp $1($2), do: $0
 endsnippet
 snippet deftest

@@ -8,7 +8,10 @@ end
 
 let mapleader="\<Space>"
 
-set inccommand=nosplit
+if has("nvim")
+  set inccommand=nosplit
+endif
+
 set backspace=indent,eol,start
 set colorcolumn=120
 set complete=],.,b,u
@@ -37,11 +40,11 @@ set ruler
 set shiftwidth=2
 set showcmd
 set spellfile=$HOME/.vim-spell-en.utf-8.add
-set tabstop=4
+set tabstop=2
 set textwidth=120
 set wildmode=full
 
-syntax on
+syntax enable
 
 if filereadable(expand("~/.vimrc_background"))
   let base16colorspace=256
@@ -49,7 +52,6 @@ if filereadable(expand("~/.vimrc_background"))
 endif
 
 autocmd BufRead,BufNewFile *.slim set filetype=slim
-autocmd BufRead,BufNewFile *.ex,*.exs,*.eex set filetype=elixir
 autocmd Filetype csv hi CSVColumnEven ctermfg=black ctermbg=lightgray
 autocmd Filetype csv hi CSVColumnOdd  ctermfg=black
 autocmd FileType markdown setlocal spell
@@ -57,7 +59,6 @@ autocmd FileType gitcommit setlocal spell
 autocmd FileType eruby,html,slim setlocal cursorcolumn
 autocmd BufWritePre * FixWhitespace
 autocmd Filetype elm setlocal shiftwidth=4
-autocmd BufWinEnter * nested if exists('syntax_on') && ! exists('b:current_syntax') | syntax enable | endif
 
 command! Francais setlocal spell spelllang=fr_fr
 command! British setlocal spell spelllang=en_gb
@@ -77,7 +78,7 @@ noremap <up> <nop>
 noremap <down> <nop>
 inoremap <esc> <nop>
 inoremap jk <esc>
-nnoremap *`` *
+nnoremap * *``
 nnoremap ** *
 
 " {{{ Motions

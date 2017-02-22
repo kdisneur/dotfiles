@@ -1,7 +1,8 @@
-call plug#begin('~/.config/nvim/plugged')
+call plug#begin('~/.config/vim/plugged')
 
 Plug 'kana/vim-textobj-user'
 
+Plug 'AndrewRadev/splitjoin.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'andyl/vim-textobj-elixir'
 Plug 'ap/vim-css-color', { 'for': 'css' }
@@ -20,7 +21,12 @@ Plug 'rking/ag.vim'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'sheerun/vim-polyglot'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+  Plug 'larrylv/ycm-elixir' " Hijack YouCompleteMe to make Elixir work
+endif
 Plug 'slashmili/alchemist.vim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-dispatch'
