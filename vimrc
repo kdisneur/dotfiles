@@ -1,5 +1,5 @@
-if filereadable(expand("~/.config/nvim/bundles.vim"))
-  source ~/.config/nvim/bundles.vim
+if filereadable(expand("~/.vim/bundles.vim"))
+  source ~/.vim/bundles.vim
 endif
 
 if filereadable("/usr/local/bin/python")
@@ -67,8 +67,8 @@ command! American setlocal spell spelllang=en_us
 set splitbelow
 set splitright
 
-if filereadable(expand("~/.config/nvim/statusline.vim"))
-  source ~/.config/nvim/statusline.vim
+if filereadable(expand("~/.vim/statusline.vim"))
+  source ~/.vim/statusline.vim
 endif
 
 " {{{ Mapping
@@ -89,7 +89,7 @@ nmap ga <Plug>(EasyAlign)
 " {{{ File management - f
   nnoremap <silent> <leader>fd :!mkdir -p %:p:h<cr>
   nnoremap <leader>ff :edit <c-r>=expand("%:p:h") . "/" <cr>
-  nnoremap <leader>fj :edit <c-r>= '~/.config/nvim/junks/' . strftime('%Y%m%d') . '.' <cr>
+  nnoremap <leader>fj :edit <c-r>= '~/.vim/junks/' . strftime('%Y%m%d') . '.' <cr>
   nnoremap <leader>fD :Remove<cr>
   nnoremap <leader>fR :Move <c-r>=expand("%:p:h")<cr>
 " }}}
@@ -138,7 +138,7 @@ let test#strategy = "dispatch"
 let test#filename_modifier = ':p'
 
 " Ultisnips
-let g:UltiSnipsSnippetsDir = $HOME."/.config/nvim/UltiSnips"
+let g:UltiSnipsSnippetsDir = $HOME."/.vim/UltiSnips"
 let g:UltiSnipsSnippetDirectories = ["UltiSnips"]
 let g:UltiSnipsExpandTrigger="<c-e>"
 

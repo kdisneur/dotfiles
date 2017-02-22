@@ -1,4 +1,4 @@
-call plug#begin('~/.config/vim/plugged')
+call plug#begin('~/.vim/plugged')
 
 Plug 'kana/vim-textobj-user'
 
