@@ -12,8 +12,8 @@ PATH="${PATH}:$(yarn global bin)"
 export PATH
 export DISPLAY=:1
 export DISABLE_AUTO_TITLE="true"
-export EDITOR=nvim
-export GIT_EDITOR=nvim
+export EDITOR=vim
+export GIT_EDITOR=vim
 export LC_ALL=en_US.UTF-8
 export TERM=xterm-256color
 export BASE16_SHELL=$HOME/.config/base16-shell/
