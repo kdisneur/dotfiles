@@ -2,13 +2,20 @@
 
 set-option default-command "cd ${HOME}/Workspace/fewlines/groomgroom_web; exec ${SHELL}"
 
-rename-window code
+rename-session GG
+
+rename-window Web
 set-buffer "vim\n"
 paste-buffer
-splitw -v -p 20 'exec $SHELL -l'
 
-neww -n servers
-set-buffer "mix phoenix.server\n"
+new-window
+rename-window API
+set-buffer "cd ${HOME}/Workspace/fewlines/groomgroom_api; vim\n"
 paste-buffer
 
-selectw -t code
+new-window
+rename-window Doc
+set-buffer "cd ${HOME}/Workspace/fewlines/groomgroom_api; vim\n"
+paste-buffer
+
+selectw -t Web
