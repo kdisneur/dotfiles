@@ -35,8 +35,6 @@
   email = kevin@disneur.me
   name  = Kevin Disneur
   useconfigonly = true
-[gpg]
-  program = gpg2
 [grep]
   extendRegexp = true
   lineNumber = true
