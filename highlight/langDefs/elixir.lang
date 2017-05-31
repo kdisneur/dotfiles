@@ -1,0 +1,78 @@
+Description="Elixir"
+
+Identifiers=[[:?[a-z_][\w]*]]
+
+Digits=[[ (?:0x|0X|0b)[0-9a-fA-F]+|\d*[\.\_]?\d+(?:[eE][\-\+]\d+)?[lLuU]? ]]
+
+Keywords={
+  { Id=1,
+    List={"alias", "and", "case", "cond", "def", "defimpl", "defmodule", "defstruct",
+          "defp", "do", "else", "elsif", "end", "end", "false", "for", "if", "import",
+          "in", "nil", "not", "or", "require", "then", "throw", "true", "unless", "use",
+          "when", "true", "false", "nil", "raise"},
+  },
+  { Id=3,
+    Regex=[[(\w+:)]],
+  },
+  { Id=3,
+    Regex=[[(:\w+)]],
+  },
+  { Id=2,
+    Regex=[[[A-Z]\w*]]
+  }
+}
+
+-- hereDoc opening delimiter, see OnStateChange to handle end of string
+Strings={
+  Delimiter=[["|']],
+
+  --to be improved...
+  DelimiterPairs= {
+    { Open=[[~S\(]], Close=[[\)]] },
+  }
+}
+
+IgnoreCase=false
+
+Comments={
+  { Block=false,
+    Delimiter= { [[#]] },
+  }
+}
+
+Operators=[[\(|\)|\[|\]|\{|\}|\,|\;|\.|\&|<|>|\!|\-|\+|\/|\*|\=|\?|\|]]
+
+-- resolve issue with # which starts comments and extrapolation sequences in strings
+function OnStateChange(oldState, newState, token, groupID)
+
+   if oldState==HL_STRING and token==hereDoc then
+      hereDoc = nil
+      return HL_STRING_END
+   end
+
+   if string.sub(token,1,1)=="#" and oldState==HL_STRING  then
+      return HL_INTERPOLATION
+   end
+
+   if hereDoc~=nil then
+    return HL_STRING
+   end
+
+   -- resolve issue with regex expression which spans strings like "</i>" + VAR + "</i>"
+   if string.sub(token,1,1)=="/" and oldState==HL_STRING and newState==HL_KEYWORD then
+      return HL_REJECT
+   end
+
+   if token==")" or token=="}" and oldState~=HL_STRING  then
+      return HL_OPERATOR
+   end
+
+   --recognize hereDoc multine strings
+   --do not clear hereDoc if token is ",' or `
+   if (oldState==HL_STANDARD or oldState==HL_STRING) and newState==HL_STRING
+       and not string.find("\"'`", token) then
+      hereDoc = string.match(token, "<<[%-\"'`]?([%a_]+)" )
+   end
+
+   return newState
+end
