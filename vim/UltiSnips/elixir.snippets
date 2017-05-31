@@ -27,3 +27,37 @@ test "$1: $2" do
   $0
 end
 endsnippet
+snippet defgenserver
+defmodule $1 do
+  use GenServer
+
+  def start_link${2:()} do
+    GenServer.start_link(__MODULE__, ${3:[]})
+  end
+
+  $0
+end
+endsnippet
+snippet defsupervisor
+defmodule $1 do
+  use Supervisor
+
+  def start_link do
+    Supervisor.start_link(__MODULE__, [])
+  end
+
+  def init([]) do
+    children = [
+		  $0
+    ]
+
+    supervise(children, strategy: :one_for_one)
+  end
+end
+endsnippet
+snippet supervisorworker
+worker(${1:Module}, [${2:params}])$0
+endsnippet
+snippet supervisorsupervisor
+supervisor(${1:Module}, [${2:params}])$0
+endsnippet

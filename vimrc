@@ -16,7 +16,7 @@ set backspace=indent,eol,start
 set colorcolumn=120
 set complete=],.,b,u
 set cursorline
-set conceallevel=1
+set conceallevel=0
 set diffopt+=vertical
 set expandtab
 set formatoptions-=t "prevent auto word wrapping
@@ -52,13 +52,14 @@ if filereadable(expand("~/.vimrc_background"))
 endif
 
 autocmd BufRead,BufNewFile *.slim set filetype=slim
-autocmd Filetype csv hi CSVColumnEven ctermfg=black ctermbg=lightgray
-autocmd Filetype csv hi CSVColumnOdd  ctermfg=black
+autocmd BufRead,BufNewFile mix.lock set filetype=elixir
+autocmd FileType csv hi CSVColumnEven ctermfg=black ctermbg=lightgray
+autocmd FileType csv hi CSVColumnOdd  ctermfg=black
 autocmd FileType markdown setlocal spell
 autocmd FileType gitcommit setlocal spell
 autocmd FileType eruby,html,slim setlocal cursorcolumn
-autocmd BufWritePre * FixWhitespace
-autocmd Filetype elm setlocal shiftwidth=4
+autocmd BufWritePre * StripWhitespace
+autocmd FileType elm setlocal shiftwidth=4
 
 command! Francais setlocal spell spelllang=fr_fr
 command! British setlocal spell spelllang=en_gb
@@ -71,7 +72,7 @@ if filereadable(expand("~/.vim/statusline.vim"))
   source ~/.vim/statusline.vim
 endif
 
-" {{{ Mapping
+" Mapping
 noremap <left> <nop>
 noremap <right> <nop>
 noremap <up> <nop>
@@ -81,34 +82,30 @@ inoremap jk <esc>
 nnoremap * *``
 nnoremap ** *
 
-" {{{ Motions
+" Motions
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
-" }}}
 
-" {{{ File management - f
-  nnoremap <silent> <leader>fd :!mkdir -p %:p:h<cr>
-  nnoremap <leader>ff :edit <c-r>=expand("%:p:h") . "/" <cr>
-  nnoremap <leader>fj :edit <c-r>= '~/.vim/junks/' . strftime('%Y%m%d') . '.' <cr>
-  nnoremap <leader>fD :Remove<cr>
-  nnoremap <leader>fR :Move <c-r>=expand("%:p:h")<cr>
-" }}}
+" File management - f
+nnoremap <silent> <leader>fd :!mkdir -p %:p:h<cr>
+nnoremap <leader>ff :edit <c-r>=expand("%:p:h") . "/" <cr>
+nnoremap <leader>fj :edit <c-r>= '~/.vim/junks/' . strftime('%Y%m%d') . '.' <cr>
+nnoremap <leader>fD :Remove<cr>
+nnoremap <leader>fR :Move <c-r>=expand("%:p:h")<cr>
 
-" {{{ Code - c
-  nmap <leader>cd <Plug>DashSearch
-" }}}
+" Code - c
+nmap <leader>cd <Plug>DashSearch
 
-" {{{ Tests & Texts - t
-  nmap <leader>tsg <Plug>CtrlSFQuickfixPrompt
-  nmap <leader>tsc <Plug>CtrlSFQuickfixPwordPath
-  nmap <leader>trg <Plug>CtrlSFPrompt
-  nmap <leader>trc <Plug>CtrlSFCwordPath
-  nnoremap <silent> <leader>ttt :TestNearest<cr>
-  nnoremap <silent> <leader>ttb :TestFile<cr>
-  nnoremap <silent> <leader>tta :TestSuite<cr>
-  nnoremap <silent> <leader>ttr :TestLast<cr>
-  nnoremap <silent> <leader>ttg :TestVisit<cr>
-" }}}
+" Tests & Texts - t
+nmap <leader>tsg <Plug>CtrlSFQuickfixPrompt
+nmap <leader>tsc <Plug>CtrlSFQuickfixPwordPath
+nmap <leader>trg <Plug>CtrlSFPrompt
+nmap <leader>trc <Plug>CtrlSFCwordPath
+nnoremap <silent> <leader>ttt :TestNearest<cr>
+nnoremap <silent> <leader>ttb :TestFile<cr>
+nnoremap <silent> <leader>tta :TestSuite<cr>
+nnoremap <silent> <leader>ttr :TestLast<cr>
+nnoremap <silent> <leader>ttg :TestVisit<cr>
 
 if executable('ag')
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
@@ -141,6 +138,9 @@ let test#filename_modifier = ':p'
 let g:UltiSnipsSnippetsDir = $HOME."/.vim/UltiSnips"
 let g:UltiSnipsSnippetDirectories = ["UltiSnips"]
 let g:UltiSnipsExpandTrigger="<c-e>"
+
+" Wordmotion
+let g:wordmotion_prefix = 'g'
 
 if filereadable("~/.vimrc.local")
   source ~/.vimrc.local
