@@ -3,3 +3,4 @@ elixir 1.4.0
 ruby 2.3.1
 nodejs 6.8.0
 haskell 8.0.2
+elm 0.18
