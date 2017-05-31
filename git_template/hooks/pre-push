@@ -7,12 +7,32 @@ if [[ -f mix.exs ]]; then
   fi
 
   if mix help | grep dogma > /dev/null; then
-    mix dogma
-    exit $?
+    if ! mix dogma; then
+      exit 1
+    fi
   fi
 
   if mix help | grep credo > /dev/null; then
-    mix credo --strict
-    exit $?
+    if ! mix credo --strict; then
+      exit 1
+    fi
   fi
+fi
+
+if [[ -f package.json ]]; then
+  if ! npm test; then
+    exit 1
+  fi
+fi
+
+if [[ -n $(find apps -maxdepth 2 -name 'package.json' 2> /dev/null) ]]; then
+  for package in apps/*/package.json; do
+    pushd $(dirname ${package})
+
+    if ! npm test; then
+      exit 1
+    else
+      popd
+    fi
+  done
 fi
