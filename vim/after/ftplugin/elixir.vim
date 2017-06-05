@@ -2,6 +2,12 @@ if exists('g:my_elixir_plugin')
   finish
 endif
 
+function s:hexdoc()
+  let l:package = expand("<cword>")
+  let l:url     = "https://hex.pm/packages/" . l:package
+  call netrw#BrowseX(l:url, 0)
+endfunction
+
 function! s:scope(path)
   if isdirectory("apps")
     execute "CtrlP apps/*/" . a:path
@@ -94,6 +100,7 @@ command! EModel call s:model()
 command! EService call s:service()
 command! EView call s:view()
 command! EAlternate call s:alternate(expand("%"))
+command! HexDoc call s:hexdoc()
 
 nnoremap <silent> fsa :EAlternate<cr>
 nnoremap <silent> fsc :EController<cr>
