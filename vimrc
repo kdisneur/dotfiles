@@ -60,6 +60,7 @@ autocmd FileType gitcommit setlocal spell
 autocmd FileType eruby,html,slim setlocal cursorcolumn
 autocmd BufWritePre * StripWhitespace
 autocmd FileType elm setlocal shiftwidth=4
+autocmd FileType Makefile setlocal autoindent noexpandtab tabstop=4 shiftwidth=4
 
 command! Francais setlocal spell spelllang=fr_fr
 command! British setlocal spell spelllang=en_gb
@@ -126,6 +127,7 @@ let g:ale_statusline_format = ['⊗ %d', '⚠ %d', '✓']
 
 " Elm
 let g:elm_format_autosave = 1
+let g:elm_setup_keybindings = 0
 
 " Deoplete
 let g:deoplete#enable_at_startup = 1

@@ -1,12 +1,10 @@
 export WORKSPACE=${HOME}/Workspace
 
 PATH="/usr/local/bin:${PATH}"
-PATH="${HOME}/.bin.local${PATH}"
+PATH="${HOME}/.bin.local:${PATH}"
 PATH="${HOME}/.bin:${PATH}"
-PATH="/usr/local/lib/python2.7/site-packages:${PATH}"
-PATH="${HOME}/.local/bin:${PATH}"
-PATH="${HOME}/.asdf/shims:${PATH}"
-PATH="${HOME}/.tmuxifier/bin::${PATH}"
+PATH="/usr/local/opt/asdf/shims:${PATH}"
+PATH="${HOME}/.tmuxifier/bin:${PATH}"
 PATH="${PATH}:$(yarn global bin)"
 
 export PATH
@@ -17,6 +15,8 @@ export GIT_EDITOR=vim
 export LC_ALL=en_US.UTF-8
 export TERM=xterm-256color
 export BASE16_SHELL=$HOME/.config/base16-shell/
+export HOMEBREW_BREWFILE=$HOME/.brewfile
+export GPG_TTY=$(tty)
 
 [ -n "$TMUX" ] && export TERM=screen-256color
 
@@ -25,7 +25,7 @@ export BASE16_SHELL=$HOME/.config/base16-shell/
 alias serve="ruby -run -e httpd . -p 8000"
 
 [[ -r ${HOME}/.zshrc.local ]] && source ${HOME}/.zshrc.local
-[[ -r ${HOME}/.asdf/asdf.sh ]] && source ${HOME}/.asdf/asdf.sh
+[[ -r /usr/local/opt/asdf/asdf.sh ]] && source /usr/local/opt/asdf/asdf.sh
 
 # Has to be after rbenv to ensure binstubs has highest priority
 export PATH="./bin:${PATH}"
