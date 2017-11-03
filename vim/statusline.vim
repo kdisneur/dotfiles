@@ -36,5 +36,5 @@ function! StatuslineIsModified()
   endif
 endfunction
 
-set statusline=[%{StatuslineMode(mode())}]\ %f%{StatuslineIsModified()}%{StatuslineIsReadOnly()}%=%y\ \|\ %{ALEGetStatusLine()}\ \|\ %{(&fenc!=''?&fenc:&enc)}\[%{&ff}]\ %l/%L
+set statusline=[%{StatuslineMode(mode())}]\ %f%{StatuslineIsModified()}%{StatuslineIsReadOnly()}%=%y\ \|\ %{ALEGetStatusLine()}\ \|\ %{(&fenc!=''?&fenc:&enc)}\[%{&ff}]\ %l:%c/%L
 

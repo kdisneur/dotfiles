@@ -13,7 +13,6 @@ if has("nvim")
 endif
 
 set backspace=indent,eol,start
-set colorcolumn=120
 set complete=],.,b,u
 set cursorline
 set conceallevel=0
@@ -51,6 +50,8 @@ if filereadable(expand("~/.vimrc_background"))
   source ~/.vimrc_background
 endif
 
+autocmd BufWritePre * StripWhitespace
+autocmd BufRead,BufNewFile * call matchadd('TooLong', '\%>120v.\+')
 autocmd BufRead,BufNewFile *.slim set filetype=slim
 autocmd BufRead,BufNewFile mix.lock set filetype=elixir
 autocmd FileType csv hi CSVColumnEven ctermfg=black ctermbg=lightgray
@@ -58,13 +59,13 @@ autocmd FileType csv hi CSVColumnOdd  ctermfg=black
 autocmd FileType markdown setlocal spell
 autocmd FileType gitcommit setlocal spell
 autocmd FileType eruby,html,slim setlocal cursorcolumn
-autocmd BufWritePre * StripWhitespace
+autocmd FileType elixir setlocal nocursorcolumn
 autocmd FileType elm setlocal shiftwidth=4
 autocmd FileType Makefile setlocal autoindent noexpandtab tabstop=4 shiftwidth=4
 
-command! Francais setlocal spell spelllang=fr_fr
-command! British setlocal spell spelllang=en_gb
 command! American setlocal spell spelllang=en_us
+command! British setlocal spell spelllang=en_gb
+command! Francais setlocal spell spelllang=fr_fr
 
 set splitbelow
 set splitright

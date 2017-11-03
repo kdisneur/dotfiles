@@ -8,6 +8,7 @@ Plug 'andyl/vim-textobj-elixir'
 Plug 'ap/vim-css-color', { 'for': 'css' }
 Plug 'chaoren/vim-wordmotion'
 Plug 'chriskempson/base16-vim'
+Plug 'christoomey/vim-sort-motion'
 Plug 'dyng/ctrlsf.vim'
 Plug 'elmcast/elm-vim'
 Plug 'godlygeek/tabular'

@@ -3,7 +3,7 @@ export WORKSPACE=${HOME}/Workspace
 PATH="/usr/local/bin:${PATH}"
 PATH="${HOME}/.bin.local:${PATH}"
 PATH="${HOME}/.bin:${PATH}"
-PATH="/usr/local/opt/asdf/shims:${PATH}"
+PATH="${HOME}/.asdf/shims:${PATH}"
 PATH="${HOME}/.tmuxifier/bin:${PATH}"
 PATH="${PATH}:$(yarn global bin)"
 
@@ -11,6 +11,7 @@ export PATH
 export DISPLAY=:1
 export DISABLE_AUTO_TITLE="true"
 export EDITOR=vim
+export ELIXIR_EDITOR="vim +__LINE__ __FILE__"
 export GIT_EDITOR=vim
 export LC_ALL=en_US.UTF-8
 export TERM=xterm-256color
@@ -25,7 +26,7 @@ export GPG_TTY=$(tty)
 alias serve="ruby -run -e httpd . -p 8000"
 
 [[ -r ${HOME}/.zshrc.local ]] && source ${HOME}/.zshrc.local
-[[ -r /usr/local/opt/asdf/asdf.sh ]] && source /usr/local/opt/asdf/asdf.sh
+[[ -r ${HOME}/.asdf/asdf.sh ]] && source ${HOME}/.asdf/asdf.sh
 
 # Has to be after rbenv to ensure binstubs has highest priority
 export PATH="./bin:${PATH}"
