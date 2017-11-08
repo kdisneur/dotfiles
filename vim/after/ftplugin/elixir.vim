@@ -101,6 +101,10 @@ command! EService call s:service()
 command! EView call s:view()
 command! EAlternate call s:alternate(expand("%"))
 command! HexDoc call s:hexdoc()
+command! NextContainer silent! /\<defmodule\>\|\<defprotocol\>\|\<defimpl\>
+command! NextFunction silent! /\<def\>\|\<defp\>\|\<defmacro\>\|\<defmacrop\>
+command! PreviousFunction silent! ?\<def\>\|\<defp\>\|\<defmacro\>\|\<defmacrop\>
+command! PreviousContainer silent! ?\<defmodule\>\|\<defprotocol\>\|\<defimpl\>
 
 nnoremap <silent> fsa :EAlternate<cr>
 nnoremap <silent> fsc :EController<cr>
@@ -110,9 +114,9 @@ nnoremap <silent> fsm :EModel<cr>
 nnoremap <silent> fss :EService<cr>
 nnoremap <silent> fsv :EView<cr>
 
-nnoremap <silent> <buffer> [m :<C-U>call <SID>searchsyn('\<\%(def\<Bar>defp\<Bar>defmacro\<Bar>defmacrop\)\>','elixirDefine\<Bar>elixirPrivateDefine\<Bar>elixirMacroDefine\<Bar>elixirPrivateMacroDefine','b','n')<CR>
-nnoremap <silent> <buffer> ]m :<C-U>call <SID>searchsyn('\<\%(def\<Bar>defp\<Bar>defmacro\<Bar>defmacrop\)\>','elixirDefine\<Bar>elixirPrivateDefine\<Bar>elixirMacroDefine\<Bar>elixirPrivateMacroDefine','','n')<CR>
-nnoremap <silent> <buffer> [[ :<C-U>call <SID>searchsyn('\<\%(defmodule\<Bar>defprotocol\<Bar>defimpl\)\>','elixirModuleDefine\<Bar>elixirProtocolDefine\<Bar>elixirImplDefine','b','n')<CR>
-nnoremap <silent> <buffer> ]] :<C-U>call <SID>searchsyn('\<\%(defmodule\<Bar>defprotocol\<Bar>defimpl\)\>','elixirModuleDefine\<Bar>elixirProtocolDefine\<Bar>elixirImplDefine','','n')<CR>
-
 let g:my_elixir_plugin = 1
+
+nnoremap <silent> <buffer> [m :PreviousFunction<cr>
+nnoremap <silent> <buffer> ]m :NextFunction<cr>
+nnoremap <silent> <buffer> [[ :PreviousContainer<cr>
+nnoremap <silent> <buffer> ]] :NextContainer<cr>

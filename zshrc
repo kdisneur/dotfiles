@@ -61,6 +61,10 @@ alias mv='nocorrect mv'
 alias rm='nocorrect rm'
 setopt CLOBBER
 
+cdroot() {
+  cd $(git root)
+}
+
 port_in_use() {
   lsof -n -i:${1} | grep LISTEN
 }
