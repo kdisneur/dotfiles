@@ -70,6 +70,20 @@ port_in_use() {
   lsof -n -i:${1} | grep LISTEN
 }
 
+theme() {
+  if [ -z "$1" ]; then
+    echo "Argument is missing" >&2
+    echo "Usage: $(basename $0) (dark|light)" >&2
+    return 1
+  fi
+
+  if [ $1 = "dark" ]; then
+    base16_gruvbox-dark-medium
+  elif [ $1 = "light" ]; then
+    base16_summerfruit-light
+  fi
+}
+
 tt() {
   echo -e "\033];$@\007"
 }
