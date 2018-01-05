@@ -26,7 +26,7 @@ Plug 'sheerun/vim-polyglot'
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 else
-  Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+  Plug 'Valloric/YouCompleteMe', { 'do': './install.py --all' }
   Plug 'larrylv/ycm-elixir' " Hijack YouCompleteMe to make Elixir work
 endif
 Plug 'slashmili/alchemist.vim'

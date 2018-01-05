@@ -5,7 +5,6 @@ PATH="${HOME}/.bin.local:${PATH}"
 PATH="${HOME}/.bin:${PATH}"
 PATH="${HOME}/.asdf/shims:${PATH}"
 PATH="${HOME}/.tmuxifier/bin:${PATH}"
-PATH="${PATH}:$(yarn global bin)"
 
 export PATH
 export DISPLAY=:1
@@ -34,6 +33,8 @@ export PATH="./bin:${PATH}"
 export CDPATH="${CDPATH}:${HOME}/Workspace"
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+  setopt PROMPT_SUBST
+  export PROMPT='%B%c%b %(?.(%F{198}♥%f‿%F{198}♥%f.(%F{75}ಥ%f_%F{75}ಥ%f)) '
 fi
 
 if [[ -x ${HOME}/.bin/environment ]]; then
