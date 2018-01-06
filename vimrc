@@ -52,6 +52,7 @@ endif
 
 autocmd BufWritePre * StripWhitespace
 autocmd BufRead,BufNewFile * call matchadd('TooLong', '\%>120v.\+')
+autocmd BufReadPost,BufNewFile *.md set filetype=markdown
 autocmd BufRead,BufNewFile *.slim set filetype=slim
 autocmd BufRead,BufNewFile mix.lock set filetype=elixir
 autocmd FileType csv hi CSVColumnEven ctermfg=black ctermbg=lightgray
@@ -89,7 +90,7 @@ xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
 " File management - f
-nnoremap <silent> <leader>fd :!mkdir -p %:p:h<cr>
+nnoremap <silent> <leader>fd :!mkdir -p "%:p:h"<cr>
 nnoremap <leader>ff :edit <c-r>=expand("%:p:h") . "/" <cr>
 nnoremap <leader>fj :edit <c-r>= '~/.vim/junks/' . strftime('%Y%m%d') . '.' <cr>
 nnoremap <leader>fD :Remove<cr>
@@ -132,6 +133,12 @@ let g:elm_setup_keybindings = 0
 
 " Deoplete
 let g:deoplete#enable_at_startup = 1
+"
+" Markdown
+let g:markdown_fenced_languages = ['html', 'js']
+let g:markdown_syntax_conceal = 0
+let g:markdown_minlines = 100
+
 
 " Test
 let test#strategy = "dispatch"
