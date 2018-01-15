@@ -11,6 +11,8 @@ chmod 755 ~/.git_template/hooks/*
 [[ ! -e /usr/local/bin/brew ]] && /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 brew bundle check --file=$(dirname $0)/../Brewfile > /dev/null || brew bundle --file=$(dirname $0)/../Brewfile
 
+[[ ! -e ~/.config/zsh-syntax-highlighting ]] && git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.config/zsh-syntax-highlighting
+
 [[ ! -e ~/.config/base16-shell ]] && git clone https://github.com/chriskempson/base16-shell.git ~/.config/base16-shell
 
 [[ ! -e ~/.vim/autoload/plug.vim ]] && curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim

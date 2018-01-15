@@ -1,0 +1,15 @@
+# The following lines were added by compinstall
+fpath=(
+  usr/local/share/zsh-completions
+  /usr/local/Cellar/kubernetes-cli/1.9.1/share/zsh/site-functions/
+  $fpath
+)
+
+zstyle ':completion:*' completer _expand _complete _ignored
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' menu select
+zstyle :compinstall filename '/Users/kdisneur/.zshrc'
+
+autoload -Uz compinit
+compinit
+# End of lines added by compinstall
