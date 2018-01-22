@@ -52,6 +52,7 @@ endif
 
 autocmd BufWritePre * StripWhitespace
 autocmd BufRead,BufNewFile * call matchadd('TooLong', '\%>120v.\+')
+autocmd BufRead,BufNewFile Dockerfile.* set filetype=dockerfile
 autocmd BufReadPost,BufNewFile *.md set filetype=markdown
 autocmd BufRead,BufNewFile *.slim set filetype=slim
 autocmd BufRead,BufNewFile mix.lock set filetype=elixir

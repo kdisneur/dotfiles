@@ -1,7 +1,7 @@
 # The following lines were added by compinstall
 fpath=(
-  usr/local/share/zsh-completions
-  /usr/local/Cellar/kubernetes-cli/1.9.1/share/zsh/site-functions/
+  /usr/local/share/zsh-completions
+  ~/.zsh/completion
   $fpath
 )
 
@@ -12,4 +12,8 @@ zstyle :compinstall filename '/Users/kdisneur/.zshrc'
 
 autoload -Uz compinit
 compinit
+
+if [ $commands[kubectl] ]; then
+  source <(kubectl completion zsh)
+fi
 # End of lines added by compinstall

@@ -2,7 +2,7 @@ function! StatuslineMode(mode)
   return {
     \ 'n'  : 'NORMAL',
     \ 'no' : 'N·OPERATOR PENDING',
-    \ 'v'  : 'V',
+    \ 'v'  : 'VISUAL',
     \ 'V'  : 'V·LINE',
     \ '' : 'V·BLOCK',
     \ 's'  : 'SELECT',
@@ -36,5 +36,10 @@ function! StatuslineIsModified()
   endif
 endfunction
 
-set statusline=[%{StatuslineMode(mode())}]\ %f%{StatuslineIsModified()}%{StatuslineIsReadOnly()}%=%y\ \|\ %{ALEGetStatusLine()}\ \|\ %{(&fenc!=''?&fenc:&enc)}\[%{&ff}]\ %l:%c/%L
+set statusline=%#Error#\ %{StatuslineMode(mode())}\ %#statusLine#
+set statusline+=\ %f%{StatuslineIsModified()}%{StatuslineIsReadOnly()}
+set statusline+=%#StatusLine#%=%y\ \|
+set statusline+=\ %{ALEGetStatusLine()}\ \|
+set statusline+=\ %{(&fenc!=''?&fenc:&enc)}\[%{&ff}]
+set statusline+=\ %l:%c/%L
 
