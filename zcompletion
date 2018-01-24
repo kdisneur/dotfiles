@@ -16,4 +16,9 @@ compinit
 if [ $commands[kubectl] ]; then
   source <(kubectl completion zsh)
 fi
+
+if [ $commands[helm] ]; then
+  source <(helm completion zsh)
+fi
+
 # End of lines added by compinstall
