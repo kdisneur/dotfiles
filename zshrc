@@ -13,7 +13,6 @@ export CDPATH="${CDPATH}:${HOME}/Workspace"
 export DISABLE_AUTO_TITLE="true"
 export DISPLAY=:1
 export EDITOR=vim
-export ELIXIR_EDITOR="vim +__LINE__ __FILE__"
 export FPATH
 export GIT_EDITOR=vim
 export GPG_TTY=$(tty)
@@ -47,11 +46,13 @@ export PROMPT='%B%c%b %(?.(%F{198}♥%f‿%F{198}♥%f.(%F{75}ಥ%f_%F{75}ಥ%f)
 [[ -r ${HOME}/.asdf/asdf.sh ]] && source ${HOME}/.asdf/asdf.sh
 [[ -r ${HOME}/.zcompletion ]] && source ${HOME}/.zcompletion
 [[ -r ${HOME}/.config/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && source ${HOME}/.config/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+[[ -r /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc ]] && source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc
 
 if [[ -x ${HOME}/.bin/environment ]]; then
   source ${HOME}/.bin/environment
 fi
 
+alias kubexec="kubectl exec -it "
 alias ls='ls -G'
 alias ll='ls -lh'
 alias serve="ruby -run -e httpd . -p 8000"

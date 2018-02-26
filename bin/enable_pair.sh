@@ -1,9 +1,0 @@
-#! /bin/sh
-
-if [ "enable" = "$1" ]; then
-    chmod 777 /tmp/pair
-    sudo dscl . -create /Users/remotepair UserShell /bin/zsh
-else
-    chmod 770 /tmp/pair
-    sudo dscl . -create /Users/remotepair UserShell /usr/bin/false
-fi

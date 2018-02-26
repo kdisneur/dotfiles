@@ -14,7 +14,6 @@ endif
 
 set backspace=indent,eol,start
 set complete=],.,b,u
-set cursorline
 set conceallevel=0
 set diffopt+=vertical
 set expandtab
@@ -24,6 +23,8 @@ set incsearch
 set laststatus=2
 set nobackup
 set nocompatible
+set nocursorcolumn
+set nocursorline
 set nohlsearch
 set noswapfile
 set nowrap
@@ -48,6 +49,13 @@ syntax enable
 if filereadable(expand("~/.vimrc_background"))
   let base16colorspace=256
   source ~/.vimrc_background
+  highlight clear CursorLineNr
+  highlight clear LineNr
+  highlight clear SignColumn
+endif
+
+if filereadable(expand("~/.vim/statusline.vim"))
+  source ~/.vim/statusline.vim
 endif
 
 autocmd BufWritePre * StripWhitespace
@@ -60,8 +68,7 @@ autocmd FileType csv hi CSVColumnEven ctermfg=black ctermbg=lightgray
 autocmd FileType csv hi CSVColumnOdd  ctermfg=black
 autocmd FileType markdown setlocal spell
 autocmd FileType gitcommit setlocal spell
-autocmd FileType eruby,html,slim setlocal cursorcolumn
-autocmd FileType elixir setlocal nocursorcolumn
+autocmd FileType eruby,html,slim setlocal cursorcolumn cursorline
 autocmd FileType elm setlocal shiftwidth=4
 autocmd FileType Makefile setlocal autoindent noexpandtab tabstop=4 shiftwidth=4
 
@@ -71,10 +78,6 @@ command! Francais setlocal spell spelllang=fr_fr
 
 set splitbelow
 set splitright
-
-if filereadable(expand("~/.vim/statusline.vim"))
-  source ~/.vim/statusline.vim
-endif
 
 " Mapping
 noremap <left> <nop>
@@ -121,12 +124,6 @@ let g:abolish_no_mappings = 1
 
 " Ag
 let g:ag_working_path_mode = "r"
-
-" Ale
-let g:ale_sign_column_always = 1
-let g:ale_sign_error = '⊗'
-let g:ale_sign_warning = '⚠'
-let g:ale_statusline_format = ['⊗ %d', '⚠ %d', '✓']
 
 " Elm
 let g:elm_format_autosave = 1

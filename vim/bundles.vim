@@ -3,9 +3,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'kana/vim-textobj-user'
 
 Plug 'AndrewRadev/splitjoin.vim'
-Plug 'airblade/vim-gitgutter'
 Plug 'andyl/vim-textobj-elixir'
-Plug 'ap/vim-css-color', { 'for': 'css' }
 Plug 'chaoren/vim-wordmotion'
 Plug 'chriskempson/base16-vim'
 Plug 'christoomey/vim-sort-motion'
@@ -28,9 +26,7 @@ if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 else
   Plug 'Valloric/YouCompleteMe', { 'do': './install.py --all' }
-  Plug 'larrylv/ycm-elixir' " Hijack YouCompleteMe to make Elixir work
 endif
-Plug 'slashmili/alchemist.vim'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-dispatch'
@@ -41,8 +37,6 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
-Plug 'vim-utils/vim-line'
 Plug 'wellle/targets.vim'
-Plug 'w0rp/ale'
 
 call plug#end()

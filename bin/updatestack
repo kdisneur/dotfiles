@@ -2,8 +2,6 @@
 
 brew update && brew upgrade && brew cleanup && brew cask cleanup
 
-asdf update && asdf plugin-update --all
-
 mas upgrade
 
 vim +PlugInstall +PlugUpdate +qa

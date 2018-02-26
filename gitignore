@@ -1,9 +1,3 @@
 *.DS_Store
-*.sw[nop]
-log/*.log
-tmp/**/*
-.#*
-.rubocop.yml
-**/*#
-*~
 /.env_vars.*
+/tags
