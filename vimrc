@@ -44,15 +44,8 @@ set tabstop=2
 set textwidth=120
 set wildmode=full
 
+colorscheme shoji_shiro
 syntax enable
-
-if filereadable(expand("~/.vimrc_background"))
-  let base16colorspace=256
-  source ~/.vimrc_background
-  highlight clear CursorLineNr
-  highlight clear LineNr
-  highlight clear SignColumn
-endif
 
 if filereadable(expand("~/.vim/statusline.vim"))
   source ~/.vim/statusline.vim
