@@ -59,6 +59,7 @@ if filereadable(expand("~/.vim/statusline.vim"))
 endif
 
 autocmd BufWritePre * StripWhitespace
+autocmd BufWritePost *.ex,*.exs silent !mix format %
 autocmd BufRead,BufNewFile * call matchadd('TooLong', '\%>120v.\+')
 autocmd BufRead,BufNewFile Dockerfile.* set filetype=dockerfile
 autocmd BufReadPost,BufNewFile *.md set filetype=markdown
