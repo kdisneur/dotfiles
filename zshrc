@@ -39,8 +39,26 @@ bindkey '^[[A' up-line-or-search # Arrow up
 bindkey '^[[B' down-line-or-search # Arrow down
 
 [ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
+
+_currentKubernetesContextName() {
+  local context=$(kubectl config current-context 2> /dev/null);
+
+  if [ -z "${context}" -o "${context}" = "docker-for-desktop" ]; then
+    echo ""
+  else
+    echo "%{%F{198}%} ${context}%{%f%} "
+  fi
+}
+
+_currentEnvironmentName() {
+  if [ -z "${CURRENT_ENVIRONMENT_NAME}" ]; then
+    echo ""
+  else
+    echo "%{\e[38;5;250m%}[${CURRENT_ENVIRONMENT_NAME}]%{\e[39m%} "
+  fi
+}
 setopt PROMPT_SUBST
-export PROMPT='%B%c%b %(?.(%F{198}♥%f‿%F{198}♥%f.(%F{75}ಥ%f_%F{75}ಥ%f)) '
+export PROMPT='%B%c%b$(_currentKubernetesContextName)$(_currentEnvironmentName)%(?.(%F{198}♥%f‿%F{198}♥%f.(%F{75}ಥ%f_%F{75}ಥ%f)) '
 
 [[ -r ${HOME}/.zshrc.local ]] && source ${HOME}/.zshrc.local
 [[ -r ${HOME}/.asdf/asdf.sh ]] && source ${HOME}/.asdf/asdf.sh
@@ -52,7 +70,9 @@ if [[ -x ${HOME}/.bin/environment ]]; then
   source ${HOME}/.bin/environment
 fi
 
-alias kubexec="kubectl exec -it "
+alias k="kubectl"
+alias kxec="kubectl exec -it "
+alias kforward="kubectl port-forward "
 alias ls='ls -G'
 alias ll='ls -lh'
 alias serve="ruby -run -e httpd . -p 8000"
