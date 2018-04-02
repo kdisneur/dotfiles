@@ -1,6 +1,8 @@
 --recurse=yes
 --tag-relative=yes
 --exclude=.git
+--exclude=node_modules
+--exclude=_build
 
 --langdef=Elixir
 --langmap=Elixir:.ex.exs
