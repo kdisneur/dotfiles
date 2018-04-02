@@ -1,5 +1,3 @@
-export WORKSPACE=${HOME}/Workspace
-
 PATH="./bin:${PATH}"
 PATH="/usr/local/bin:${PATH}"
 PATH="/usr/local/sbin:${PATH}"
@@ -8,7 +6,6 @@ PATH="${HOME}/.bin:${PATH}"
 PATH="${HOME}/.asdf/shims:${PATH}"
 PATH="${HOME}/.tmuxifier/bin:${PATH}"
 
-export BASE16_SHELL=${HOME}/.config/base16-shell/
 export CDPATH="${CDPATH}:${HOME}/Workspace"
 export DISABLE_AUTO_TITLE="true"
 export DISPLAY=:1
@@ -38,8 +35,6 @@ bindkey '^[[Z' reverse-menu-complete # Ctrl-r
 bindkey '^[[A' up-line-or-search # Arrow up
 bindkey '^[[B' down-line-or-search # Arrow down
 
-[ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
-
 _currentKubernetesContextName() {
   local context=$(kubectl config current-context 2> /dev/null);
 
@@ -58,7 +53,7 @@ _currentEnvironmentName() {
   fi
 }
 setopt PROMPT_SUBST
-export PROMPT='%B%c%b$(_currentKubernetesContextName)$(_currentEnvironmentName)%(?.(%F{198}♥%f‿%F{198}♥%f.(%F{75}ಥ%f_%F{75}ಥ%f)) '
+export PROMPT='%F{235}%B%c%b%f$(_currentKubernetesContextName)$(_currentEnvironmentName)%(?.(%F{198}♥%f‿%F{198}♥%f.(%F{75}ಥ%f_%F{75}ಥ%f)) '
 
 [[ -r ${HOME}/.zshrc.local ]] && source ${HOME}/.zshrc.local
 [[ -r ${HOME}/.asdf/asdf.sh ]] && source ${HOME}/.asdf/asdf.sh
@@ -66,11 +61,6 @@ export PROMPT='%B%c%b$(_currentKubernetesContextName)$(_currentEnvironmentName)%
 [[ -r ${HOME}/.config/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && source ${HOME}/.config/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 [[ -r /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc ]] && source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc
 
-if [[ -x ${HOME}/.bin/environment ]]; then
-  source ${HOME}/.bin/environment
-fi
-
-alias k="kubectl"
 alias kxec="kubectl exec -it "
 alias kforward="kubectl port-forward "
 alias ls='ls -G'
@@ -85,22 +75,16 @@ current_tt() {
   tt $(basename $(pwd))
 }
 
-port_in_use() {
-  lsof -n -i:${1} | grep LISTEN
+helm_autocomplete() {
+  source <($commands[helm] completion zsh);
 }
 
-theme() {
-  if [ -z "$1" ]; then
-    echo "Argument is missing" >&2
-    echo "Usage: $(basename $0) (dark|light)" >&2
-    return 1
-  fi
+kubectl_autocomplete() {
+  source <($commands[kubectl] completion zsh);
+}
 
-  if [ $1 = "dark" ]; then
-    base16_gruvbox-dark-medium
-  elif [ $1 = "light" ]; then
-    base16_summerfruit-light
-  fi
+port_in_use() {
+  lsof -n -i:${1} | grep LISTEN
 }
 
 tt() {

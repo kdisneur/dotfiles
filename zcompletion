@@ -13,14 +13,6 @@ zstyle :compinstall filename '/Users/kdisneur/.zshrc'
 autoload -Uz compinit
 compinit
 
-if [ $commands[kubectl] ]; then
-  source <(kubectl completion zsh)
-fi
-
-if [ $commands[helm] ]; then
-  source <(helm completion zsh)
-fi
-
 if [ $commands[asdf] ]; then
   source $HOME/.asdf/completions/asdf.bash
 fi
