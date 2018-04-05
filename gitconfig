@@ -8,7 +8,7 @@
   create-hotfix = !sh -c 'git checkout -b hotfix/$1' -
   create-release = !sh -c 'git checkout -b release/v$1' -
   create-tag = !sh -c 'git tag -s --message=\"Bump to v$1\" v$1 $2' -
-  current = !git branch | awk '/^* (.*)/ { print $2 }' | sed /^$/d
+  current = rev-parse --abbrev-ref HEAD
   d  = diff
   dc = diff --cached
   exec = ! exec
