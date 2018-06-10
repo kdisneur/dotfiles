@@ -13,5 +13,4 @@ function! StatuslineIsModified()
   endif
 endfunction
 
-set statusline=%#Normal#
-set statusline+=\ %f%{StatuslineIsModified()}%{StatuslineIsReadOnly()}
+set statusline=%f%{StatuslineIsModified()}%{StatuslineIsReadOnly()}

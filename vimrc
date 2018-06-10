@@ -2,6 +2,14 @@ if filereadable(expand("~/.vim/bundles.vim"))
   source ~/.vim/bundles.vim
 endif
 
+if executable("opam")
+  let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
+  let s:opamindent = g:opamshare . "/ocp-indent/vim"
+  let s:opammerlin = g:opamshare . "/merlin/vim"
+  set rtp^=s:opamindent
+  set rtp^=s.opammerlin
+endif
+
 if filereadable("/usr/local/bin/python")
   let g:python_host_prog = "/usr/local/bin/python"
 end
@@ -44,7 +52,7 @@ set tabstop=2
 set textwidth=120
 set wildmode=full
 
-colorscheme shoji_shiro
+colorscheme sobre
 syntax enable
 
 if filereadable(expand("~/.vim/statusline.vim"))
@@ -53,7 +61,6 @@ endif
 
 autocmd BufWritePre * StripWhitespace
 autocmd BufWritePost *.ex,*.exs silent !mix format %
-autocmd BufRead,BufNewFile * call matchadd('TooLong', '\%>120v.\+')
 autocmd BufRead,BufNewFile Dockerfile.* set filetype=dockerfile
 autocmd BufReadPost,BufNewFile *.md set filetype=markdown
 autocmd BufRead,BufNewFile *.slim set filetype=slim
@@ -107,6 +114,10 @@ nnoremap <silent> <leader>ttb :TestFile<cr>
 nnoremap <silent> <leader>tta :TestSuite<cr>
 nnoremap <silent> <leader>ttr :TestLast<cr>
 nnoremap <silent> <leader>ttg :TestVisit<cr>
+onoremap il :normal ^vg_<cr>
+onoremap al :normal ^v$<cr>
+xnoremap il :normal ^vg_<cr>
+xnoremap al :normal ^v$<cr>
 
 if executable('ag')
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
@@ -131,7 +142,6 @@ let g:markdown_fenced_languages = ['html', 'js']
 let g:markdown_syntax_conceal = 0
 let g:markdown_minlines = 100
 
-
 " Test
 let test#strategy = "dispatch"
 let test#filename_modifier = ':p'
@@ -147,3 +157,10 @@ let g:wordmotion_prefix = 'g'
 if filereadable("~/.vimrc.local")
   source ~/.vimrc.local
 endif
+
+function! CurrentHighlightGroups()
+  if !exists("*synstack")
+    return
+  endif
+  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunction
