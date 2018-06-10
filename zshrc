@@ -14,6 +14,7 @@ export FPATH
 export GIT_EDITOR=vim
 export GPG_TTY=$(tty)
 export HOMEBREW_BREWFILE=${HOME}/.brewfile
+export KERL_CONFIGURE_OPTIONS="--disable-debug --without-javac --with-wx" # In order to not install Erlang with Java
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export PATH
@@ -60,6 +61,7 @@ export PROMPT='%F{235}%B%c%b%f$(_currentKubernetesContextName)$(_currentEnvironm
 [[ -r ${HOME}/.zcompletion ]] && source ${HOME}/.zcompletion
 [[ -r ${HOME}/.config/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && source ${HOME}/.config/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 [[ -r /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc ]] && source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc
+[[ -r /Users/kdisneur/.asdf/installs/ocaml/4.06.1/opam-init/init.zsh ]] && source /Users/kdisneur/.asdf/installs/ocaml/4.06.1/opam-init/init.zsh
 
 alias kxec="kubectl exec -it "
 alias kforward="kubectl port-forward "
@@ -89,6 +91,10 @@ port_in_use() {
 
 tt() {
   echo -ne "\033];$@\007"
+}
+
+uuid() {
+  uuidgen | tr '[:upper:]' '[:lower:]' | tr -d '\n'
 }
 
 current_tt

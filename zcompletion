@@ -1,5 +1,6 @@
 # The following lines were added by compinstall
 fpath=(
+  /usr/local/share/zsh/site-functions
   /usr/local/share/zsh-completions
   ~/.zsh/completion
   $fpath
