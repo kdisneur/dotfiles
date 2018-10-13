@@ -12,6 +12,7 @@ export DISPLAY=:1
 export EDITOR=vim
 export FPATH
 export GIT_EDITOR=vim
+export GOPATH=~/Workspace/go
 export GPG_TTY=$(tty)
 export HOMEBREW_BREWFILE=${HOME}/.brewfile
 export KERL_CONFIGURE_OPTIONS="--disable-debug --without-javac --with-wx" # In order to not install Erlang with Java
@@ -61,7 +62,6 @@ export PROMPT='%F{235}%B%c%b%f$(_currentKubernetesContextName)$(_currentEnvironm
 [[ -r ${HOME}/.zcompletion ]] && source ${HOME}/.zcompletion
 [[ -r ${HOME}/.config/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && source ${HOME}/.config/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 [[ -r /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc ]] && source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc
-[[ -r /Users/kdisneur/.asdf/installs/ocaml/4.06.1/opam-init/init.zsh ]] && source /Users/kdisneur/.asdf/installs/ocaml/4.06.1/opam-init/init.zsh
 
 alias kxec="kubectl exec -it "
 alias kforward="kubectl port-forward "
@@ -83,6 +83,12 @@ helm_autocomplete() {
 
 kubectl_autocomplete() {
   source <($commands[kubectl] completion zsh);
+}
+
+load_kubectl_env() {
+  export AWS_ACCESS_KEY_ID=$(aws configure get aws_access_key_id)
+  export AWS_SECRET_ACCESS_KEY=$(aws configure get aws_secret_access_key)
+  export KOPS_STATE_STORE=s3://fewlines-co-state-store
 }
 
 port_in_use() {

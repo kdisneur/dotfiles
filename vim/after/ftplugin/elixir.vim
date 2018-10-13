@@ -16,30 +16,6 @@ function! s:scope(path)
   endif
 endfunction
 
-function! s:command()
-  call s:scope("web/commands")
-endfunction
-
-function! s:controller()
-  call s:scope("web/controllers")
-endfunction
-
-function! s:model()
-  call s:scope("web/models")
-endfunction
-
-function! s:query()
-  call s:scope("web/queries")
-endfunction
-
-function! s:service()
-  call s:scope("web/services")
-endfunction
-
-function! s:view()
-  call s:scope("web/views")
-endfunction
-
 function! s:istestfile(filename)
   return match(a:filename, "_test.exs$") >= 0
 endfunction
@@ -54,15 +30,10 @@ endfunction
 
 function! s:alternate(filename)
   if s:istestfile(a:filename)
-    if match(a:filename, "\\\(controllers\\\|views\\\|models\\\|services\\\|queries\\\|commands\\\)")
-      let l:sourcefile = substitute(substitute(a:filename, "/test/", "/web/", ""), "_test.exs$", ".ex", "")
-      call s:movetoalternate(l:sourcefile)
-    else
-      let l:sourcefile = substitute(substitute(a:filename, "/test/", "/lib/", ""), "_test.exs$", ".ex", "")
-      call s:movetoalternate(l:sourcefile)
-    endif
+    let l:sourcefile = substitute(substitute(a:filename, "test/", "lib/", ""), "_test.exs$", ".ex", "")
+    call s:movetoalternate(l:sourcefile)
   else
-    let l:testfile = substitute(substitute(a:filename, "/\\\(web\\\|lib\\\)/", "/test/", ""), ".ex$", "_test.exs", "")
+    let l:testfile = substitute(substitute(a:filename, "\\\(web\\\|lib\\\)/", "test/", ""), ".ex$", "_test.exs", "")
     call s:movetoalternate(l:testfile)
   endif
 endfunction
@@ -107,12 +78,6 @@ command! PreviousFunction silent! ?\<def\>\|\<defp\>\|\<defmacro\>\|\<defmacrop\
 command! PreviousContainer silent! ?\<defmodule\>\|\<defprotocol\>\|\<defimpl\>
 
 nnoremap <silent> fsa :EAlternate<cr>
-nnoremap <silent> fsc :EController<cr>
-nnoremap <silent> fsk :ECommand<cr>
-nnoremap <silent> fsq :EQuery<cr>
-nnoremap <silent> fsm :EModel<cr>
-nnoremap <silent> fss :EService<cr>
-nnoremap <silent> fsv :EView<cr>
 
 let g:my_elixir_plugin = 1
 

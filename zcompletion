@@ -9,7 +9,7 @@ fpath=(
 zstyle ':completion:*' completer _expand _complete _ignored
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' menu select
-zstyle :compinstall filename '/Users/kdisneur/.zshrc'
+zstyle :compinstall filename ~/.zshrc
 
 autoload -Uz compinit
 compinit

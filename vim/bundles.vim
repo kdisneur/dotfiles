@@ -2,7 +2,6 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'kana/vim-textobj-user'
 
-Plug 'AndrewRadev/splitjoin.vim'
 Plug 'andyl/vim-textobj-elixir'
 Plug 'chaoren/vim-wordmotion'
 Plug 'christoomey/vim-sort-motion'
@@ -16,12 +15,14 @@ Plug 'jeetsukumaran/vim-buffergator'
 Plug 'junegunn/vim-easy-align'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'michaeljsmith/vim-indent-object'
+Plug 'NLKNguyen/papercolor-theme'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'rizzatti/dash.vim'
 Plug 'rking/ag.vim'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'sheerun/vim-polyglot'
+Plug 'slashmili/alchemist.vim'
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 else
@@ -32,11 +33,11 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-eunuch'
-Plug 'tpope/vim-markdown'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
+Plug 'vim-syntastic/syntastic'
 Plug 'wellle/targets.vim'
 
 call plug#end()

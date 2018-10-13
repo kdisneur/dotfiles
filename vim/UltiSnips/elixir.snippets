@@ -1,6 +1,6 @@
 priority 1
 snippet defcontroller
-defmodule ${1:`substitute(vim_snippets#Filename(), '\(_\|^\)\(.\)', '\u\2', 'g')`} do
+defmodule ${1:`substitute(substitute(substitute(expand('%:r'), '^[^/]\+/\(.*\)', '\1', ''), '\(_\|/\|^\)\([^/_]\+\)', '\u\2.\3', 'g'), '.$', '', '')`} do
   use $2.Web, :controller
 
   $3
@@ -60,4 +60,32 @@ worker(${1:Module}, [${2:params}])$0
 endsnippet
 snippet supervisorsupervisor
 supervisor(${1:Module}, [${2:params}])$0
+endsnippet
+
+snippet workflowdoc
+@moduledoc """
+${1:general description}
+
+## Input
+
+### Payload
+
+- \`"${2:parameter name}"\`: ${3:(**required**) A description}
+
+### Meta
+
+- \`:${4:parameter name}\`: ${5:(**required**) A description}
+
+## Output
+
+### Success
+
+It returns a \`:ok\` tuple with ${6:return type}
+
+### Error
+
+#### ${7:ModuleError}
+
+${7:description}
+"""
 endsnippet
