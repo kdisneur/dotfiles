@@ -1,5 +1,9 @@
 #! /bin/sh
 
+isBranch() {
+  git current | grep -E '^[0-9]+-' &> /dev/null
+}
+
 isFeature() {
   git current | grep -E 'feature/#[0-9]+' &> /dev/null
 }
@@ -9,11 +13,11 @@ isHotfix() {
 }
 
 isGuessable() {
-  isFeature || isHotfix
+  isBranch || isFeature || isHotfix
 }
 
 issueNumber() {
-  git current | sed -E 's/.*(#[0-9]+)([-_].*)?/\1/'
+  git current | sed -E 's/.*(#[0-9]+)([-_].*)?/\1/' | sed -E 's/^([0-9]+)-.*/#\1/'
 }
 
 hasNoIssueInMessage() {
@@ -21,9 +25,9 @@ hasNoIssueInMessage() {
 }
 
 if isGuessable; then
-  message="Fix $(issueNumber)"
-  if isFeature; then
-    message="Resolve $(issueNumber)"
+  message="Resolve $(issueNumber)"
+  if isHotfix; then
+    message="Fix $(issueNumber)"
   fi
 
   if hasNoIssueInMessage $1; then

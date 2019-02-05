@@ -59,8 +59,9 @@ endif
 
 autocmd BufWritePre * StripWhitespace
 autocmd BufWritePost *.ex,*.exs silent !mix format %
-autocmd BufWritePost *.go silent !go fmt %
 autocmd BufRead,BufNewFile Dockerfile.* set filetype=dockerfile
+autocmd BufRead,BufNewFile *.avsc set filetype=json
+autocmd BufRead,BufNewFile *.dot.m4 set filetype=dot
 autocmd BufReadPost,BufNewFile *.md set filetype=markdown
 autocmd BufRead,BufNewFile *.slim set filetype=slim
 autocmd BufRead,BufNewFile mix.lock set filetype=elixir
@@ -71,6 +72,10 @@ autocmd FileType gitcommit setlocal spell
 autocmd FileType eruby,html,slim setlocal cursorcolumn cursorline
 autocmd FileType elm setlocal shiftwidth=4
 autocmd FileType Makefile setlocal autoindent noexpandtab tabstop=4 shiftwidth=4
+
+" Autoclose preview popup
+autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
 command! American setlocal spell spelllang=en_us
 command! British setlocal spell spelllang=en_gb
@@ -130,6 +135,16 @@ let g:abolish_no_mappings = 1
 " Ag
 let g:ag_working_path_mode = "r"
 
+" Ale
+let g:ale_elixir_elixir_ls_release = '~/Workspace/JakeBecker/elixir-ls/rel'
+let g:ale_sign_column_always = 1
+let g:ale_sign_error = '>'
+let g:ale_sign_warning = '-'
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_keep_list_window_open = 0
+let g:ale_set_loclist = 1
+" let g:ale_set_quickfix = 0
+
 " Elm
 let g:elm_format_autosave = 1
 let g:elm_setup_keybindings = 0
@@ -138,9 +153,11 @@ let g:elm_setup_keybindings = 0
 let g:deoplete#enable_at_startup = 1
 "
 " Markdown
-let g:markdown_fenced_languages = ['html', 'js']
-let g:markdown_syntax_conceal = 0
-let g:markdown_minlines = 100
+let g:vim_markdown_fenced_languages = ['sql=sql']
+let g:vim_markdown_conceal = 0
+let g:vim_markdown_folding_disabled = 1
+let g:vim_markdown_auto_insert_bullets = 0
+let g:vim_markdown_new_list_item_indent = 0
 
 " Syntastic
 let g:syntastic_elixir_checkers = ['elixir']

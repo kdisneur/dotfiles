@@ -1,0 +1,25 @@
+#! /usr/bin/env bash
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
+cmd=$(basename ${0});
+name=${1:-};
+
+if [ -z ${name} ]; then
+  >&2 echo "A Workspace is required.";
+  >&2 echo ""
+  >&2 echo "Usage:   ${cmd} <workspace>"
+  >&2 echo "Example: ${cmd} connect"
+  exit 1;
+fi
+
+if ! tmux has-session -t "${name}" 2> /dev/null; then
+  tmux new-session -d -s ${name};
+
+  tmux source-file "${HOME}/.tmux.conf";
+  tmux source-file "${HOME}/.tmux/profiles/${name}.tmuxrc";
+fi
+
+tmux attach -t ${name}

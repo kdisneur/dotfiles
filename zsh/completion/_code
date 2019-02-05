@@ -1,0 +1,17 @@
+#compdef _code code
+
+_code() {
+  local folder=${CODE_CONFIG_PATH:-${CODE_CONFIG_PATH:-${HOME}/.tmux/profiles}};
+
+  local state;
+
+  _arguments "1: :->workspace";
+
+  case ${state} in
+    (workspace)
+      _arguments "1:profiles:($(cd $folder; ls | cut -f1 -d. | uniq))"
+      ;;
+  esac
+}
+
+_code "$@"

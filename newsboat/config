@@ -1,0 +1,18 @@
+auto-reload yes
+reload-time 30 # minutes
+
+browser open -a Safari
+
+unbind-key DOWN
+unbind-key UP
+
+bind-key j down
+bind-key k up
+
+color background          black     white
+color listnormal          black     white
+color listfocus           color24   white   bold
+color listnormal_unread   black     white
+color listfocus_unread    color24   white   bold
+color info                white     color24
+color article             black     white

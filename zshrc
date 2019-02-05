@@ -13,6 +13,7 @@ export EDITOR=vim
 export FPATH
 export GIT_EDITOR=vim
 export GOPATH=~/Workspace/go
+PATH="${PATH}:${GOPATH}/bin"
 export GPG_TTY=$(tty)
 export HOMEBREW_BREWFILE=${HOME}/.brewfile
 export KERL_CONFIGURE_OPTIONS="--disable-debug --without-javac --with-wx" # In order to not install Erlang with Java
@@ -40,7 +41,7 @@ bindkey '^[[B' down-line-or-search # Arrow down
 _currentKubernetesContextName() {
   local context=$(kubectl config current-context 2> /dev/null);
 
-  if [ -z "${context}" -o "${context}" = "docker-for-desktop" ]; then
+  if [ -z "${context}" -o "${context}" = "docker-desktop" ]; then
     echo ""
   else
     echo "%{%F{198}%} ${context}%{%f%} "

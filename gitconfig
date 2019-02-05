@@ -2,8 +2,9 @@
 
   br = branch
   ci = commit -S
-  cleanlocal = "!git_cleanlocal() { git branch --merged ${1:-develop} | grep -v master | grep -v develop | xargs git branch -d; }; git_cleanlocal"
+  clean-branches = ! git branch -vv | grep "gone]" | awk '{ print $1 }' | xargs git branch -D
   co = checkout
+  create-branch = !sh -c 'git checkout -b $1-$2' -
   create-feature = !sh -c 'git checkout -b feature/$1' -
   create-hotfix = !sh -c 'git checkout -b hotfix/$1' -
   create-release = !sh -c 'git checkout -b release/v$1' -
@@ -15,7 +16,7 @@
   g  = grep --break --heading --line-number
   l  = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue)<%an>%Creset' --abbrev-commit
   oops = commit -S --amend --no-edit
-  push = push --set-upstream
+  p = push -u
   pf = push --force-with-lease
   pff = push --force-with-lease --no-verify
   pr = !open "https://github.com/$(git remote get-url --push origin | sed -e 's/.*://' -e 's/\\.git//')/compare/$(git current | sed 's/#/%23/g')?expand=1"
@@ -38,7 +39,6 @@
 
   excludesfile = ~/.gitignore
   pager = less -F -X
-
 
 [fetch]
 
