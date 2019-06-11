@@ -33,3 +33,4 @@ if [[ ! -d ~/Workspace/JakeBecker/elixir-ls ]]; then
 fi
 
 ktools --init;
+

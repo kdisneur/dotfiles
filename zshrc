@@ -1,10 +1,9 @@
 PATH="./bin:${PATH}"
+PATH="${HOME}/.asdf/shims:${PATH}"
 PATH="/usr/local/bin:${PATH}"
 PATH="/usr/local/sbin:${PATH}"
 PATH="${HOME}/.bin.local:${PATH}"
 PATH="${HOME}/.bin:${PATH}"
-PATH="${HOME}/.asdf/shims:${PATH}"
-PATH="${HOME}/.tmuxifier/bin:${PATH}"
 
 export CDPATH="${CDPATH}:${HOME}/Workspace"
 export DISABLE_AUTO_TITLE="true"
@@ -22,6 +21,8 @@ export LC_ALL=en_US.UTF-8
 export PATH
 export TERM=xterm-256color
 export WORDCHARS='*?.[]~=&;!#$%^(){}<>'
+export TILLER_NAMESPACE=tiller
+export HELM_TLS_ENABLE=true
 
 export HISTFILE=${HOME}/.zhistory
 export HISTSIZE=5000
@@ -62,16 +63,31 @@ export PROMPT='%F{235}%B%c%b%f$(_currentKubernetesContextName)$(_currentEnvironm
 [[ -r ${HOME}/.asdf/asdf.sh ]] && source ${HOME}/.asdf/asdf.sh
 [[ -r ${HOME}/.zcompletion ]] && source ${HOME}/.zcompletion
 [[ -r ${HOME}/.config/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && source ${HOME}/.config/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-[[ -r /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc ]] && source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc
 
-alias kxec="kubectl exec -it "
-alias kforward="kubectl port-forward "
+alias kxec=kubectl exec -it
+alias kforward=kubectl port-forward
+alias kns=kubens
+alias kctx=kubectx
 alias ls='ls -G'
 alias ll='ls -lh'
 alias serve="ruby -run -e httpd . -p 8000"
 
 cdroot() {
   cd $(git root)
+}
+
+color_preferences() {
+cat <<EOF | column -t -s';'
+color;normal;bright
+black;1a1a1a;616161
+red;c91b00;ff6d67
+green;03aa03;00bf0a
+yellow;b0ae01;dbd800
+blue;011ea6;0062d9
+magenta;c930c7;ff76ff
+cyan;029899;00c6c9
+white;ffffff;ffffff
+EOF
 }
 
 current_tt() {
@@ -92,12 +108,22 @@ load_kubectl_env() {
   export KOPS_STATE_STORE=s3://fewlines-co-state-store
 }
 
+hexopen() {
+  open https://hex.pm/packages/${1}
+}
+
 port_in_use() {
   lsof -n -i:${1} | grep LISTEN
 }
 
 tt() {
   echo -ne "\033];$@\007"
+}
+
+api_key() {
+  size=${1:-16}
+  # remove characters looking similar and same character following each other
+  base64 /dev/urandom  | tr -d '/+oO0iIl' | tr -s '[:alnum:]' | head -c ${size}
 }
 
 uuid() {

@@ -23,6 +23,8 @@ https://auth0.com/blog/rss.xml "Tech"
 https://blog.acolyer.org/feed
 https://blog.hasura.io/feed "Tech"
 https://cloudplatform.googleblog.com/feeds/posts/default?alt=rss "Containers"
+https://dave.cheney.net/category/golang/feed "Golang"
+https://dave.cheney.net/category/programming-2/feed
 https://haskellweekly.news/haskell-weekly.atom "Haskell"
 https://konghq.com/feed/ "Containers"
 https://kubeweekly.com/feed/ "Containers"

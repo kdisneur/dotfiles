@@ -2,6 +2,7 @@
 
   br = branch
   ci = commit -S
+  circleci = !open "https://circleci.com/gh/$(git remote get-url --push origin | sed -e 's/.*://' -e 's/\\.git//' | cut -f 1 -d '/')/workflows/$(git remote get-url --push origin | sed -e 's/.*://' -e 's/\\.git//' | cut -f 2 -d '/')/tree/$(git current | sed 's/#/%23/g')"
   clean-branches = ! git branch -vv | grep "gone]" | awk '{ print $1 }' | xargs git branch -D
   co = checkout
   create-branch = !sh -c 'git checkout -b $1-$2' -
@@ -19,8 +20,8 @@
   p = push -u
   pf = push --force-with-lease
   pff = push --force-with-lease --no-verify
-  pr = !open "https://github.com/$(git remote get-url --push origin | sed -e 's/.*://' -e 's/\\.git//')/compare/$(git current | sed 's/#/%23/g')?expand=1"
-  issue = !open "https://github.com/$(git remote get-url --push origin | sed -e 's/.*://' -e 's/\\.git//')/issues/$(git current | grep -Eo '#[0-9]+' | sed 's/#//')"
+  pr = !open "https://github.com/$(git remote get-url --push origin | sed -e 's/.*://' -e 's/\\.git//')/compare/$(git current)?expand=1"
+  issue = !open "https://github.com/$(git remote get-url --push origin | sed -e 's/.*://' -e 's/\\.git//')/issues/$(git current | grep -Eo '[0-9]+' | sed 's/#//')"
   s  = status --branch --short
   serve-ro = !git daemon --reuseaddr --verbose  --base-path=. --export-all --informative-errors --verbose ./.git
   serve-rw = !git daemon --reuseaddr --verbose  --base-path=. --export-all --enable=receive-pack --informative-errors --verbose ./.git
@@ -30,6 +31,17 @@
 
   diff = true
   ui = true
+
+[diff]
+
+  renames = copies
+	tool = vimdiff3
+
+[difftool]
+  prompt = false
+
+[difftool "vimdiff3"]
+	path = nvim
 
 [color "diff"]
 
@@ -57,6 +69,12 @@
 
   templatedir = ~/.git_template
 
+[merge]
+	tool = vimdiff3
+
+[mergetool "vimdiff3"]
+	path = nvim
+
 [push]
 
   default = current
@@ -66,3 +84,9 @@
   email = kevin@disneur.me
   name = Kevin Disneur
   useconfigonly = true
+
+[url "git@github.com:kdisneur/"]
+	insteadOf = "kdisneur:"
+
+[url "git@github.com:fewlinesco/"]
+	insteadOf = "fewlines:"

@@ -14,12 +14,4 @@ zstyle :compinstall filename ~/.zshrc
 autoload -Uz compinit
 compinit
 
-if [ $commands[asdf] ]; then
-  source $HOME/.asdf/completions/asdf.bash
-fi
-
-if [ -f /usr/local/Cellar/kubernetes-tools/2.0.1/completion/__completion ]; then
-  source /usr/local/Cellar/kubernetes-tools/2.0.1/completion/__completion
-fi
-
 # End of lines added by compinstall

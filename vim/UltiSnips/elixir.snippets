@@ -1,4 +1,19 @@
 priority 1
+
+global !p
+def elixir_module_name(inp):
+	newpath = path.split("/lib/");
+	newpath = newpath[1] if len(newpath) == 2 else newpath[0]
+	modules = newpath.split("/")
+	reformatted_modules = [ "".join([name.capitalize() for name in module.split(".ex")[0].split("_")]) for module in modules]
+	return ".".join(reformatted_modules)
+endglobal
+
+snippet defmo
+defmodule ${1:`!p snip.rv = elixir_module_name(path)`} do
+  $2
+end
+endsnippet
 snippet defcontroller
 defmodule ${1:`substitute(substitute(substitute(expand('%:r'), '^[^/]\+/\(.*\)', '\1', ''), '\(_\|/\|^\)\([^/_]\+\)', '\u\2.\3', 'g'), '.$', '', '')`} do
   use $2.Web, :controller
@@ -28,7 +43,7 @@ test "$1: $2" do
 end
 endsnippet
 snippet defgenserver
-defmodule $1 do
+defmodule ${1:`!p snip.rv = elixir_module_name(path)`} do
   use GenServer
 
   def start_link${2:()} do
@@ -39,7 +54,7 @@ defmodule $1 do
 end
 endsnippet
 snippet defsupervisor
-defmodule $1 do
+defmodule ${1:`!p snip.rv = elixir_module_name(path)`} do
   use Supervisor
 
   def start_link do
