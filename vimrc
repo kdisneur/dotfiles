@@ -7,9 +7,10 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'google/vim-jsonnet'
 Plug 'jeetsukumaran/vim-buffergator'
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'itchyny/vim-qfedit'
+Plug 'mileszs/ack.vim'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'ntpeters/vim-better-whitespace'
-Plug 'rking/ag.vim'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'sheerun/vim-polyglot'
@@ -97,7 +98,7 @@ autocmd FileType gitcommit setlocal spell
 autocmd FileType eruby,html,slim setlocal cursorcolumn cursorline
 autocmd FileType elm setlocal shiftwidth=4
 autocmd FileType Makefile setlocal autoindent noexpandtab tabstop=4 shiftwidth=4
-autocmd FileType markdown,mkd,text call Prose()
+autocmd FileType markdown,mkd,text,asciidoc call Prose()
 
 " Autoclose preview popup
 autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
@@ -120,6 +121,7 @@ inoremap <esc> <nop>
 inoremap jk <esc>
 nnoremap * *``
 nnoremap ** *
+nnoremap gp `[v`]
 
 " Ale Mapping
 nnoremap <silent> <leader>aj :ALENext<cr>
@@ -139,8 +141,10 @@ onoremap al :normal ^v$<cr>
 xnoremap il :normal ^vg_<cr>
 xnoremap al :normal ^v$<cr>
 
-" Ag
-let g:ag_working_path_mode = "r"
+" Ack
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
 
 " Ale
 let g:ale_fix_on_save = 1
@@ -157,12 +161,16 @@ let g:ale_sign_error = '>'
 let g:ale_sign_warning = '-'
 let g:ale_linters = {
 \  'elixir': ['credo', 'elixir-ls'],
+\  'javascript': ['eslint'],
+\  'typescript': ['eslint', 'tsserver'],
 \}
 
 let g:ale_fixers = {
 \  '*': ['remove_trailing_lines', 'trim_whitespace'],
 \  'elixir': ['mix_format'],
 \  'go': ['gofmt'],
+\  'javascript': ['eslint'],
+\  'typescript': ['eslint'],
 \}
 
 " Ctlp
@@ -218,6 +226,10 @@ endfunction
 function! Prose()
   call litecorrect#init()
 
+  setlocal wrap " soft wrap content
+  setlocal linebreak " only breaks on specific characters
+  setlocal textwidth=0 wrapmargin=0 " do not insert newlines automatically on insert mode
+
   " manual reformatting shortcuts
   nnoremap <buffer> <silent> Q gqap
   xnoremap <buffer> <silent> Q gq
@@ -226,4 +238,7 @@ function! Prose()
   " force top correction on most recent misspelling
   nnoremap <buffer> <c-s> [s1z=<c-o>
   inoremap <buffer> <c-s> <c-g>u<Esc>[s1z=`]A<c-g>u
+
+  " check list mark
+  nnoremap <buffer> - :MarkdownCheckTask<cr>
 endfunction
