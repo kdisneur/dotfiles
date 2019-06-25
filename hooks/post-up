@@ -31,6 +31,3 @@ if [[ ! -d ~/Workspace/JakeBecker/elixir-ls ]]; then
   mix elixir_ls.release -o rel;
   popd
 fi
-
-ktools --init;
-

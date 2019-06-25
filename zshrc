@@ -9,7 +9,6 @@ export CDPATH="${CDPATH}:${HOME}/Workspace"
 export DISABLE_AUTO_TITLE="true"
 export DISPLAY=:1
 export EDITOR=vim
-export FPATH
 export GIT_EDITOR=vim
 export GOPATH=~/Workspace/go
 PATH="${PATH}:${GOPATH}/bin"
