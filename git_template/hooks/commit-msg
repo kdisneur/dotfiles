@@ -1,36 +1,20 @@
 #! /bin/sh
 
-isBranch() {
-  git current | grep -E '^[0-9]+-' &> /dev/null
-}
-
-isFeature() {
-  git current | grep -E 'feature/#[0-9]+' &> /dev/null
-}
-
-isHotfix() {
-  git current | grep -E 'hotfix/#[0-9]+' &> /dev/null
-}
-
-isGuessable() {
-  isBranch || isFeature || isHotfix
+hasCommitID() {
+  git rev-parse --abbrev-ref HEAD | grep -E '^[0-9]+-' &> /dev/null
 }
 
 issueNumber() {
-  git current | sed -E 's/.*(#[0-9]+)([-_].*)?/\1/' | sed -E 's/^([0-9]+)-.*/#\1/'
+  git rev-parse --abbrev-ref HEAD | sed -E 's/^([0-9]+)-.*/\1/'
 }
 
 hasNoIssueInMessage() {
-  ! grep "^[^#].*$(issueNumber)" $1 &> /dev/null
+  ! grep "[ch$(issueNumber)]" $1 &> /dev/null
 }
 
-if isGuessable; then
-  message="Resolve $(issueNumber)"
-  if isHotfix; then
-    message="Fix $(issueNumber)"
-  fi
-
+if hasCommitID; then
   if hasNoIssueInMessage $1; then
+    message="[ch$(issueNumber)]"
     echo "Insert issue $(issueNumber) in the commit"
     echo >> $1
     echo ${message} >> $1

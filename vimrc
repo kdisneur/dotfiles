@@ -99,6 +99,7 @@ autocmd FileType eruby,html,slim setlocal cursorcolumn cursorline
 autocmd FileType elm setlocal shiftwidth=4
 autocmd FileType Makefile setlocal autoindent noexpandtab tabstop=4 shiftwidth=4
 autocmd FileType markdown,mkd,text,asciidoc call Prose()
+autocmd BufWritePost,BufRead *.sh silent !ctags %
 
 " Autoclose preview popup
 autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
@@ -160,6 +161,7 @@ let g:ale_sign_column_always = 1
 let g:ale_sign_error = '>'
 let g:ale_sign_warning = '-'
 let g:ale_linters = {
+\  'sh': ['shell'],
 \  'elixir': ['credo', 'elixir-ls'],
 \  'javascript': ['eslint'],
 \  'typescript': ['eslint', 'tsserver'],
