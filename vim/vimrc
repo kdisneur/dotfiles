@@ -8,7 +8,6 @@ Plug 'google/vim-jsonnet'
 Plug 'jeetsukumaran/vim-buffergator'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'itchyny/vim-qfedit'
-Plug 'mileszs/ack.vim'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'SirVer/ultisnips'
@@ -26,7 +25,6 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
-Plug 'vim-syntastic/syntastic'
 Plug 'w0rp/ale'
 Plug 'wellle/targets.vim'
 call plug#end()
@@ -56,7 +54,6 @@ set history=500 "history of commands to keep in memory
 set incsearch " jump to the first match as typing
 set laststatus=2 " always display the status line
 set nobackup
-set nocompatible
 set nocursorcolumn
 set nocursorline
 set nohlsearch " do not highlight search results
@@ -141,11 +138,6 @@ onoremap il :normal ^vg_<cr>
 onoremap al :normal ^v$<cr>
 xnoremap il :normal ^vg_<cr>
 xnoremap al :normal ^v$<cr>
-
-" Ack
-if executable('ag')
-  let g:ackprg = 'ag --vimgrep'
-endif
 
 " Ale
 let g:ale_fix_on_save = 1
