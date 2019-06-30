@@ -85,3 +85,4 @@ nnoremap <silent> <buffer> [m :PreviousFunction<cr>
 nnoremap <silent> <buffer> ]m :NextFunction<cr>
 nnoremap <silent> <buffer> [[ :PreviousContainer<cr>
 nnoremap <silent> <buffer> ]] :NextContainer<cr>
+nnoremap <silent> <buffer> <C-]> :ALEGoToDefinition<cr>

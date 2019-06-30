@@ -4,4 +4,6 @@ brew update && brew upgrade && brew cleanup && brew doctor
 
 mas upgrade
 
+asdf update
+
 nvim +PlugInstall +PlugUpdate +qa

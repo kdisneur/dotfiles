@@ -37,3 +37,4 @@ let g:my_go_plugin = 1
 nnoremap <silent> fsa :GAlternate<cr>
 nnoremap <leader>gi :GoImport
 nnoremap <leader>gI :GoImport <c-r>=<SID>gomodimport()<cr>
+nnoremap <silent> <buffer> <C-]> :ALEGoToDefinition<cr>

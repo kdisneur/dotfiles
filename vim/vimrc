@@ -16,7 +16,9 @@ Plug 'sheerun/vim-polyglot'
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 else
-  Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --go-completer --ts-completer' }
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
 endif
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-eunuch'
@@ -124,7 +126,6 @@ nnoremap gp `[v`]
 " Ale Mapping
 nnoremap <silent> <leader>aj :ALENext<cr>
 nnoremap <silent> <leader>ak :ALEPrevious<cr>
-nnoremap <silent> <leader>an :ALEGoToDefinition<cr>
 
 " File management - f
 nnoremap <silent> <leader>fd :!mkdir -p "%:p:h"<cr>
@@ -140,11 +141,11 @@ xnoremap il :normal ^vg_<cr>
 xnoremap al :normal ^v$<cr>
 
 " Ale
-let g:ale_fix_on_save = 1
 let g:ale_completion_enabled = 1
 let g:ale_cursor_detail = 0
-let g:ale_elixir_elixir_ls_release = $HOME . '/Workspace/JakeBecker/elixir-ls/rel'
 let g:ale_elixir_credo_strict = 1
+let g:ale_elixir_elixir_ls_release = $HOME . '/Workspace/JakeBecker/elixir-ls/rel'
+let g:ale_fix_on_save = 1
 let g:ale_go_langserver_executable = 'gopls'
 let g:ale_keep_list_window_open = 0
 let g:ale_lint_on_text_changed = 'never'
@@ -152,6 +153,7 @@ let g:ale_set_loclist = 1
 let g:ale_sign_column_always = 1
 let g:ale_sign_error = '>'
 let g:ale_sign_warning = '-'
+let g:ale_update_tagstack = 1
 let g:ale_linters = {
 \  'sh': ['shell'],
 \  'elixir': ['credo', 'elixir-ls'],
@@ -176,10 +178,6 @@ endif
 
 " Deoplete
 let g:deoplete#enable_at_startup = 1
-"
-" Syntastic
-let g:syntastic_elixir_checkers = ['elixir']
-let g:syntastic_enable_elixir_checker = 1
 
 " Ultisnips
 let g:UltiSnipsSnippetsDir = $HOME."/.vim/UltiSnips"

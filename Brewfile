@@ -88,6 +88,8 @@ brew "zsh"
 brew "zsh-completions"
 brew "kdisneur/formulae/database"
 brew "kdisneur/formulae/tableformat"
+brew "kdisneur/formulae/gitup"
+brew "kdisneur/formulae/gitpr"
 brew "thoughtbot/formulae/rcm"
 cask "chromedriver"
 cask "dash"
@@ -98,6 +100,7 @@ cask "ngrok"
 cask "slack"
 cask "spectacle"
 cask "tableplus"
+cask "1password"
 mas "Drop", id: 1173932628
 mas "Monosnap", id: 540348655
 mas "Textual 7", id: 1262957439
