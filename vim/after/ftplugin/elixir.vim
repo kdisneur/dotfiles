@@ -1,7 +1,3 @@
-if exists('g:my_elixir_plugin')
-  finish
-endif
-
 function s:hexdoc()
   let l:package = expand("<cword>")
   let l:url     = "https://hex.pm/packages/" . l:package
@@ -78,8 +74,6 @@ command! PreviousFunction silent! ?\<def\>\|\<defp\>\|\<defmacro\>\|\<defmacrop\
 command! PreviousContainer silent! ?\<defmodule\>\|\<defprotocol\>\|\<defimpl\>
 
 nnoremap <silent> fsa :EAlternate<cr>
-
-let g:my_elixir_plugin = 1
 
 nnoremap <silent> <buffer> [m :PreviousFunction<cr>
 nnoremap <silent> <buffer> ]m :NextFunction<cr>

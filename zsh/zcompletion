@@ -1,5 +1,5 @@
-# The following lines were added by compinstall
 fpath=(
+  ~/.zsh/functions
   /usr/local/share/zsh/site-functions
   /usr/local/share/zsh-completions
   ~/.zsh/completion
@@ -12,6 +12,9 @@ zstyle ':completion:*' menu select
 zstyle :compinstall filename ~/.zshrc
 
 autoload -Uz compinit
-compinit
 
-# End of lines added by compinstall
+for f in ~/.zsh/functions/*; do
+  autoload -Uz ${f##*/}
+done
+
+compinit
