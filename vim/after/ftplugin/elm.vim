@@ -1,3 +1,5 @@
+setlocal shiftwidth=4
+
 command! NextContainer silent! /\<module\>
 command! NextFunction silent! /^\w\+\(\w\|\s\)\+=
 command! PreviousContainer silent! ?\<module\>

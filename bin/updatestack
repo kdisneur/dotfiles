@@ -7,3 +7,4 @@ mas upgrade
 asdf update
 
 nvim +PlugInstall +PlugUpdate +qa
+vim +PlugInstall +PlugUpdate +qa

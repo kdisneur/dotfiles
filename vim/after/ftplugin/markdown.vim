@@ -13,4 +13,8 @@ function! s:checkTask()
     call winrestview(l:cursor)
 endfunction
 
+setlocal spell
+
+call Prose()
+
 command! MarkdownCheckTask call s:checkTask()

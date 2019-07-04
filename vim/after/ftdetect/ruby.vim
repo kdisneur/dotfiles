@@ -1,5 +1,5 @@
-au BufNewFile,BufRead *.god set filetype=ruby
-au BufNewFile,BufRead *.rabl set filetype=ruby
-au BufNewFile,BufRead *.jbuilder set filetype=ruby
-au BufNewFile,BufRead Gemfile set filetype=ruby
-au BufNewFile,BufRead ru set filetype=ruby
+autocmd BufNewFile,BufRead *.god set filetype=ruby
+autocmd BufNewFile,BufRead *.rabl set filetype=ruby
+autocmd BufNewFile,BufRead *.jbuilder set filetype=ruby
+autocmd BufNewFile,BufRead Gemfile set filetype=ruby
+autocmd BufNewFile,BufRead ru set filetype=ruby
