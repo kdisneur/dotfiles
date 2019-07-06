@@ -17,4 +17,6 @@ setlocal spell
 
 call Prose()
 
-command! MarkdownCheckTask call s:checkTask()
+nnoremap <Plug>(MarkdownCheckTask) :call <SID>checkTask()
+
+nmap <silent> <buffer> - <Plug>(MarkdownCheckTask)<cr>

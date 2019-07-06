@@ -1,18 +1,29 @@
 call plug#begin('~/.vim/plugged')
-Plug 'kana/vim-textobj-user'
 
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'SirVer/ultisnips'
 Plug 'andyl/vim-textobj-elixir'
 Plug 'chaoren/vim-wordmotion'
+Plug 'ctrlpvim/ctrlp.vim'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'google/vim-jsonnet'
-Plug 'jeetsukumaran/vim-buffergator'
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'itchyny/vim-qfedit'
-Plug 'NLKNguyen/papercolor-theme'
-Plug 'ntpeters/vim-better-whitespace'
-Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
+Plug 'itchyny/vim-qfedit'
+Plug 'jeetsukumaran/vim-buffergator'
+Plug 'kana/vim-textobj-user'
+Plug 'michaeljsmith/vim-indent-object'
+Plug 'ntpeters/vim-better-whitespace'
+Plug 'reedes/vim-litecorrect'
 Plug 'sheerun/vim-polyglot'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
+Plug 'w0rp/ale'
+Plug 'wellle/targets.vim'
+
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 else
@@ -20,15 +31,7 @@ else
   Plug 'roxma/nvim-yarp'
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-eunuch'
-Plug 'reedes/vim-litecorrect'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-sensible'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-unimpaired'
-Plug 'w0rp/ale'
-Plug 'wellle/targets.vim'
+
 call plug#end()
 
 if filereadable("/usr/local/bin/python")
@@ -69,6 +72,8 @@ set wildignore+=**/_build/**
 set wildignore+=**/deps/**
 set wildignore+=**/node_modules/**
 set wildignore+=**/*.jpg,**/*.JPG,**/*.png,**/*.PNG,**/*.pdf,**/*.PDF
+set wildmenu
+set wildmode=full
 set relativenumber " display relative number
 set ruler
 set shiftwidth=2 " number of spaces to use on indentation
@@ -76,7 +81,6 @@ set showcmd
 set spellfile=$HOME/.vim-spell-en.utf-8.add
 set tabstop=2 " number of spaces used to display tabs
 set textwidth=120 " max line before breaking lines
-set wildmode=full
 
 set background=light
 colorscheme PaperColor
@@ -85,11 +89,8 @@ syntax enable
 set splitbelow
 set splitright
 
-for settingFile in split(globpath('~/.vim/settings', '*.vim'), '\n')
-  execute 'source ' . settingFile
-endfor
-
-source ~/.vim/mapping.vim
+runtime! settings/*.vim
+runtime! mapping.vim
 
 if filereadable("~/.vim/vimrc.local")
   source ~/.vim/vimrc.local

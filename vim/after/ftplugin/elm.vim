@@ -1,11 +1,11 @@
 setlocal shiftwidth=4
 
-command! NextContainer silent! /\<module\>
-command! NextFunction silent! /^\w\+\(\w\|\s\)\+=
-command! PreviousContainer silent! ?\<module\>
-command! PreviousFunction silent! ?^\w\+\(\w\|\s\)\+=
+nnoremap <Plug>(ElmNextContainer) :call search('\<module\>', 'w')
+nnoremap <Plug>(ElmNextFunction) :call search('^\w\+\(\w\\|\s\)\+=', 'w')
+nnoremap <Plug>(ElmPreviousContainer) :call search('\<module\>', 'wb')
+nnoremap <Plug>(ElmPreviousFunction) :call search('^\w\+\(\w\\|\s\)\+=', 'wb')
 
-nnoremap <silent> <buffer> [m :PreviousFunction<cr>
-nnoremap <silent> <buffer> ]m :NextFunction<cr>
-nnoremap <silent> <buffer> [[ :PreviousContainer<cr>
-nnoremap <silent> <buffer> ]] :NextContainer<cr>
+nmap <silent> <buffer> [m <Plug>(ElmPreviousFunction)<cr>
+nmap <silent> <buffer> ]m <Plug>(ElmNextFunction)<cr>
+nmap <silent> <buffer> [[ <Plug>(ElmPreviousContainer)<cr>
+nmap <silent> <buffer> ]] <Plug>(ElmNextContainer)<cr>

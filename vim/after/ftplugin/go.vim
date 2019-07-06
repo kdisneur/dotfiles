@@ -1,7 +1,3 @@
-if exists('g:my_go_plugin')
-  finish
-endif
-
 function! s:gomodimport()
   let l:base=system("~/.bin/current_go_import.sh")
   let l:cleanedBase=substitute(l:base, '\n', "", "g")
@@ -30,11 +26,13 @@ function! s:alternate(filename)
   endif
 endfunction
 
-command! GAlternate call s:alternate(expand("%"))
+nnoremap <Plug>(GoAlternateFile) :call <SID>alternate(expand("%"))
+nnoremap <Plug>(GoNextFunction) :call search('\<func\>', 'w')
+nnoremap <Plug>(GoPreviousFunction) :call search('\<func\>', 'wb')
 
-let g:my_go_plugin = 1
-
-nnoremap <silent> fsa :GAlternate<cr>
+nmap <silent> <buffer> <leader>fsa <Plug>(GoAlternateFile)<cr>
+nmap <silent> <buffer> ]m <Plug>(GoNextFunction)<cr>
+nmap <silent> <buffer> [m <Plug>(GoPreviousFunction)<cr>
 nnoremap <leader>gi :GoImport
 nnoremap <leader>gI :GoImport <c-r>=<SID>gomodimport()<cr>
 nnoremap <silent> <buffer> <C-]> :ALEGoToDefinition<cr>

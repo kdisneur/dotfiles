@@ -1,7 +1,7 @@
 autocmd BufWritePost,BufRead *.sh silent !ctags %
 
-command! PreviousFunction silent! ?^\([a-zA-Z0-9]\+()\|function [a-zA-Z0-9]\+\(()\)\{0,1\}\)\s\+{
-command! NextFunction silent! /^\([a-zA-Z0-9]\+()\|function [a-zA-Z0-9]\+\(()\)\{0,1\}\)\s\+{
+nnoremap <Plug>(BashNextFunction) :call search('^\([a-zA-Z0-9_]\+()\\|function [a-zA-Z0-9]\+\(()\)\{0,1\}\)\s\+{', 'w')
+nnoremap <Plug>(BashPreviousFunction) :call search('^\([a-zA-Z0-9_]\+()\\|function [a-zA-Z0-9]\+\(()\)\{0,1\}\)\s\+{', 'wb')
 
-nnoremap <silent> <buffer> [m :PreviousFunction<cr>
-nnoremap <silent> <buffer> ]m :NextFunction<cr>
+nmap <silent> ]m <Plug>(BashNextFunction)<cr>
+nmap <silent> [m <Plug>(BashPreviousFunction)<cr>

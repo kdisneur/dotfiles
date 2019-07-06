@@ -5,4 +5,4 @@ function! s:plugOpen()
   call netrw#BrowseX(l:url, 0)
 endfunction
 
-command! PlugOpen call s:plugOpen()
+command! PlugOpen call <SID>plugOpen()

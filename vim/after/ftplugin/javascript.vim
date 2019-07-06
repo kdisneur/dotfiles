@@ -1,10 +1,10 @@
-command! NextContainer silent! /\<class\>
-command! NextFunction silent! /\<function\>\|=>
-command! PreviousFunction silent! ?\<function\>\|=>
-command! PreviousContainer silent! ?\<class\>
+nnoremap <Plug>(NextContainer) :call search('/\<class\>', 'w')
+nnoremap <Plug>(NextFunction) :call search('/\<function\>\\|=>', 'w')
+nnoremap <Plug>(PreviousFunction) :call search('\<function\>\\|=>', 'wb')
+nnoremap <Plug>(PreviousContainer) :call search('\<class\>', 'wb')
 
-nnoremap <silent> <buffer> [m :PreviousFunction<cr>
-nnoremap <silent> <buffer> ]m :NextFunction<cr>
-nnoremap <silent> <buffer> [[ :PreviousContainer<cr>
-nnoremap <silent> <buffer> ]] :NextContainer<cr>
+nmap <silent> <buffer> [m <Plug>(PreviousFunction)<cr>
+nmap <silent> <buffer> ]m <Plug>(NextFunction)<cr>
+nmap <silent> <buffer> [[ <Plug>(PreviousContainer)<cr>
+nmap <silent> <buffer> ]] <Plug>(NextContainer)<cr>
 nnoremap <silent> <buffer> <C-]> :ALEGoToDefinition<cr>

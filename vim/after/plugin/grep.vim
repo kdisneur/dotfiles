@@ -3,8 +3,8 @@ if executable('ag')
   set grepformat=%f:%l:%c:%m
 endif
 
-function! s:Grep(...) abort
+function s:Grep(...) abort
   execute 'silent grep! ' . join(a:000, ' ') . ' | cwindow | redraw!'
 endfunction
 
-command! -complete=dir -nargs=+ Grep call s:Grep(<q-args>)
+command -complete=dir -nargs=+ Grep call s:Grep(<q-args>)

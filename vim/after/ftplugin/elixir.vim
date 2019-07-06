@@ -1,4 +1,4 @@
-function s:hexdoc()
+function! s:hexdoc()
   let l:package = expand("<cword>")
   let l:url     = "https://hex.pm/packages/" . l:package
   call netrw#BrowseX(l:url, 0)
@@ -24,7 +24,7 @@ function! s:movetoalternate(filename)
   endif
 endfunction
 
-function! s:alternate(filename)
+function s:alternate(filename)
   if s:istestfile(a:filename)
     let l:sourcefile = substitute(substitute(a:filename, "test/", "lib/", ""), "_test.exs$", ".ex", "")
     call s:movetoalternate(l:sourcefile)
@@ -60,23 +60,18 @@ function! s:synname() abort
   return synIDattr(synID(line('.'),col('.'),0),'name')
 endfunction
 
-command! EController call s:controller()
-command! ECommand call s:command()
-command! EQuery call s:query()
-command! EModel call s:model()
-command! EService call s:service()
-command! EView call s:view()
-command! EAlternate call s:alternate(expand("%"))
-command! HexDoc call s:hexdoc()
-command! NextContainer silent! /\<defmodule\>\|\<defprotocol\>\|\<defimpl\>
-command! NextFunction silent! /\<def\>\|\<defp\>\|\<defmacro\>\|\<defmacrop\>
-command! PreviousFunction silent! ?\<def\>\|\<defp\>\|\<defmacro\>\|\<defmacrop\>
-command! PreviousContainer silent! ?\<defmodule\>\|\<defprotocol\>\|\<defimpl\>
+command! HexDoc call <SID>hexdoc()
 
-nnoremap <silent> fsa :EAlternate<cr>
+nnoremap <buffer> <Plug>(ElixirAlternateFile) :call <SID>alternate(expand("%"))
+nnoremap <buffer> <Plug>(ElixirNextContainer) :call search('\<defmodule\>\\|\<defprotocol\>\\|\<defimpl\>', 'w')
+nnoremap <buffer> <Plug>(ElixirNextFunction) :call search('\<def\>\\|\<defp\>\\|\<defmacro\>\\|\<defmacrop\>', 'w')
+nnoremap <buffer> <Plug>(ElixirPreviousContainer) :call search('\<defmodule\>\\|\<defprotocol\>\\|\<defimpl\>', 'wb')
+nnoremap <buffer> <Plug>(ElixirPreviousFunction) :call search('\<def\>\\|\<defp\>\\|\<defmacro\>\\|\<defmacrop\>', 'wb')
 
-nnoremap <silent> <buffer> [m :PreviousFunction<cr>
-nnoremap <silent> <buffer> ]m :NextFunction<cr>
-nnoremap <silent> <buffer> [[ :PreviousContainer<cr>
-nnoremap <silent> <buffer> ]] :NextContainer<cr>
+nmap <buffer> <leader>fsa <Plug>(ElixirAlternateFile)<cr>
+
+nmap <silent> <buffer> [m <Plug>(ElixirPreviousFunction)<cr>
+nmap <silent> <buffer> ]m <Plug>(ElixirNextFunction)<cr>
+nmap <silent> <buffer> [[ <Plug>(ElixirPreviousContainer)<cr>
+nmap <silent> <buffer> ]] <Plug>(ElixirNextContainer)<cr>
 nnoremap <silent> <buffer> <C-]> :ALEGoToDefinition<cr>
