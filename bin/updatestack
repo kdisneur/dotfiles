@@ -1,10 +1,16 @@
 #! /usr/bin/env sh
 
+echo "🍺 install/update Brew applications..."
 brew update && brew upgrade && brew cleanup && brew doctor
 
+echo "🍏 install/update AppStore applications..."
 mas upgrade
 
+echo "🚩 install/update ASDF languages..."
 asdf update
 
-nvim +PlugInstall +PlugUpdate +qa
-vim +PlugInstall +PlugUpdate +qa
+echo "🖋  install/update Neovim and Vim plugins..."
+~/.bin/vimpack.sh
+
+echo "🖥  install/update tmux plugins..."
+~/.tmux/plugins/tpm/bin/update_plugins all

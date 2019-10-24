@@ -1,14 +1,12 @@
-function! Prose()
-  call litecorrect#init()
+if exists('g:my_prose_plugin_loaded')
+  finish
+end
 
+function Prose()
   setlocal wrap " soft wrap content
+  setlocal breakindent " follow indentation when wrapping
   setlocal linebreak " only breaks on specific characters
   setlocal textwidth=0 wrapmargin=0 " do not insert newlines automatically on insert mode
-
-  " manual reformatting shortcuts
-  nnoremap <buffer> <silent> Q gqap
-  xnoremap <buffer> <silent> Q gq
-  nnoremap <buffer> <silent> <leader>Q vapJgqap
 
   " force top correction on most recent misspelling
   nnoremap <buffer> <c-s> [s1z=<c-o>
@@ -18,4 +16,5 @@ endfunction
 command! American setlocal spell spelllang=en_us
 command! British setlocal spell spelllang=en_gb
 command! Francais setlocal spell spelllang=fr_fr
-command! Prose call Prose()
+
+let g:my_prose_plugin_loaded = 1

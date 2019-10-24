@@ -1,104 +1,46 @@
-call plug#begin('~/.vim/plugged')
-
-Plug 'NLKNguyen/papercolor-theme'
-Plug 'SirVer/ultisnips'
-Plug 'andyl/vim-textobj-elixir'
-Plug 'chaoren/vim-wordmotion'
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-Plug 'google/vim-jsonnet'
-Plug 'honza/vim-snippets'
-Plug 'itchyny/vim-qfedit'
-Plug 'jeetsukumaran/vim-buffergator'
-Plug 'kana/vim-textobj-user'
-Plug 'michaeljsmith/vim-indent-object'
-Plug 'ntpeters/vim-better-whitespace'
-Plug 'reedes/vim-litecorrect'
-Plug 'sheerun/vim-polyglot'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-eunuch'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-sensible'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-unimpaired'
-Plug 'w0rp/ale'
-Plug 'wellle/targets.vim'
-
 if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  let s:packages = globpath(expand('~/.vim/pack/nvimonly/opt'), '*')
 else
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
+  let s:packages = globpath(expand('~/.vim/pack/vimonly/opt'), '*')
 endif
 
-call plug#end()
+for s:package in split(s:packages, '\n')
+  execute ':packadd! ' . fnamemodify(s:package, ':t')
+endfor
 
-if filereadable("/usr/local/bin/python")
-  let g:python_host_prog = "/usr/local/bin/python"
+if filereadable('/usr/local/bin/python')
+  let g:python_host_prog = '/usr/local/bin/python'
 end
-
-if has('python3')
-  " Hide annoying warning
-  silent! python3 1
-endif
 
 let mapleader="\<Space>"
 
-if has("nvim")
-  set inccommand=nosplit
-endif
-
-set backspace=indent,eol,start " allow backspace key every time
-set complete=],.,b,u " autocomplete with tag, current buffer, other buffers (loaded and unloaded)
-set conceallevel=0 " do not use conceal
-set diffopt+=vertical
+" Indentation
 set expandtab " use the right number of spaces when pressing tab
-set formatoptions-=t "prevent auto word wrapping
-set history=500 "history of commands to keep in memory
-set incsearch " jump to the first match as typing
-set laststatus=2 " always display the status line
-set nobackup
-set nocursorcolumn
-set nocursorline
-set nohlsearch " do not highlight search results
-set nomodeline " do not enable vim executable commentary in files (i.e. /* vim: set ft=ruby*/)
-set noswapfile
-set nowrap " do not use softwrap
-set nowritebackup
-set path=.,** " search from current folder and sub folders
-set wildignore+=**/.git/**
-set wildignore+=**/_build/**
-set wildignore+=**/deps/**
-set wildignore+=**/node_modules/**
-set wildignore+=**/*.jpg,**/*.JPG,**/*.png,**/*.PNG,**/*.pdf,**/*.PDF
-set wildmenu
-set wildmode=full
-set relativenumber " display relative number
-set ruler
 set shiftwidth=2 " number of spaces to use on indentation
-set showcmd
-set spellfile=$HOME/.vim-spell-en.utf-8.add
-set tabstop=2 " number of spaces used to display tabs
-set textwidth=120 " max line before breaking lines
+set tabstop=4 " number of spaces used to display tabs
 
+" Search
+set incsearch " jump to the first match as typing
+set nohlsearch " do not highlight search results
+
+" Place splits where I expect when using `<c-w><c-v>` and `<c-w><c-s>`
+set splitbelow
+set splitright
+
+" Theming
 set background=light
 colorscheme PaperColor
 syntax enable
 
-set splitbelow
-set splitright
+" Shell
+set shellcmdflag=-c\ -i
 
 runtime! settings/*.vim
 runtime! mapping.vim
 
-if filereadable("~/.vim/vimrc.local")
-  source ~/.vim/vimrc.local
-endif
+" Ensure plugins are loaded and build help tags
+packloadall
+silent! helptags ALL
 
-function! CurrentHighlightGroups()
-  if !exists("*synstack")
-    return
-  endif
-  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
-endfunction
+syn match url /\(http\|https\|ftp\):\/\/[-0-9a-zA-Z_?&=+#%\/.!':;@~]\+/ contains=@NoSpell
+syn region asciidocblock start='----' end='----' contains=@NoSpell

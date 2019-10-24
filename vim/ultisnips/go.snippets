@@ -1,0 +1,37 @@
+priority 1
+
+snippet iferr
+if ${1:err} != nil {
+  ${0}
+}
+endsnippet
+
+snippet iferrcall
+if ${1:err} := ${2:functionCall()}; $1 != nil {
+  ${0}
+}
+endsnippet
+
+snippet interface
+type ${1} interface {
+  ${2}
+}
+endsnippet
+
+snippet func
+func ${1:main}(${2}) ${3} {
+  ${0}
+}
+endsnippet
+
+snippet pack "package"
+package ${1:`!v expand('%:h:t')`}
+
+$0
+endsnippet
+
+snippet struct
+type ${1} struct {
+  ${2}
+}
+endsnippet

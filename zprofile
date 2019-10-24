@@ -4,6 +4,7 @@ PATH="/usr/local/bin:${PATH}"
 PATH="/usr/local/sbin:${PATH}"
 PATH="${HOME}/.bin.local:${PATH}"
 PATH="${HOME}/.bin:${PATH}"
+PATH="${HOME}/Workspace/fewlinesco/dotfiles:${PATH}"
 
 export CDPATH="${CDPATH}:${HOME}/Workspace"
 export DISABLE_AUTO_TITLE="true"

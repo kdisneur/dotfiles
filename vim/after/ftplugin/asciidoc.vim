@@ -1,3 +1,1 @@
 setlocal spell
-
-call Prose()

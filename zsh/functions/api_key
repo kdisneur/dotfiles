@@ -1,3 +1,2 @@
 size=${1:-16}
-# remove characters looking similar and same character following each other
-base64 /dev/urandom  | tr -d '/+oO0iIl' | tr -s '[:alnum:]' | head -c ${size}
+openssl rand -hex ${size}

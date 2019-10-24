@@ -1,28 +1,21 @@
-function! s:hexdoc()
-  let l:package = expand("<cword>")
-  let l:url     = "https://hex.pm/packages/" . l:package
-  call netrw#BrowseX(l:url, 0)
-endfunction
+nnoremap <buffer> <Plug>(ElixirAlternateFile) :call <SID>alternate(expand("%"))
+nnoremap <buffer> <Plug>(ElixirNextContainer) :call search('\<defmodule\>\\|\<defprotocol\>\\|\<defimpl\>', 'w')
+nnoremap <buffer> <Plug>(ElixirNextFunction) :call search('\<def\>\\|\<defp\>\\|\<test\>\\|\<defmacro\>\\|\<defmacrop\>', 'w')
+nnoremap <buffer> <Plug>(ElixirPreviousContainer) :call search('\<defmodule\>\\|\<defprotocol\>\\|\<defimpl\>', 'wb')
+nnoremap <buffer> <Plug>(ElixirPreviousFunction) :call search('\<def\>\\|\<defp\>\\|\<test\>\\|\<defmacro\>\\|\<defmacrop\>', 'wb')
 
-function! s:scope(path)
-  if isdirectory("apps")
-    execute "CtrlP apps/*/" . a:path
-  else
-    execute "CtrlP " . a:path
-  endif
-endfunction
+nmap <buffer> <leader>fsa <Plug>(ElixirAlternateFile)<cr>
 
-function! s:istestfile(filename)
-  return match(a:filename, "_test.exs$") >= 0
-endfunction
+nmap <silent> <buffer> [m <Plug>(ElixirPreviousFunction)<cr>
+nmap <silent> <buffer> ]m <Plug>(ElixirNextFunction)<cr>
+nmap <silent> <buffer> [[ <Plug>(ElixirPreviousContainer)<cr>
+nmap <silent> <buffer> ]] <Plug>(ElixirNextContainer)<cr>
+nnoremap <silent> <buffer> <C-]> :ALEGoToDefinition<cr>
+nnoremap <silent> <buffer> <C-W><C-]> :ALEGoToDefinitionInVSplit<cr>
 
-function! s:movetoalternate(filename)
-  if filereadable(a:filename)
-    execute "edit " . a:filename
-  else
-    echom "No alternative file found: " . a:filename
-  endif
-endfunction
+if exists('g:my_elixir_plugin_loaded')
+  finish
+end
 
 function s:alternate(filename)
   if s:istestfile(a:filename)
@@ -34,7 +27,27 @@ function s:alternate(filename)
   endif
 endfunction
 
-function! s:searchsyn(pattern, syn, flags, mode) abort
+function s:scope(path)
+  if isdirectory("apps")
+    execute "CtrlP apps/*/" . a:path
+  else
+    execute "CtrlP " . a:path
+  endif
+endfunction
+
+function s:istestfile(filename)
+  return match(a:filename, "_test.exs$") >= 0
+endfunction
+
+function s:movetoalternate(filename)
+  if filereadable(a:filename)
+    execute "edit " . a:filename
+  else
+    echom "No alternative file found: " . a:filename
+  endif
+endfunction
+
+function s:searchsyn(pattern, syn, flags, mode) abort
   let cnt = v:count1
   norm! m'
   if a:mode ==# 'v'
@@ -60,18 +73,4 @@ function! s:synname() abort
   return synIDattr(synID(line('.'),col('.'),0),'name')
 endfunction
 
-command! HexDoc call <SID>hexdoc()
-
-nnoremap <buffer> <Plug>(ElixirAlternateFile) :call <SID>alternate(expand("%"))
-nnoremap <buffer> <Plug>(ElixirNextContainer) :call search('\<defmodule\>\\|\<defprotocol\>\\|\<defimpl\>', 'w')
-nnoremap <buffer> <Plug>(ElixirNextFunction) :call search('\<def\>\\|\<defp\>\\|\<defmacro\>\\|\<defmacrop\>', 'w')
-nnoremap <buffer> <Plug>(ElixirPreviousContainer) :call search('\<defmodule\>\\|\<defprotocol\>\\|\<defimpl\>', 'wb')
-nnoremap <buffer> <Plug>(ElixirPreviousFunction) :call search('\<def\>\\|\<defp\>\\|\<defmacro\>\\|\<defmacrop\>', 'wb')
-
-nmap <buffer> <leader>fsa <Plug>(ElixirAlternateFile)<cr>
-
-nmap <silent> <buffer> [m <Plug>(ElixirPreviousFunction)<cr>
-nmap <silent> <buffer> ]m <Plug>(ElixirNextFunction)<cr>
-nmap <silent> <buffer> [[ <Plug>(ElixirPreviousContainer)<cr>
-nmap <silent> <buffer> ]] <Plug>(ElixirNextContainer)<cr>
-nnoremap <silent> <buffer> <C-]> :ALEGoToDefinition<cr>
+let g:my_elixir_plugin_loaded = 1

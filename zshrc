@@ -5,6 +5,9 @@ setopt INC_APPEND_HISTORY
 setopt SHARE_HISTORY
 
 bindkey -e
+autoload -U edit-command-line;
+zle -N edit-command-line;
+bindkey '^F' edit-command-line # Edit current line with C-f
 bindkey '^[[1;9D' backward-word # Alt-Left
 bindkey '^[[1;9C' forward-word # Alt-Right
 bindkey '^[[3~' delete-char # Delete
@@ -26,7 +29,7 @@ _currentKubernetesContextName() {
   if [ -z "${context}" -o "${context}" = "docker-desktop" ]; then
     echo ""
   else
-    echo "%{%F{198}%} ${context}%{%f%} "
+    echo "%{%F{1}%} ${context}%{%f%} "
   fi
 }
 

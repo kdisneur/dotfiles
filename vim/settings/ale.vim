@@ -1,4 +1,4 @@
-let g:ale_completion_enabled = 1
+let g:ale_completion_enabled = 0
 let g:ale_cursor_detail = 0
 let g:ale_elixir_credo_strict = 1
 let g:ale_elixir_elixir_ls_release = $HOME . '/Workspace/JakeBecker/elixir-ls/rel'
@@ -14,6 +14,7 @@ let g:ale_update_tagstack = 1
 let g:ale_linters = {
 \  'sh': ['shell'],
 \  'elixir': ['credo', 'elixir-ls'],
+\  'go': ['gopls'],
 \  'javascript': ['eslint'],
 \  'typescript': ['eslint', 'tsserver'],
 \}

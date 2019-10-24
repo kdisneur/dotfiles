@@ -13,15 +13,17 @@ export DISPLAY=:1
 export EDITOR=vim
 export FPATH
 export GIT_EDITOR=vim
+export GITPR_EDITOR="vim -c 'set ft=markdown'"
 export GOPATH=~/Workspace/go
 PATH="${PATH}:${GOPATH}/bin"
 export HOMEBREW_BREWFILE=${HOME}/.brewfile
 export KERL_CONFIGURE_OPTIONS="--disable-debug --without-javac --with-wx" # In order to not install Erlang with Java
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
+export LYNX_LSS=$HOME/.lynx.lss
 export PATH
 export TERM=xterm-256color
-export WORDCHARS='*?.[]~=&;!#$%^(){}<>'
+export WORDCHARS='*?.[]~&;!#$%^(){}<>'
 export TILLER_NAMESPACE=tiller
 export HELM_TLS_ENABLE=true
 

@@ -1,0 +1,5 @@
+mkdir -p /tmp/preview
+dir=$(mktemp -d /tmp/preview/XXXXX)
+file=${dir}/index.html
+pandoc -t html -f gfm ${1} > ${file}
+open -a safari ${file}

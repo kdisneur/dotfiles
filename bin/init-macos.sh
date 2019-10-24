@@ -11,6 +11,9 @@ ${root}/init-macos/asdf.sh
 echo "Install zsh..."
 ${root}/init-macos/zsh.sh
 
+echo "Install tmux plugins..."
+~/.tmux/plugins/tpm/bin/install_plugins
+
 echo "Install editors..."
 ${root}/init-macos/editor.sh
 

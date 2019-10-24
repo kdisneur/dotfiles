@@ -2,7 +2,7 @@
 
   br = branch
   ci = commit -S
-  circleci = !open "https://circleci.com/gh/$(git remote get-url --push origin | sed -e 's/.*://' -e 's/\\.git//' | cut -f 1 -d '/')/workflows/$(git remote get-url --push origin | sed -e 's/.*://' -e 's/\\.git//' | cut -f 2 -d '/')/tree/$(git current | sed 's/#/%23/g')"
+  circleci = !open "https://circleci.com/gh/$(git remote get-url --push origin | sed -e 's/.*://' -e 's/\\.git//' | cut -f 1 -d '/')/workflows/$(git remote get-url --push origin | sed -e 's/.*://' -e 's/\\.git//' | cut -f 2 -d '/')/tree/$(git current | sed 's/#/%23/g' | sed 's#/#%2F#g')"
   clean-branches = ! git branch -vv | grep "gone]" | awk '{ print $1 }' | xargs git branch -D
   co = checkout
   create-branch = !sh -c 'git checkout -b $1-$2' -

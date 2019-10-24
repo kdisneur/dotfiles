@@ -1,4 +1,14 @@
-function! s:checkTask()
+setlocal spell
+
+nnoremap <Plug>(MarkdownCheckTask) :call <SID>checkTask()
+
+nmap <silent> <buffer> - <Plug>(MarkdownCheckTask)<cr>
+
+if exists('g:my_markdown_plugin_loaded')
+  finish
+end
+
+function s:checkTask()
     let l:line=getline('.')
     let l:cursor=winsaveview()
     if l:line=~?'\s*-\s*\[\s*\].*'
@@ -13,10 +23,4 @@ function! s:checkTask()
     call winrestview(l:cursor)
 endfunction
 
-setlocal spell
-
-call Prose()
-
-nnoremap <Plug>(MarkdownCheckTask) :call <SID>checkTask()
-
-nmap <silent> <buffer> - <Plug>(MarkdownCheckTask)<cr>
+let g:my_markdown_plugin_loaded = 1

@@ -9,39 +9,46 @@ def elixir_module_name(inp):
 	return ".".join(reformatted_modules)
 endglobal
 
-snippet defmo
+snippet defmo "defmodule"
 defmodule ${1:`!p snip.rv = elixir_module_name(path)`} do
   $2
 end
 endsnippet
-snippet defcontroller
+
+snippet defcontroller "defcontroller"
 defmodule ${1:`substitute(substitute(substitute(expand('%:r'), '^[^/]\+/\(.*\)', '\1', ''), '\(_\|/\|^\)\([^/_]\+\)', '\u\2.\3', 'g'), '.$', '', '')`} do
   use $2.Web, :controller
 
   $3
 end
 endsnippet
-snippet def
+
+snippet def "def"
 def $1($2) do
   $0
 end
 endsnippet
+
 snippet def:
 def $1($2), do: $0
 endsnippet
+
 snippet defp
 defp $1($2) do
   $0
 end
 endsnippet
+
 snippet defp:
 defp $1($2), do: $0
 endsnippet
+
 snippet deftest
 test "$1: $2" do
   $0
 end
 endsnippet
+
 snippet defgenserver
 defmodule ${1:`!p snip.rv = elixir_module_name(path)`} do
   use GenServer
@@ -53,6 +60,7 @@ defmodule ${1:`!p snip.rv = elixir_module_name(path)`} do
   $0
 end
 endsnippet
+
 snippet defsupervisor
 defmodule ${1:`!p snip.rv = elixir_module_name(path)`} do
   use Supervisor
@@ -70,9 +78,11 @@ defmodule ${1:`!p snip.rv = elixir_module_name(path)`} do
   end
 end
 endsnippet
+
 snippet supervisorworker
 worker(${1:Module}, [${2:params}])$0
 endsnippet
+
 snippet supervisorsupervisor
 supervisor(${1:Module}, [${2:params}])$0
 endsnippet

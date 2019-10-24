@@ -9,10 +9,10 @@ unbind-key UP
 bind-key j down
 bind-key k up
 
-color background          black     white
-color listnormal          black     white
-color listfocus           color24   white   bold
-color listnormal_unread   black     white
-color listfocus_unread    color24   white   bold
+color background          default   default
+color listnormal          default   default
+color listfocus           color24   default   bold
+color listnormal_unread   default   default
+color listfocus_unread    color24   default   bold
 color info                white     color24
-color article             black     white
+color article             default   default
