@@ -1,5 +1,17 @@
 priority 1
 
+snippet ttable
+tcs := []struct {
+    Name string${1}
+}{}
+
+for _, tc := range tcs {
+    t.Run(tc.Name, func(t *testing.T) {
+        ${0}
+    })
+}
+endsnippet
+
 snippet iferr
 if ${1:err} != nil {
   ${0}
