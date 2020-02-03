@@ -1,0 +1,45 @@
+namespace "textobjects"
+
+onstart "andyl/vim-textobj-elixir"
+onstart "chaoren/vim-wordmotion"
+onstart "christoomey/vim-sort-motion"
+onstart "kana/vim-textobj-user"
+onstart "michaeljsmith/vim-indent-object"
+onstart "wellle/targets.vim"
+
+namespace "autocompletion"
+
+onstart "Shougo/deoplete.nvim"
+onstart "ctrlpvim/ctrlp.vim"
+onstart "w0rp/ale"
+
+namespace "highlighting"
+
+onstart "NLKNguyen/papercolor-theme"
+onstart "google/vim-jsonnet"
+onstart "jeffkreeftmeijer/vim-dim"
+onstart "sheerun/vim-polyglot"
+
+namespace "snippets"
+
+onstart "SirVer/ultisnips"
+onstart "honza/vim-snippets"
+
+namespace "stuff"
+
+onstart "fatih/vim-go"
+onstart "itchyny/vim-qfedit"
+onstart "jeetsukumaran/vim-buffergator"
+onstart "ntpeters/vim-better-whitespace"
+onstart "reedes/vim-litecorrect"
+onstart "tpope/vim-commentary"
+onstart "tpope/vim-eunuch"
+onstart "tpope/vim-repeat"
+onstart "tpope/vim-sensible"
+onstart "tpope/vim-surround"
+onstart "tpope/vim-unimpaired"
+
+namespace "vimonly"
+
+ondemand "roxma/nvim-yarp"
+ondemand "roxma/vim-hug-neovim-rpc"

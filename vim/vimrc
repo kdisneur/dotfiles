@@ -27,6 +27,9 @@ set nohlsearch " do not highlight search results
 set splitbelow
 set splitright
 
+" Define how omifunc completion behave
+set completeopt=longest,menuone
+
 " Theming
 set background=light
 colorscheme PaperColor
