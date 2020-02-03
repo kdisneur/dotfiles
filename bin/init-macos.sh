@@ -12,7 +12,7 @@ echo "Install zsh..."
 ${root}/init-macos/zsh.sh
 
 echo "Install tmux plugins..."
-~/.tmux/plugins/tpm/bin/install_plugins
+${root}/init-macos/tmux.sh
 
 echo "Install editors..."
 ${root}/init-macos/editor.sh

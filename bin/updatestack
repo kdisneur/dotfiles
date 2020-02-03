@@ -10,7 +10,7 @@ echo "🚩 install/update ASDF languages..."
 asdf update
 
 echo "🖋  install/update Neovim and Vim plugins..."
-~/.bin/vimpack.sh
+vimpack
 
 echo "🖥  install/update tmux plugins..."
 ~/.tmux/plugins/tpm/bin/update_plugins all
