@@ -8,6 +8,7 @@ mas upgrade
 
 echo "🚩 install/update ASDF languages..."
 asdf update
+asdf plugin update --all
 
 echo "🖋  install/update Neovim and Vim plugins..."
 vimpack
