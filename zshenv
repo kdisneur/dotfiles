@@ -10,10 +10,10 @@ FPATH="${HOME}/.zsh/functions:${FPATH}"
 export CDPATH="${CDPATH}:${HOME}/Workspace"
 export DISABLE_AUTO_TITLE="true"
 export DISPLAY=:1
-export EDITOR=vim
+export EDITOR=nvim
 export FPATH
 export GIT_EDITOR=vim
-export GITPR_EDITOR="vim -c 'set ft=markdown'"
+export GITPR_EDITOR="nvim -c 'set ft=markdown'"
 export GOPATH=~/Workspace/go
 PATH="${PATH}:${GOPATH}/bin"
 export HOMEBREW_BREWFILE=${HOME}/.brewfile
