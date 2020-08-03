@@ -14,7 +14,7 @@ let g:ale_update_tagstack = 1
 let g:ale_linters = {
 \  'sh': ['shell'],
 \  'elixir': ['credo', 'elixir-ls'],
-\  'go': ['gopls'],
+\  'go': ['gopls', 'golint'],
 \  'javascript': ['eslint'],
 \  'typescript': ['eslint', 'tsserver'],
 \}
