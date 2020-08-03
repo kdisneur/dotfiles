@@ -10,6 +10,8 @@ zle -N edit-command-line;
 bindkey '^F' edit-command-line # Edit current line with C-f
 bindkey '^[[1;9D' backward-word # Alt-Left
 bindkey '^[[1;9C' forward-word # Alt-Right
+bindkey '^[[1;3D' backward-word # Alt-Left
+bindkey '^[[1;3C' forward-word # Alt-Right
 bindkey '^[[3~' delete-char # Delete
 bindkey '^[[Z' reverse-menu-complete # Ctrl-r
 bindkey '^[[A' up-line-or-search # Arrow up

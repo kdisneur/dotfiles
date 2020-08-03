@@ -4,3 +4,4 @@ alias kctx=kubectx
 alias ls='ls -G'
 alias ll='ls -lh'
 alias serve="ruby -run -e httpd . -p 8000"
+alias vscode="/usr/local/bin/code"
