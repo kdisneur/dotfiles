@@ -1,20 +1,20 @@
 #! /bin/sh
 
 hasCommitID() {
-  git rev-parse --abbrev-ref HEAD | grep -E '^[0-9]+-' &> /dev/null
+  git rev-parse --abbrev-ref HEAD | grep -E '^CU-[0-9a-z]+-' &> /dev/null
 }
 
 issueNumber() {
-  git rev-parse --abbrev-ref HEAD | sed -E 's/^([0-9]+)-.*/\1/'
+  git rev-parse --abbrev-ref HEAD | sed -E 's/^(CU-[0-9a-z]+)-.*/\1/'
 }
 
 hasNoIssueInMessage() {
-  ! grep "[ch$(issueNumber)]" $1 &> /dev/null
+  ! grep "[$(issueNumber)]" $1 &> /dev/null
 }
 
 if hasCommitID; then
   if hasNoIssueInMessage $1; then
-    message="[ch$(issueNumber)]"
+    message="[$(issueNumber)]"
     echo "Insert issue $(issueNumber) in the commit"
     echo >> $1
     echo ${message} >> $1
