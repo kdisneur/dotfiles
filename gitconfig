@@ -5,28 +5,19 @@
   circleci = !open "https://circleci.com/gh/$(git remote get-url --push origin | sed -e 's/.*://' -e 's/\\.git//' | cut -f 1 -d '/')/workflows/$(git remote get-url --push origin | sed -e 's/.*://' -e 's/\\.git//' | cut -f 2 -d '/')/tree/$(git current | sed 's/#/%23/g' | sed 's#/#%2F#g')"
   clean-branches = ! git branch -vv | grep "gone]" | awk '{ print $1 }' | xargs git branch -D
   co = checkout
-  create-branch = !sh -c 'git checkout -b $1-$2' -
-  create-feature = !sh -c 'git checkout -b feature/$1' -
-  create-hotfix = !sh -c 'git checkout -b hotfix/$1' -
-  create-release = !sh -c 'git checkout -b release/v$1' -
-  create-tag = !sh -c 'git tag -s --message=\"Bump to v$1\" v$1 $2' -
+  create-clickup = !sh -c 'git checkout -b $(echo CU-$1-$2 | sed -e "s/#//")' -
   current = rev-parse --abbrev-ref HEAD
   d  = diff
   dc = diff --cached
-  exec = ! exec
   g  = grep --break --heading --line-number
   l  = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue)<%an>%Creset' --abbrev-commit
   oops = commit -S --amend --no-edit
   p = push -u
   pf = push --force-with-lease
-  pff = push --force-with-lease --no-verify
   pr = !open "https://github.com/$(git remote get-url --push origin | sed -e 's/.*://' -e 's/\\.git//')/compare/$(git current)?expand=1"
   pr-create = !gitpr
-  clubhouse = !open "https://app.clubhouse.io/fewlines/story/$(git current | grep -Eo '[0-9]+' | sed 's/#//')"
-  issue = !open "https://github.com/$(git remote get-url --push origin | sed -e 's/.*://' -e 's/\\.git//')/issues/$(git current | grep -Eo '[0-9]+' | sed 's/#//')"
+  clickup = !open "https://app.clickup.com/t/$(git current | grep -Eo 'CU-[0-9a-z]+' | sed 's/CU-//')"
   s  = status --branch --short
-  serve-ro = !git daemon --reuseaddr --verbose  --base-path=. --export-all --informative-errors --verbose ./.git
-  serve-rw = !git daemon --reuseaddr --verbose  --base-path=. --export-all --enable=receive-pack --informative-errors --verbose ./.git
   root = rev-parse --show-toplevel
 
 [color]
@@ -37,7 +28,7 @@
 [diff]
 
   renames = copies
-	tool = vimdiff3
+  tool = vimdiff3
 
 [difftool]
   prompt = false
@@ -77,6 +68,9 @@
 [mergetool "vimdiff3"]
 	path = nvim
 
+[pull]
+	rebase = false
+
 [push]
 
   default = current
@@ -92,3 +86,4 @@
 
 [url "git@github.com:fewlinesco/"]
 	insteadOf = "fewlines:"
+
