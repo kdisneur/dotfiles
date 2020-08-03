@@ -1,0 +1,24 @@
+# vim: syntax=tmux
+
+rename-session connect
+
+rename-window Management
+set-buffer "cd ${HOME}/Workspace/fewlinesco/connect/management/; nvim\n"
+paste-buffer
+
+new-window
+rename-window OAuth
+set-buffer "cd ${HOME}/Workspace/fewlinesco/connect/oauth/; nvim\n"
+paste-buffer
+
+new-window
+rename-window Token
+set-buffer "cd ${HOME}/Workspace/fewlinesco/connect/token/; nvim\n"
+paste-buffer
+
+new-window
+rename-window Notification
+set-buffer "cd ${HOME}/Workspace/fewlinesco/connect/notification/; nvim\n"
+paste-buffer
+
+selectw -t Management
