@@ -9,9 +9,9 @@ PATH="${HOME}/Workspace/fewlinesco/dotfiles:${PATH}"
 export CDPATH="${CDPATH}:${HOME}/Workspace"
 export DISABLE_AUTO_TITLE="true"
 export DISPLAY=:1
-export EDITOR=vim
+export EDITOR=nvim
 export FPATH
-export GIT_EDITOR=vim
+export GIT_EDITOR=nvim
 export GOPATH=~/Workspace/go
 PATH="${PATH}:${GOPATH}/bin"
 export HOMEBREW_BREWFILE=${HOME}/.brewfile

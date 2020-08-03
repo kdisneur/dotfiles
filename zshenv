@@ -12,7 +12,7 @@ export DISABLE_AUTO_TITLE="true"
 export DISPLAY=:1
 export EDITOR=nvim
 export FPATH
-export GIT_EDITOR=vim
+export GIT_EDITOR=nvim
 export GITPR_EDITOR="nvim -c 'set ft=markdown'"
 export GOPATH=~/Workspace/go
 PATH="${PATH}:${GOPATH}/bin"
