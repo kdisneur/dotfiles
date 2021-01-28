@@ -35,9 +35,6 @@ set background=light
 colorscheme PaperColor
 syntax enable
 
-" Shell
-set shellcmdflag=-c\ -i
-
 runtime! settings/*.vim
 runtime! mapping.vim
 

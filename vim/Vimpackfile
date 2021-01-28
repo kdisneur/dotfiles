@@ -17,7 +17,6 @@ namespace "highlighting"
 
 onstart "NLKNguyen/papercolor-theme"
 onstart "google/vim-jsonnet"
-onstart "jeffkreeftmeijer/vim-dim"
 onstart "sheerun/vim-polyglot"
 
 namespace "snippets"
@@ -27,6 +26,7 @@ onstart "honza/vim-snippets"
 
 namespace "stuff"
 
+onstart "editorconfig/editorconfig-vim"
 onstart "fatih/vim-go"
 onstart "itchyny/vim-qfedit"
 onstart "jeetsukumaran/vim-buffergator"
@@ -38,8 +38,3 @@ onstart "tpope/vim-repeat"
 onstart "tpope/vim-sensible"
 onstart "tpope/vim-surround"
 onstart "tpope/vim-unimpaired"
-
-namespace "vimonly"
-
-ondemand "roxma/nvim-yarp"
-ondemand "roxma/vim-hug-neovim-rpc"
