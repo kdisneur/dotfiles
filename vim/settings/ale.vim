@@ -1,7 +1,7 @@
 let g:ale_completion_enabled = 0
 let g:ale_cursor_detail = 0
 let g:ale_elixir_credo_strict = 1
-let g:ale_elixir_elixir_ls_release = $HOME . '/Workspace/JakeBecker/elixir-ls/rel'
+let g:ale_elixir_elixir_ls_release = $HOME . '/Workspace/elixir-lsp/elixir-ls/rel'
 let g:ale_fix_on_save = 1
 let g:ale_go_langserver_executable = 'gopls'
 let g:ale_keep_list_window_open = 0
