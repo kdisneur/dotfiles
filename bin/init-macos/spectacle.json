@@ -56,7 +56,7 @@
     "shortcut_name" : "MoveToLeftHalf"
   },
   {
-    "shortcut_key_binding" : "alt+cmd+c",
+    "shortcut_key_binding" : null,
     "shortcut_name" : "MoveToCenter"
   },
   {
