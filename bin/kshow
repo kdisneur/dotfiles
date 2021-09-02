@@ -52,7 +52,7 @@ case "${objectType}" in
     fi
     ;;
   *)
-    >&2 echo "invalid object type argument '${objectType}'. valid values: cfg, secret"
+    >&2 echo "invalid object type argument '${objectType}'. valid values: configmap, secrets"
     exit 1
     ;;
 esac
