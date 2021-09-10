@@ -6,6 +6,7 @@ tap "homebrew/services"
 tap "kdisneur/formulae"
 tap "thoughtbot/formulae"
 
+brew "adguard"
 brew "autoconf"
 brew "automake"
 brew "awscli"
