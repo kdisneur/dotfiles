@@ -53,10 +53,10 @@ floating_modifier $mod
 bindsym $mod+Return exec i3-msg '[class="kitty"] focus' || kitty
 bindsym $mod+b exec i3-msg '[class="Chromium"] focus' || chromium
 bindsym $mod+p exec i3-msg '[class="1Password"] focus' || 1password
-bindsym $mod+Control+l exec "i3lock -c 000000"
+bindsym $mod+Control+l exec "i3lock -c 000000 && systemctl suspend"
 bindsym Print exec --no-startup-id maim "~/Pictures/$(date).png"
-bindsym $mod+Print exec --no-startup-id maim --window $(xdotool getactivewindow) "~/Pictures/$(date).png"
-bindsym Shift+Print exec --no-startup-id maim --select "~/Pictures/$(date).png"
+bindsym $mod+Print exec --no-startup-id maim --window $(xdotool getactivewindow) "~/Pictures/Screenshots/$(date +'%Y-%m-%d_%H-%M-%S').png"
+bindsym Shift+Print exec --no-startup-id maim --select "~/Pictures/Screenshots/$(date +'%Y-%m-%d_%H-%M-%S').png"
 
 assign [class="kitty"] $ws4
 assign [class="Chromium"] $ws2
