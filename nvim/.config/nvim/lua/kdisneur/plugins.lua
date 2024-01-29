@@ -25,12 +25,12 @@ return require('packer').startup({
     })
 
     -- Editing and Navigation
-    use({'gpanders/editorconfig.nvim'})
+    use({ 'gpanders/editorconfig.nvim' })
 
     use({
       'tpope/vim-surround',
       event = 'BufRead',
-      requires = {{ 'tpope/vim-repeat', event = 'BufRead', }}
+      requires = { { 'tpope/vim-repeat', event = 'BufRead', } }
     })
 
     use({
@@ -41,7 +41,7 @@ return require('packer').startup({
     })
 
 
-    use({'tpope/vim-eunuch'})
+    use({ 'tpope/vim-eunuch' })
 
     use({
       'chaoren/vim-wordmotion',
@@ -50,10 +50,11 @@ return require('packer').startup({
       end
     })
 
-    use({ 'nvim-telescope/telescope.nvim',
-      requires={
-        {'nvim-lua/plenary.nvim'},
-        {'nvim-telescope/telescope-ui-select.nvim'}
+    use({
+      'nvim-telescope/telescope.nvim',
+      requires = {
+        { 'nvim-lua/plenary.nvim' },
+        { 'nvim-telescope/telescope-ui-select.nvim' }
       },
       config = function()
         require('kdisneur.plugins.telescope')
@@ -84,6 +85,7 @@ return require('packer').startup({
       config = function()
         require('kdisneur.plugins.mason')
       end,
+      after = "nvim-lspconfig",
     }
 
     use {
@@ -91,7 +93,7 @@ return require('packer').startup({
       config = function()
         require('kdisneur.plugins.mason-lspconfig')
       end,
-      after = "mason",
+      after = "mason.nvim",
     }
 
     use({
@@ -100,8 +102,7 @@ return require('packer').startup({
       config = function()
         require('kdisneur.plugins.lsp-servers')
       end,
-      requires = {{ 'hrsh7th/cmp-nvim-lsp' }},
-      after = "mason-lspconfig",
+      requires = { { 'hrsh7th/cmp-nvim-lsp' } },
     })
 
     use({
@@ -131,16 +132,16 @@ return require('packer').startup({
         },
       },
       { 'saadparwaiz1/cmp_luasnip', after = 'nvim-cmp' },
-      { 'hrsh7th/cmp-path', after = 'nvim-cmp' },
-      { 'hrsh7th/cmp-buffer', after = 'nvim-cmp' },
+      { 'hrsh7th/cmp-path',         after = 'nvim-cmp' },
+      { 'hrsh7th/cmp-buffer',       after = 'nvim-cmp' },
     })
 
     -- Theme
     use({
-       'Mofiqul/vscode.nvim',
-       config = function()
-         require('kdisneur.plugins.vscode')
-       end
-     })
+      'Mofiqul/vscode.nvim',
+      config = function()
+        require('kdisneur.plugins.vscode')
+      end
+    })
   end
 })
