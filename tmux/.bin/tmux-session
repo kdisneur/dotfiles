@@ -1,0 +1,28 @@
+#! /usr/bin/env bash
+
+projectPath=${1};
+
+if [ -z "${projectPath}" ]; then
+  projectPath=$(
+    find ~/Workspaces/ -mindepth 2 -maxdepth 2 -type d -print \
+      | fzf
+  );
+fi
+
+if [ -z "${projectPath}" ]; then
+  >&2 echo "no project selected";
+  exit 1;
+fi
+
+sessionName=$(basename "${projectPath}");
+
+if ! tmux has-session -t "${sessionName}" &> /dev/null; then
+  TMUX='' tmux new-session -d -c "${projectPath}" -s "${sessionName}";
+fi
+
+if [ -z "${TMUX}" ]; then
+  tmux attach-session -t "${sessionName}";
+else
+  tmux switch-client -t "${sessionName}";
+fi
+

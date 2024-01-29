@@ -1,0 +1,14 @@
+#! /usr/bin/env bash
+
+if [ "$1" = "-setup" ]; then
+  sudo nvim \
+    -c "/xkb_symbols \"mac\"" \
+    -c "/LSGT" \
+    -c "normal! ci<TLDE" \
+    -c "/TLDE" \
+    -c "normal! ci<LSGT" \
+    -c "x" \
+    /usr/share/X11/xkb/symbols/us
+fi
+
+setxkbmap -layout us -variant mac

@@ -1,0 +1,21 @@
+[org/gnome/desktop/input-sources]
+mru-sources=[('xkb', 'us+altgr-intl'), ('xkb', 'us+intl'), ('xkb', 'us')]
+per-window=false
+sources=[('xkb', 'us+altgr-intl')]
+xkb-options=['compose:ralt']
+
+[org/gnome/mutter]
+edge-tiling=false
+
+[org/gnome/shell]
+app-picker-layout=@aa{sv} []
+disabled-extensions=['ubuntu-dock@ubuntu.com']
+favorite-apps=['kitty.desktop', 'chromium_chromium.desktop', '1password_1password.desktop', 'org.gnome.Geary.desktop']
+welcome-dialog-last-shown-version='42.0'
+
+[org/gnome/shell/extensions/dash-to-dock]
+autohide=false
+dock-fixed=false
+
+[org/gnome/shell/extensions/ding]
+show-home=false
