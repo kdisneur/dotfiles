@@ -66,10 +66,10 @@ lsp.rust_analyzer.setup({
 })
 
 local servers = {
-  'golangci_lint_ls', -- Go linter
-  'gopls', -- Go
-  'clangd', -- C
-  'tsserver', -- Typescript
+--  'golangci_lint_ls', -- Go linter
+--  'gopls', -- Go
+--  'clangd', -- C
+--  'tsserver', -- Typescript
 }
 
 

@@ -79,13 +79,29 @@ return require('packer').startup({
     }
 
     -- LSP, Completions and Snippet
+    use {
+      "williamboman/mason.nvim",
+      config = function()
+        require('kdisneur.plugins.mason')
+      end,
+    }
+
+    use {
+      "williamboman/mason-lspconfig.nvim",
+      config = function()
+        require('kdisneur.plugins.mason-lspconfig')
+      end,
+      after = "mason",
+    }
+
     use({
       'neovim/nvim-lspconfig',
       event = 'BufRead',
       config = function()
         require('kdisneur.plugins.lsp-servers')
       end,
-      requires = {{ 'hrsh7th/cmp-nvim-lsp' }}
+      requires = {{ 'hrsh7th/cmp-nvim-lsp' }},
+      after = "mason-lspconfig",
     })
 
     use({
