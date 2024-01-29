@@ -16,3 +16,9 @@ export TERM=xterm-256color;
 export WORDCHARS='*?.[]~&;!#$%^(){}<>';
 
 source "${HOME}/.cargo/env"
+
+export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
+ --color=fg:#171421,bg:#eeeeee,hl:#005f87
+ --color=fg+:#eeeeee,bg+:#005f87,hl+:#eeeeee
+ --color=info:#afaf87,prompt:#005f87,pointer:#eeeeee
+ --color=marker:#eeeeee,spinner:#005f87,header:#005f87';
