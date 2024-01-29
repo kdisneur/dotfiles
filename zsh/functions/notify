@@ -1,3 +1,0 @@
-title=${1:-"Alert"};
-message=${2:-"Well... I don't know what I should tell you ¯\\\\_(ツ)_/¯"};
-osascript -e "display notification \"${message}\" With Title \"${title}\""

@@ -1,5 +1,0 @@
-mkdir -p /tmp/preview
-dir=${2:-$(mktemp -d /tmp/preview/XXXXX)};
-file=${dir}/index.html
-asciidoctor ${1} -o ${file}
-open -a safari ${file}

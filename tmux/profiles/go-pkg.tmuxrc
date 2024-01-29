@@ -1,7 +1,0 @@
-# vim: syntax=tmux
-
-rename-session go-pkg
-
-rename-window Go-PKG
-set-buffer "cd ${HOME}/Workspace/fewlinesco/go-pkg; nvim\n"
-paste-buffer
