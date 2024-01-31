@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+#
+# | 180–300 | Ideal HiDPI                    |
+# https://github.com/cassidyjames/dippi/blob/main/dpi.md#desktops
+echo 'Xft.dpi: 180' > ~/.Xresources
+xrdb ~/.Xresources
