@@ -20,25 +20,17 @@ unsetopt beep # Be quiet!
 unsetopt auto_cd # If a command isn't valid, but is a directory, cd to that dir
 
 setopt prompt_subst # Expand parameters in prompt variables
-setopt emacs # Use emacs keybindings in the shell
+setopt vi # Use VI keybindings in the shell
 
 fpath=("${HOME}/.zsh/functions" "${fpath[@]}");
 for f in ~/.zsh/functions/*; do autoload -Uz ${f##*/}; done
 
 [ -z "$TMUX" ] && tmux-session;
 
-bindkey -e
+bindkey -v
 autoload -U edit-command-line;
 zle -N edit-command-line;
 bindkey '^x^e' edit-command-line # Edit current line with C-x+C-e
-bindkey '^[[1;9D' backward-word # Alt-Left
-bindkey '^[[1;9C' forward-word # Alt-Right
-bindkey '^[[1;3D' backward-word # Alt-Left
-bindkey '^[[1;3C' forward-word # Alt-Right
-bindkey '^[[3~' delete-char # Delete
-bindkey '^[[Z' reverse-menu-complete # Ctrl-r
-bindkey '^[[A' up-line-or-search # Arrow up
-bindkey '^[[B' down-line-or-search # Arrow down
 
 setopt PROMPT_SUBST
 export PROMPT='%F{235}%B%c%b%f %(?.%F{24}❯%f.%F{198}❯%f) '
