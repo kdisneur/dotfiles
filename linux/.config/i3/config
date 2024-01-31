@@ -11,6 +11,9 @@
 
 # Dependencies:
 # sudo apt install xautolock nitrogen
+set $bgColor #eeeeee
+set $fgColor #171421
+set $accentColor #005f87
 
 set $mod Mod4
 
@@ -54,9 +57,9 @@ bindsym $mod+Return exec i3-msg '[class="kitty"] focus' || kitty
 bindsym $mod+b exec i3-msg '[class="Chromium"] focus' || chromium
 bindsym $mod+p exec i3-msg '[class="1Password"] focus' || 1password
 bindsym $mod+Control+l exec "i3lock -c 000000 && systemctl suspend"
-bindsym Print exec --no-startup-id maim "~/Pictures/$(date).png"
-bindsym $mod+Print exec --no-startup-id maim --window $(xdotool getactivewindow) "~/Pictures/Screenshots/$(date +'%Y-%m-%d_%H-%M-%S').png"
-bindsym Shift+Print exec --no-startup-id maim --select "~/Pictures/Screenshots/$(date +'%Y-%m-%d_%H-%M-%S').png"
+bindsym Print exec maim ~/Pictures/Screenshots/$(date +'%Y-%m-%d_%H-%M-%S').png
+bindsym $mod+Print exec maim --window $(xdotool getactivewindow) ~/Pictures/Screenshots/$(date +'%Y-%m-%d_%H-%M-%S').png
+bindsym Shift+Print exec maim --select ~/Pictures/Screenshots/$(date +'%Y-%m-%d_%H-%M-%S').png
 
 assign [class="kitty"] $ws4
 assign [class="Chromium"] $ws2
@@ -64,7 +67,14 @@ assign [class="1Password"] $ws9
 
 bindsym $mod+Shift+q kill
 
-bindsym $mod+d exec --no-startup-id dmenu_run
+# we cannot use predefined variable names because i3 do not allow using variables
+# in variables
+#
+# -nf color defines the normal foreground color.
+# -nb color defines the normal background color.
+# -sf color defines the selected foreground color
+# -sb color defines the selected background color.
+bindsym $mod+d exec --no-startup-id dmenu_run -nb '#eeeeee' -nf '#171421' -sf '#eeeeee' -sb '#005f87'
 
 bindsym $mod+h focus left
 bindsym $mod+j focus down
@@ -153,13 +163,9 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-set $bgColor #eeeeee
-set $fgColor #171421
-set $accentColor #005f87
-
-# set some nice colors      border     background   text
-client.focused              $fgColor   $fgColor     $bgColor
-client.unfocused            $fgColor   $bgColor     $fgColor
+# set some nice colors      border        background   text
+client.focused              $accentColor  $bgColor     $fgColor
+client.unfocused            $bgColor      $bgColor     $fgColor
 
 bar {
   position top
@@ -168,8 +174,10 @@ bar {
   font pango:monospace 10, pango:Font Awesome 6 Free 10
 
   colors {
-    # set some nice colors      border     background   text
-    focused_workspace           $bgColor   $accentColor $bgColor
-    inactive_workspace          $fgColor   $fgColor     $bgColor
+    background $bgColor
+    statusline $fgColor
+    # set some nice colors      border       background   text
+    focused_workspace           $accentColor $accentColor $bgColor
+    inactive_workspace          $bgColor     $bgColor     $fgColor
   }
 }
