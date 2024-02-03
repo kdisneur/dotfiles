@@ -1,0 +1,47 @@
+general {
+  output_format = "i3bar"
+  colors = false
+  interval = 5
+}
+
+order += "volume master"
+order += "battery 0"
+order += "memory"
+order += "load"
+order += "tztime local"
+
+battery 0 {
+ integer_battery_capacity = true
+ threshold_type = "percentage"
+ low_threshold = 10
+ format = "%status %percentage"
+ format_down = "No battery"
+ status_chr = "CHR"
+ status_bat = "BAT"
+ status_unk = "?"
+ status_full = "FULL"
+ path = "/sys/class/power_supply/BAT%d/uevent"
+}
+
+memory {
+  format = "MEM %used"
+  threshold_degraded = "10%"
+  format_degraded = "MEM %used"
+}
+
+load {
+  format = "CPU %1min"
+  format_above_threshold = "CPU %1min"
+}
+
+tztime local {
+  format = "%H:%M:%S"
+}
+
+volume master {
+  format = "VOL %volume"
+  format_muted = "MUT %volume"
+  device = "default"
+  mixer = "Master"
+  mixer_idx = 0
+}
