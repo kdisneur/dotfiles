@@ -1,0 +1,4 @@
+folder=$(find . -type d | fzf);
+if [ ! -z "${folder}" ]; then
+  cd "${folder}"
+fi

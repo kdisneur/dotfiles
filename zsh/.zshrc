@@ -31,6 +31,7 @@ bindkey -v
 autoload -U edit-command-line;
 zle -N edit-command-line;
 bindkey '^x^e' edit-command-line # Edit current line with C-x+C-e
+bindkey "^R" history-incremental-search-backward
 
 setopt PROMPT_SUBST
 export PROMPT='%F{235}%B%c%b%f %(?.%F{24}❯%f.%F{198}❯%f) '
