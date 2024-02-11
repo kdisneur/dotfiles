@@ -3,13 +3,14 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- Install plugin manager and plugins
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system({ "git", "clone", "--filter=blob:none", "https://github.com/folke/lazy.nvim.git", "--branch=stable", lazypath })
+  vim.fn.system({ 'git', 'clone', '--filter=blob:none', 'https://github.com/folke/lazy.nvim.git', '--branch=stable',
+    lazypath })
 end
 vim.opt.rtp:prepend(lazypath)
 
-require("lazy").setup({
+require('lazy').setup({
   -- LSP Configuration
   {
     'neovim/nvim-lspconfig',
@@ -74,6 +75,10 @@ require("lazy").setup({
     'nvim-telescope/telescope.nvim',
     dependencies = { 'nvim-lua/plenary.nvim', 'nvim-telescope/telescope-ui-select.nvim' }
   },
+  {
+    'nvim-telescope/telescope-file-browser.nvim',
+    dependencies = { 'nvim-telescope/telescope.nvim', 'nvim-lua/plenary.nvim' }
+  },
 
   -- execute tests from neovim
   {
@@ -83,9 +88,9 @@ require("lazy").setup({
       'antoinemadec/FixCursorHold.nvim',
       'nvim-treesitter/nvim-treesitter',
 
-      "nvim-neotest/neotest-go",
+      'nvim-neotest/neotest-go',
       'rouge8/neotest-rust',
-      "nvim-neotest/neotest-plenary"
+      'nvim-neotest/neotest-plenary'
     }
   },
 
@@ -123,15 +128,21 @@ vim.o.swapfile = false
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true }) -- space is the leader key so it should never move the cursor
 vim.keymap.set('n', '*', '*``', { silent = true })
 vim.keymap.set('n', '**', '*', { silent = true })
-vim.keymap.set('n', '<leader>ff', ':edit <c-r>=expand("%:p:h") . "/" <cr>', { silent = true })                  -- change to another file in same folder
-vim.keymap.set('n', '<leader>fj', ':edit <c-r>="~/.junks/" . strftime("%Y%m%d") . "." <cr>', { silent = true }) -- open junk folder
-vim.keymap.set('n', '[<space>', 'O<esc>j', { silent = true })                                                   -- insert line above
-vim.keymap.set('n', ']<space>', 'o<esc>k', { silent = true })                                                   -- insert line below
-vim.keymap.set('n', '<leader>w', ':update<cr>')
-vim.keymap.set('n', '[g', vim.diagnostic.goto_prev, {})
-vim.keymap.set('n', ']g', vim.diagnostic.goto_next, {})
-vim.keymap.set('n', '<leader>le', vim.diagnostic.open_float)
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist)
+vim.keymap.set(
+  'n',
+  '<leader>fj',
+  ':edit <c-r>="~/.junks/" . strftime("%Y%m%d") . "." <cr>',
+  { desc = 'open junk folder', silent = true }
+)
+vim.keymap.set('n', '[<space>', 'O<esc>j', { desc = 'insert a new line before current line', silent = true })
+vim.keymap.set('n', ']<space>', 'o<esc>k', { desc = 'insert a new line after current line', silent = true })
+vim.keymap.set('n', '<leader>w', ':update<cr>', { desc = 'save current buffer' })
+vim.keymap.set('n', '<leader>q', ':quit<cr>', { desc = 'close current window' })
+vim.keymap.set('n', '[g', vim.diagnostic.goto_prev, { desc = 'go to previous diagnostic' })
+vim.keymap.set('n', ']g', vim.diagnostic.goto_next, { desc = 'go to next diagnostic' })
+vim.keymap.set('n', '<leader>le', vim.diagnostic.open_float, { desc = 'open float window to see full diagnostic' })
+vim.keymap.set('n', '<leader>lq', vim.diagnostic.setloclist, { desc = 'fill loclist with diagnostic' })
+vim.keymap.set('n', '<C-w>t', ':tab split<cr>', { desc = 'copy current buffer in the new tab instead of moving it' })
 
 -- status line
 function RenderStatusLine()
@@ -165,12 +176,12 @@ end
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-require("mason-lspconfig").setup_handlers {
+require('mason-lspconfig').setup_handlers {
   -- The first entry (without a key) will be the default handler
   -- and will be called for each installed server that doesn't have
   -- a dedicated handler.
   function(server_name)
-    require("lspconfig")[server_name].setup({
+    require('lspconfig')[server_name].setup({
       flags = flags,
       capabilities = capabilities,
       on_attach = on_attach,
@@ -178,11 +189,11 @@ require("mason-lspconfig").setup_handlers {
   end,
   -- Next, you can provide a dedicated handler for specific servers.
   -- For example, a handler override for the `rust_analyzer`:
-  -- ["rust_analyzer"] = function ()
-  --   require("rust-tools").setup {}
+  -- ['rust_analyzer'] = function ()
+  --   require('rust-tools').setup {}
   -- end
-  ["rust_analyzer"] = function()
-    require("lspconfig")["rust_analyzer"].setup({
+  ['rust_analyzer'] = function()
+    require('lspconfig')['rust_analyzer'].setup({
       flags = flags,
       capabilities = capabilities,
       on_attach = on_attach,
@@ -214,10 +225,10 @@ require("mason-lspconfig").setup_handlers {
 }
 
 -- setup snippet
-require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/lua/kdisneur/plugins/luasnip/" })
+require('luasnip.loaders.from_lua').load({ paths = '~/.config/nvim/lua/kdisneur/plugins/luasnip/' })
 
-vim.keymap.set({ 'i', 's' }, '<C-j>', function() require("luasnip").jump(1) end, {})
-vim.keymap.set({ 'i', 's' }, '<C-k>', function() require("luasnip").jump(-1) end, {})
+vim.keymap.set({ 'i', 's' }, '<C-j>', function() require('luasnip').jump(1) end, {})
+vim.keymap.set({ 'i', 's' }, '<C-k>', function() require('luasnip').jump(-1) end, {})
 vim.keymap.set({ 'i', 's' }, '<C-e>', '<Plug>luasnip-next-choice')
 
 local cmp = require('cmp')
@@ -256,6 +267,7 @@ require('nvim-treesitter.configs').setup({
     'rust',
     'toml',
     'vim',
+    'vimdoc',
     'yaml',
   },
   highlight = {
@@ -265,13 +277,7 @@ require('nvim-treesitter.configs').setup({
     enable = true,
   },
   incremental_selection = {
-    enable = true,
-    keymaps = {
-      init_selection = 'gri',
-      node_incremental = 'gri',
-      scope_incremental = 'grs',
-      node_decremental = 'grd',
-    }
+    enable = false,
   },
   textobjects = {
     select = {
@@ -308,67 +314,83 @@ require('nvim-treesitter.configs').setup({
 })
 
 -- setup eunuch
-vim.keymap.set('n', '<leader>fR', ':Move <c-r>=expand("%:p:h")<cr>', { silent = true }) -- rename/move file
-vim.keymap.set('n', '<leader>fd', ':Mkdir!<bar>:update<cr>', { silent = true })         -- create parent folders
-vim.keymap.set('n', '<leader>fD', ':Remove<cr>', { silent = true })                     -- remove current file
+vim.keymap.set('n', '<leader>fR', ':Move <c-r>=expand("%:p:h")<cr>',
+  { desc = 'Rename / Move current file', silent = true })
+vim.keymap.set('n', '<leader>fd', ':Mkdir!<bar>:update<cr>',
+  { desc = 'Create parent folder of current file', silent = true })
+vim.keymap.set('n', '<leader>fD', ':Remove<cr>', { desc = 'Remove current file', silent = true })
 
 -- setup telescope
 local actions = require('telescope.actions')
+
 require('telescope').setup({
   defaults = {
     mappings = {
       i = {
-        ["<C-j>"] = actions.move_selection_next,
-        ["<C-k>"] = actions.move_selection_previous,
+        ['<C-j>'] = actions.move_selection_next,
+        ['<C-k>'] = actions.move_selection_previous,
       }
     }
   },
   extensions = {
-    ["ui-select"] = {
-      require("telescope.themes").get_dropdown {},
+    ['ui-select'] = {
+      require('telescope.themes').get_dropdown {},
+    },
+    file_browser = {
+      disable_devicons = true,
+      git_status = false,
+      display_stat = false,
     }
   }
 })
+require('telescope').load_extension('ui-select')
+require('telescope').load_extension('file_browser')
 
 local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<C-p>', builtin.find_files, { desc = "Search files" })
-vim.keymap.set('n', '<leader>s', builtin.live_grep, { desc = "Search in file" })
-vim.keymap.set('n', '<leader>e', builtin.diagnostics, { desc = "Search in diagnostics" })
+vim.keymap.set('n', '<C-p>', builtin.find_files, { desc = 'Search files' })
+vim.keymap.set('n', '<leader>s', builtin.live_grep, { desc = 'Search content in files' })
+vim.keymap.set('n', '<leader>e', builtin.diagnostics, { desc = 'Search in diagnostics' })
 vim.keymap.set('n', '<C-f>', function()
   builtin.lsp_document_symbols({ symbols = { 'function', 'method' } })
-end, {})
-vim.keymap.set('n', '<leader>/', builtin.current_buffer_fuzzy_find, {})
-
-require("telescope").load_extension("ui-select")
+end, { desc = 'Search all function/methods in buffer' })
+vim.keymap.set('n', '<leader>/', builtin.current_buffer_fuzzy_find, { desc = 'Search content in current buffer' })
+vim.keymap.set('n', '<space>ff',
+  function()
+    require('telescope').extensions.file_browser.file_browser({
+      path = require('telescope.utils').buffer_dir(),
+      select_buffer = true
+    })
+  end,
+  { desc = 'Open current folder and allow creating/deleting/renaming files' })
 
 -- setup neovim
 local neotest = require('neotest')
 
 neotest.setup({
   adapters = {
-    require("neotest-go"),
-    require("neotest-rust"),
-    require("neotest-plenary")
+    require('neotest-go'),
+    require('neotest-rust'),
+    require('neotest-plenary')
   },
   output = {
     enabled = true,
-    open_on_run = "short"
+    open_on_run = 'short'
   },
   run = {
     enabled = true
   },
-  default_strategy = "integrated",
+  default_strategy = 'integrated',
   status = {
     enabled = true,
     signs = true,
     virtual_text = false
   },
   icons = {
-    passed = "✓",
-    running = ".",
-    skipped = "/",
-    unknown = "?",
-    failed = "x",
+    passed = '✓',
+    running = '.',
+    skipped = '/',
+    unknown = '?',
+    failed = 'x',
   },
   highlights = {
     passed = 'GitSignsAdd',
@@ -376,12 +398,14 @@ neotest.setup({
   }
 })
 
-vim.keymap.set('n', '<leader>tr', "", { callback = function() neotest.output.open() end })
-vim.keymap.set('n', '<leader>tt', "", { callback = function() neotest.run.run() end })
-vim.keymap.set('n', '<leader>tf', "", { callback = function() neotest.run.run(vim.fn.expand("%")) end })
-vim.keymap.set('n', '<leader>ts', "", { callback = function() neotest.run.stop() end })
-vim.keymap.set('n', ']n', "", { callback = function() neotest.jump.next({ status = "failed" }) end })
-vim.keymap.set('n', '[n', "", { callback = function() neotest.jump.prev({ status = "failed" }) end })
+vim.keymap.set('n', '<leader>tr', neotest.output.open, { desc = 'Open float window with test output' })
+vim.keymap.set('n', '<leader>tt', neotest.run.run, { desc = 'Run test under cursor' })
+vim.keymap.set('n', '<leader>tf', function() neotest.run.run(vim.fn.expand('%')) end,
+  { desc = 'Run all test in current file' })
+vim.keymap.set('n', '<leader>ts', function() neotest.summary.toggle() end, { desc = 'Open/Close neotest summary window' })
+vim.keymap.set('n', ']n', function() neotest.jump.next({ status = 'failed' }) end, { desc = 'Move to next failing test' })
+vim.keymap.set('n', '[n', function() neotest.jump.prev({ status = 'failed' }) end,
+  { desc = 'Move to previous failing test' })
 
 -- setup vscode theme
 require('vscode').setup({
