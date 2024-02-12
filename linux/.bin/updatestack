@@ -2,9 +2,12 @@
 
 set -o errexit
 
+root=$(dirname $0);
+
 sudo apt update && sudo apt upgrade --yes && sudo apt autoremove
+sudo cat ${root}/ubuntu-installed-packages.txt| xargs sudo apt install
 
 asdf update
 asdf plugin update --all
 
-nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+nvim --headless "+Lazy! sync" +qa
