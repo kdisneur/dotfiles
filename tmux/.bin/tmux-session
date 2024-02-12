@@ -14,7 +14,7 @@ if [ -z "${projectPath}" ]; then
   exit 1;
 fi
 
-sessionName=$(basename "${projectPath}");
+sessionName=$(basename "${projectPath}" | tr '.' '-');
 
 if ! tmux has-session -t "${sessionName}" &> /dev/null; then
   TMUX='' tmux new-session -d -c "${projectPath}" -s "${sessionName}";
