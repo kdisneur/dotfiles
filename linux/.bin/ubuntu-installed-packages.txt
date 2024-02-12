@@ -1,21 +1,26 @@
+# Screen resolution
 arandr
 autorandr
-git
-gnupg2
-gnuplot
+
+# Window manager/Desktop
 i3
 i3lock
 i3status
+libfontconfig-dev
+maim
+nitrogen
+xautolock
+xdotool
+
+# Tools
+git
+gnupg2
+gnuplot
 jq
 kitty
-libfontconfig-dev
 libxml2-utils
-maim
 make
-nitrogen
 sqlite
 tmux
 tree
 wget
-xautolock
-xdotool
