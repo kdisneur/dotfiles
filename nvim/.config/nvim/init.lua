@@ -139,6 +139,8 @@ vim.keymap.set('n', ']g', vim.diagnostic.goto_next, { desc = 'go to next diagnos
 vim.keymap.set('n', '<leader>le', vim.diagnostic.open_float, { desc = 'open float window to see full diagnostic' })
 vim.keymap.set('n', '<leader>lq', vim.diagnostic.setloclist, { desc = 'fill loclist with diagnostic' })
 vim.keymap.set('n', '<C-w>t', ':tab split<cr>', { desc = 'copy current buffer in the new tab instead of moving it' })
+vim.keymap.set('n', '<leader>ff', ':edit <c-r>=expand("%:p:h") . "/" <cr>',
+  { desc = 'Move to another file in same folder' })
 
 -- status line
 function RenderStatusLine()
@@ -344,8 +346,6 @@ vim.keymap.set('n', '<C-f>', function()
   builtin.lsp_document_symbols({ symbols = { 'function', 'method' } })
 end, { desc = 'Search all function/methods in buffer' })
 vim.keymap.set('n', '<leader>/', builtin.current_buffer_fuzzy_find, { desc = 'Search content in current buffer' })
-vim.keymap.set('n', '<leader>ff', ':edit <c-r>=expand("%:p:h") . "/" <cr>',
-  { desc = 'Move to another file in same folder' })
 
 -- setup neovim
 local neotest = require('neotest')
