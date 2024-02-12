@@ -16,3 +16,5 @@ cat > "${XDG_CONFIG_HOME:-$HOME/.config}/fontconfig/conf.d/90-xrandr-sync-dpi.co
   </match>
 </fontconfig>
 EOF
+
+i3-msg reload
