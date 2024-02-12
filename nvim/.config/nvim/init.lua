@@ -75,10 +75,6 @@ require('lazy').setup({
     'nvim-telescope/telescope.nvim',
     dependencies = { 'nvim-lua/plenary.nvim', 'nvim-telescope/telescope-ui-select.nvim' }
   },
-  {
-    'nvim-telescope/telescope-file-browser.nvim',
-    dependencies = { 'nvim-telescope/telescope.nvim', 'nvim-lua/plenary.nvim' }
-  },
 
   -- execute tests from neovim
   {
@@ -336,15 +332,9 @@ require('telescope').setup({
     ['ui-select'] = {
       require('telescope.themes').get_dropdown {},
     },
-    file_browser = {
-      disable_devicons = true,
-      git_status = false,
-      display_stat = false,
-    }
   }
 })
 require('telescope').load_extension('ui-select')
-require('telescope').load_extension('file_browser')
 
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<C-p>', builtin.find_files, { desc = 'Search files' })
@@ -354,14 +344,8 @@ vim.keymap.set('n', '<C-f>', function()
   builtin.lsp_document_symbols({ symbols = { 'function', 'method' } })
 end, { desc = 'Search all function/methods in buffer' })
 vim.keymap.set('n', '<leader>/', builtin.current_buffer_fuzzy_find, { desc = 'Search content in current buffer' })
-vim.keymap.set('n', '<space>ff',
-  function()
-    require('telescope').extensions.file_browser.file_browser({
-      path = require('telescope.utils').buffer_dir(),
-      select_buffer = true
-    })
-  end,
-  { desc = 'Open current folder and allow creating/deleting/renaming files' })
+vim.keymap.set('n', '<leader>ff', ':edit <c-r>=expand("%:p:h") . "/" <cr>',
+  { desc = 'Move to another file in same folder' })
 
 -- setup neovim
 local neotest = require('neotest')
