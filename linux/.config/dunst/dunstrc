@@ -1,0 +1,11 @@
+[global]
+frame_width = 2
+background = "#d6d8d9"
+foreground = "#1b1e21"
+frame_color = "#c6c8ca"
+
+[urgency_critical]
+frame_color = "#f5c6cb"
+background = "#f8d7da"
+foreground = "#721c24"
+timeout = 0
