@@ -52,7 +52,7 @@ bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
-bindsym XF86AudioPlay exec ~/.bin/play-pause.sh
+bindsym XF86AudioPlay exec --no-startup-id ~/.bin/play-pause.sh && $refresh_i3status
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -66,8 +66,8 @@ bindsym Shift+Print exec maim --select | xclip -selection clipboard -t image/png
 bindsym $mod+Return exec i3-msg '[class="kitty-terminal"] focus' || kitty --class="kitty-terminal"
 assign [class="kitty-terminal"] $ws4
 
-bindsym $mod+b exec i3-msg '[class="Chromium"] focus' || chromium
-assign [class="Chromium"] $ws2
+bindsym $mod+b exec i3-msg '[class="firefox"] focus' || firefox
+assign [class="firefox"] $ws2
 
 bindsym $mod+p exec 1password, [class="1Password"] scratchpad show, [class="1Password"] move position center
 for_window [class="1Password"] floating enable
@@ -168,6 +168,7 @@ bindsym $mod+Shift+0 move container to workspace number $ws10
 
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
+bindsym $mod+c exec dunstctl context
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
 mode "resize" {
