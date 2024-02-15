@@ -5,7 +5,7 @@ set -o errexit
 root=$(dirname $0);
 
 sudo apt update && sudo apt upgrade --yes && sudo apt autoremove
-sudo grep -v '#' ${root}/ubuntu-installed-packages.txt | grep -v '^$' | xargs sudo apt install
+sudo grep -v '#' ${root}/ubuntu-installed-packages.txt | grep -v '^$' | xargs sudo apt install --yes
 
 asdf update
 asdf plugin update --all

@@ -1,8 +1,11 @@
 # Screen resolution
+
 arandr
 autorandr
 
 # Window manager/Desktop
+
+dunst
 i3
 i3lock
 i3status
@@ -13,6 +16,7 @@ xautolock
 xdotool
 
 # Tools
+
 git
 gnupg2
 gnuplot
@@ -20,7 +24,9 @@ jq
 kitty
 libxml2-utils
 make
+software-properties-common
 sqlite
 tmux
 tree
 wget
+
