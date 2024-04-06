@@ -1,9 +1,11 @@
 PATH="${HOME}/Workspaces/go/bin:${PATH}";
 PATH="${HOME}/.bin:${PATH}";
+PATH="./scripts:${PATH}";
 
 export HISTFILE=${HOME}/.zsh_history;
 export HISTSIZE=1000; # Number of entries to keep in memory
 export SAVEHIST=1000; # Number of entries to keep on disk
+export TMPDIR=${HOME}/tmp;
 
 export EDITOR=nvim;
 export GIT_EDITOR=nvim;

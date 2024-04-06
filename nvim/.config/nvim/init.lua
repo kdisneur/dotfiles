@@ -65,7 +65,7 @@ require('lazy').setup({
   },
 
   --  additional text objects to work inside quotes, parentheses, comma,..
-  --  use({ 'wellle/targets.vim', event = 'BufRead' })
+  { 'wellle/targets.vim',    event = 'BufRead' },
 
   -- some helpers to create / remove file and folders
   'tpope/vim-eunuch',
