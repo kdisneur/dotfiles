@@ -1,0 +1,5 @@
+*.DS_Store
+/.env_vars.*
+/tags
+*.swp
+*.code-workspace
