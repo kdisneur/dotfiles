@@ -1,5 +1,5 @@
 PATH="${HOME}/Workspaces/go/bin:${PATH}";
-PATH="${HOME}/.bin:${PATH}";
+PATH="${HOME}/.local/bin:${PATH}";
 PATH="./scripts:${PATH}";
 
 export HISTFILE=${HOME}/.zsh_history;
