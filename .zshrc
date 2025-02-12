@@ -49,4 +49,8 @@ source ${HOME}/.zsh/aliases;
 [[ -r ${HOME}/.zshrc.local ]] && source ${HOME}/.zshrc.local;
 [[ -r ${HOME}/.asdf/asdf.sh ]] && source ${HOME}/.asdf/asdf.sh;
 [[ -r ${HOME}/.cargo/env ]] && source ${HOME}/.cargo/env;
-true
+
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init - zsh)"
+eval "$(pyenv virtualenv-init -)"
