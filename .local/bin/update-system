@@ -1,0 +1,33 @@
+#! /usr/bin/env bash
+
+GO_VERSION=1.24.0
+
+sudo apt update
+sudo apt list --upgradable
+sudp apt upgrade
+sudo apt install -y curl git make wget gpg gnupg2 jq tmux software-properties-common tree alacritty gcc zlib1g-dev libssl-dev libreadline-dev
+
+if command -v pyenv &>/dev/null; then
+  echo "updating pyenv"
+  pyenv update
+else
+  echo "installing pyenv"
+  curl -fsSL https://pyenv.run | bash
+  pyenv install --skip-existing
+fi
+
+command -v go &>/dev/null || {
+  echo "installing Go ${GO_VERSION}"
+  mkdir -p ~/.local/src/go
+  curl -L https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz | tar xz -C ~/.local/src/
+}
+
+if command -v rustup &>/dev/null; then
+  if ! rustup check; then
+    echo "updating rustup"
+    rustup update
+  fi
+else
+  echo "installing rustup"
+  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | bash
+fi
