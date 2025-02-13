@@ -16,8 +16,9 @@ export PATH;
 export TERM=xterm-256color;
 export WORDCHARS='*?.[]~&;!#$%^(){}<>';
 
-export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
- --color=fg:#171421,bg:#eeeeee,hl:#005f87
- --color=fg+:#eeeeee,bg+:#005f87,hl+:#eeeeee
- --color=info:#afaf87,prompt:#005f87,pointer:#eeeeee
- --color=marker:#eeeeee,spinner:#005f87,header:#005f87';
+ export FZF_DEFAULT_OPTS="
+ 	--color=fg:#B7B5AC,bg:#FFFCF0,hl:#100F0F
+ 	--color=fg+:#B7B5AC,bg+:#F2F0E5,hl+:#100F0F
+ 	--color=border:#AF3029,header:#100F0F,gutter:#FFFCF0
+ 	--color=spinner:#3AA99F,info:#3AA99F,separator:#F2F0E5
+ 	--color=pointer:#D0A215,marker:#D14D41,prompt:#D0A215"

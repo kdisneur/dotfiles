@@ -1,29 +1,42 @@
 [env]
 term = "xterm-256color"
 
-[colors]
-cursor = { cursor = "#005f87", text = "#eeeeee" }
+[colors.bright]
+black = "#100F0F"
+blue = "#4385BE"
+cyan = "#3AA99F"
+green = "#879A39"
+magenta = "#CE5D97"
+red = "#D14D41"
+white = "#FFFCF0"
+yellow = "#D0A215"
 
-[colors.primary]
-foreground = "#171421"
-background = "#eeeeee"
+[colors.cursor]
+cursor = "#100F0F"
+text = "#FFFCF0"
+
+[colors.dim]
+black = "#100F0F"
+blue = "#4385BE"
+cyan = "#3AA99F"
+green = "#879A39"
+magenta = "#CE5D97"
+red = "#D14D41"
+white = "#FFFCF0"
+yellow = "#D0A215"
 
 [colors.normal]
-black = "#000000"
-red = "#721c24"
-green = "#155724"
-yellow = "#856404"
-blue = "#004085"
-magenta = "#cb1ed1"
-cyan = "#0c5460"
-white = "#818182"
+black = "#100F0F"
+blue = "#4385BE"
+cyan = "#3AA99F"
+green = "#879A39"
+magenta = "#CE5D97"
+red = "#D14D41"
+white = "#FFFCF0"
+yellow = "#D0A215"
 
-[colors.bright]
-black = "#767676"
-red = "#f8d7da"
-green = "#d4edda"
-yellow = "#fff3cd"
-blue = "#cce5ff"
-magenta = "#fd28ff"
-cyan = "#d1ecf1"
-white = "#eeeeee"
+[colors.primary]
+background = "#FFFCF0"
+bright_foreground = "#100F0F"
+dim_foreground = "#100F0F"
+foreground = "#100F0F"
