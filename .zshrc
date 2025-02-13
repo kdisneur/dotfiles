@@ -27,12 +27,6 @@ for f in ~/.zsh/functions/*; do autoload -Uz ${f##*/}; done
 
 [ -z "$TMUX" ] && tmux-session;
 
-function open-tmux-session {
-  ~/.local/bin/tmux-session
-}
-
-zle -N open-tmux-session
-
 bindkey -e
 autoload -U edit-command-line;
 zle -N edit-command-line;
@@ -40,7 +34,7 @@ bindkey '^x^e' edit-command-line # Edit current line with C-x+C-e
 bindkey "^R" history-incremental-search-backward
 bindkey "^[[1;3D" backward-word
 bindkey "^[[1;3C" forward-word
-bindkey "^f" open-tmux-session
+bindkey -s "^f" 'tmux-session\n'
 
 setopt PROMPT_SUBST
 export PROMPT='%F{235}%B%c%b%f %(?.%F{24}❯%f.%F{198}❯%f) '
