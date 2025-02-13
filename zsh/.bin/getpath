@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-echo -n $(find -type f | fzf | cut -d/ -f2-)
