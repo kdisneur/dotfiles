@@ -6,6 +6,7 @@ sudo apt update
 sudo apt list --upgradable
 sudp apt upgrade
 sudo apt install -y curl git make wget gpg gnupg2 jq tmux software-properties-common tree alacritty gcc zlib1g-dev libssl-dev libreadline-dev
+gnome-extensions enable gnome-magic-window@adrienverge
 
 if command -v pyenv &>/dev/null; then
   echo "updating pyenv"
