@@ -2,7 +2,6 @@
 export VCPKG_ROOT="${HOME}/Workspaces/github.com/microsoft/vcpkg";
 PATH="${VCPKG_ROOT}:${PATH}";
 
-PATH="${HOME}/.local/src/go/bin:${PATH}";
 PATH="${HOME}/.local/bin:${PATH}";
 PATH="${HOME}/.cargo/bin:${PATH}";
 PATH="./scripts:${PATH}";

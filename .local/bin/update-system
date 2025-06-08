@@ -6,19 +6,50 @@ set -o nounset
 
 source $(dirname $0)/../lib/std.bash
 
-GO_VERSION=1.24.0
-GO_INSTALL_DIR="${HOME}/.local/src/go";
 SCHEDULING_DB="${HOME}/.local/state/update-system/next";
 PACMAN_DB="${HOME}/.local/state/update-system/pacman.txt";
 
 main() {
-  init_database;
+  local action="";
+  local action_update_force="false";
 
-  if is_late && yesno "It's time to update the dependencies. Do you wan to run it now?"; then
-    update_dependencies;
-    schedule_next_update;
-    log_success "system udpated. See you next week";
-  fi
+  while getopts ":hfp" option; do
+    case "${option}" in
+      h)
+        [ -z "${action}" ] || log_fatal "help cannot be combined with action \"${action}\""
+        action="help";
+        ;;
+      f)
+        [ -z "${action}" ] || log_fatal "update cannot be combined with action \"${action}\""
+        action="update";
+        action_update_force="true";
+        ;;
+      p)
+        [ -z "${action}" ] || log_fatal "postpone cannot be combined with action \"${action}\""
+        action="postpone";
+        ;;
+      \?)
+        log_error "Unknown option \"${OPTARG}\""
+        echo
+        help;
+        exit 1;
+        ;;
+    esac
+  done
+
+  case "${action:-update}" in
+    help)
+      help;
+      ;;
+    postpone)
+      postpone_update;
+      ;;
+    update)
+      update_system "${action_update_force}";
+      ;;
+    *)
+      log_fatal "BUG: unsupported action";
+  esac
 }
 
 init_database() {
@@ -49,35 +80,6 @@ update_pacman() {
   fi
 }
 
-update_pyenv() {
-  if command -v pyenv &>/dev/null; then
-    log_info "updating pyenv";
-    pyenv update;
-  else
-    log_info "installing pyenv";
-    curl -fsSL https://pyenv.run | bash;
-    export PYENV_ROOT="$HOME/.pyenv";
-    [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH";
-    eval "$(pyenv init - bash)";
-    eval "$(pyenv virtualenv-init -)";
-    pyenv install --skip-existing;
-     # See: https://github.com/pyenv/pyenv-update/issues/22
-    for repo in ~/.pyenv/plugins/*/ ~/.pyenv/; do
-      if [[ -d "$repo/.git" ]]; then
-        (cd "$repo" && git remote set-head origin -a);
-      fi
-    done
-  fi
-}
-
-install_go() {
-  command -v go &>/dev/null || {
-    log_info "installing Go ${GO_VERSION}"
-    mkdir -p "${GO_INSTALL_DIR}"
-    curl -L https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz | tar xz -C ~/.local/src/
-  }
-}
-
 update_rust() {
   if command -v rustup &>/dev/null; then
     log_info "updating rustup"
@@ -90,9 +92,48 @@ update_rust() {
 
 update_dependencies() {
   update_pacman;
-  update_pyenv;
-  install_go;
   update_rust;
 }
 
-main
+help() {
+cat <<EOF
+Update system softwares and main dependencies such as Rust.
+
+The main idea is to add this script during shell loading. The script will prompt
+the user to update its system once a weekday (on Wedneseday). It will keep
+asking each time a shell is opened (except if explictily postponed).
+
+Syntax $(basename $0) [-h|f|p]
+
+Options:
+  h  Print this help
+  f  Force the execution of the script even if not a requirement
+  p  Postpone the update of the system to next Wednesday
+EOF
+}
+
+postpone_update() {
+  init_database;
+  schedule_next_update;
+  log_success "system udpate postpone. See you next week";
+}
+
+update_system() {
+  local force="${1:-false}"
+  init_database;
+
+  local should_update="${force}";
+  if [ "${force}" = "false" ]; then
+    if is_late && yesno "It's time to update the dependencies. Do you wan to run it now?"; then
+      should_update="true";
+    fi
+  fi
+
+  [ "${should_update}" = "false" ] && return;
+
+  update_dependencies;
+  schedule_next_update;
+  log_success "system udpated. See you next week";
+}
+
+main "$@"
