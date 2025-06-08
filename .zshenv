@@ -1,3 +1,7 @@
+# added due to CodeCrafters C
+export VCPKG_ROOT="${HOME}/Workspaces/github.com/microsoft/vcpkg";
+PATH="${VCPKG_ROOT}:${PATH}";
+
 PATH="${HOME}/.local/src/go/bin:${PATH}";
 PATH="${HOME}/.local/bin:${PATH}";
 PATH="${HOME}/.cargo/bin:${PATH}";
@@ -7,6 +11,10 @@ export HISTFILE=${HOME}/.zsh_history;
 export HISTSIZE=1000; # Number of entries to keep in memory
 export SAVEHIST=1000; # Number of entries to keep on disk
 export TMPDIR=${HOME}/tmp;
+export CC=clang
+export CXX=clang++
+export CMAKE_C_COMPILER=clang
+export CMAKE_CXX_COMPILER=clang++
 
 export EDITOR=nvim;
 export GIT_EDITOR=nvim;

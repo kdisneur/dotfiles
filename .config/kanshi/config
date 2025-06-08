@@ -1,0 +1,33 @@
+# hyprctl monitors
+# output  "<make> <model> <serial>" { ... }
+
+output "Sharp Corporation 0x1551 Unknown" {
+  mode 3840x2400@59.99400
+  position 0,0
+  scale 2
+  alias $INTERNAL
+}
+
+output "LG Electronics LG HDR 4K 0x0009AC03" {
+  mode 3840x2160@59.99600
+  position 0,0
+  scale 1.5
+  alias $HOME_RIGHT
+}
+
+output "LG Electronics LG ULTRAFINE 501NTTQ6T033" {
+  mode 3840x2160@59.99600
+  position 2560,0
+  scale 1.5
+  alias $HOME_LEFT
+}
+
+profile home {
+  output $INTERNAL disable
+  output $HOME_LEFT enable
+  output $HOME_RIGHT enable
+}
+
+profile nodesk {
+  output $INTERNAL enable
+}

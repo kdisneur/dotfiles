@@ -1,34 +1,98 @@
 #! /usr/bin/env bash
 
+set -o errexit
+set -o pipefail
+set -o nounset
+
+source $(dirname $0)/../lib/std.bash
+
 GO_VERSION=1.24.0
+GO_INSTALL_DIR="${HOME}/.local/src/go";
+SCHEDULING_DB="${HOME}/.local/state/update-system/next";
+PACMAN_DB="${HOME}/.local/state/update-system/pacman.txt";
 
-sudo apt update
-sudo apt list --upgradable
-sudp apt upgrade
-sudo apt install -y curl git make wget gpg gnupg2 jq tmux software-properties-common tree alacritty gcc zlib1g-dev libssl-dev libreadline-dev
-gnome-extensions enable gnome-magic-window@adrienverge
+main() {
+  init_database;
 
-if command -v pyenv &>/dev/null; then
-  echo "updating pyenv"
-  pyenv update
-else
-  echo "installing pyenv"
-  curl -fsSL https://pyenv.run | bash
-  pyenv install --skip-existing
-fi
-
-command -v go &>/dev/null || {
-  echo "installing Go ${GO_VERSION}"
-  mkdir -p ~/.local/src/go
-  curl -L https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz | tar xz -C ~/.local/src/
+  if is_late && yesno "It's time to update the dependencies. Do you wan to run it now?"; then
+    update_dependencies;
+    schedule_next_update;
+    log_success "system udpated. See you next week";
+  fi
 }
 
-if command -v rustup &>/dev/null; then
-  if ! rustup check; then
-    echo "updating rustup"
-    rustup update
+init_database() {
+  if [ ! -f "${SCHEDULING_DB}" ]; then
+    # setup file in the past to trigger a system update on first execution
+    mkdir -p $(dirname "${SCHEDULING_DB}");
+    touch --date "last wednesday" ${SCHEDULING_DB};
   fi
-else
-  echo "installing rustup"
-  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | bash
-fi
+}
+
+get_last_update() {
+  # get the last modification datetime in seconds since Epoch
+  stat --format "%Y" "${SCHEDULING_DB}";
+}
+
+is_late() {
+  [ "$(date "+%s")" -gt "$(get_last_update)" ];
+}
+
+schedule_next_update() {
+  touch --date "next wednesday" ${SCHEDULING_DB};
+}
+
+update_pacman() {
+  if command -v pacman &>/dev/null; then
+    sudo pacman --sync --refresh --sysupgrade;
+    pacman --query --quiet --explicit | grep -Fvx "$(pacman --query --quiet --foreign)" > "${PACMAN_DB}";
+  fi
+}
+
+update_pyenv() {
+  if command -v pyenv &>/dev/null; then
+    log_info "updating pyenv";
+    pyenv update;
+  else
+    log_info "installing pyenv";
+    curl -fsSL https://pyenv.run | bash;
+    export PYENV_ROOT="$HOME/.pyenv";
+    [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH";
+    eval "$(pyenv init - bash)";
+    eval "$(pyenv virtualenv-init -)";
+    pyenv install --skip-existing;
+     # See: https://github.com/pyenv/pyenv-update/issues/22
+    for repo in ~/.pyenv/plugins/*/ ~/.pyenv/; do
+      if [[ -d "$repo/.git" ]]; then
+        (cd "$repo" && git remote set-head origin -a);
+      fi
+    done
+  fi
+}
+
+install_go() {
+  command -v go &>/dev/null || {
+    log_info "installing Go ${GO_VERSION}"
+    mkdir -p "${GO_INSTALL_DIR}"
+    curl -L https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz | tar xz -C ~/.local/src/
+  }
+}
+
+update_rust() {
+  if command -v rustup &>/dev/null; then
+    log_info "updating rustup"
+    rustup update
+  else
+    log_info "installing rustup"
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | bash
+  fi
+}
+
+update_dependencies() {
+  update_pacman;
+  update_pyenv;
+  install_go;
+  update_rust;
+}
+
+main

@@ -25,8 +25,6 @@ setopt emacs # Use emacs keybindings in the shell
 fpath=("${HOME}/.zsh/functions" "${fpath[@]}");
 for f in ~/.zsh/functions/*; do autoload -Uz ${f##*/}; done
 
-[ -z "$TMUX" ] && tmux-session;
-
 bindkey -e
 autoload -U edit-command-line;
 zle -N edit-command-line;
@@ -48,3 +46,11 @@ export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init - zsh)"
 eval "$(pyenv virtualenv-init -)"
+
+if uwsm check may-start -q; then
+	exec uwsm start hyprland.desktop
+fi
+
+[ -z "$TMUX" ] && tmux-session;
+
+true
