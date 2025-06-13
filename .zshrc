@@ -32,7 +32,6 @@ bindkey '^x^e' edit-command-line # Edit current line with C-x+C-e
 bindkey "^R" history-incremental-search-backward
 bindkey "^[[1;3D" backward-word
 bindkey "^[[1;3C" forward-word
-bindkey -s "^f" 'tmux-session\n'
 
 setopt PROMPT_SUBST
 export PROMPT='%F{235}%B%c%b%f %(?.%F{24}❯%f.%F{198}❯%f) '
@@ -44,7 +43,5 @@ source ${HOME}/.zsh/aliases;
 if uwsm check may-start -q; then
 	exec uwsm start hyprland.desktop
 fi
-
-[ -z "$TMUX" ] && tmux-session;
 
 true
