@@ -1,14 +1,15 @@
-_COLOR_ERROR=$(tput setaf 1);
-_COLOR_SUCCESS=$(tput setaf 2);
-_COLOR_WARNING=$(tput setaf 3);
-_COLOR_RESET=$(tput sgr0);
+_COLOR_ERROR="\033[38;5;1m";
+_COLOR_SUCCESS="\033[38;5;2m";
+_COLOR_WARNING="\033[38;5;3m";
+_COLOR_RESET="\033[m";
 
 _log() {
-  local color="$1";
+  local color="$1" color_reset="";
   shift;
   local message="$@";
+  [ "${color}" ] && color_reset="${_COLOR_RESET}";
 
-  printf "%s%s%s\n" "${color}" "${message}" "${_COLOR_RESET}";
+  printf "${color}%s${color_reset}\n" "${message}";
 }
 
 log_fatal() {
@@ -23,18 +24,24 @@ log_info() {
 }
 
 log_error() {
-  local message="$*";
-  >&2 _log "${_COLOR_ERROR}" "${message}";
+  local color="" message="$*";
+  [ -t 2 ] && color="${_COLOR_ERROR}";
+
+  >&2 _log "${color}" "${message}";
 }
 
 log_warn() {
-  local message="$@";
-  _log "${_COLOR_WARNING}" "${message}";
+  local color="" message="$@";
+  [ -t 1 ] && color="${_COLOR_WARNING}";
+
+  _log "${color}" "${message}";
 }
 
 log_success() {
   local message="$@";
-  _log "${_COLOR_SUCCESS}" "${message}";
+  [ -t 1 ] && color="${_COLOR_SUCCESS}";
+
+  _log "${color}" "${message}";
 }
 
 yesno() {
@@ -47,4 +54,9 @@ yesno() {
   done
 
   [ "${answer}" = "y" ];
+}
+
+help() {
+  local script=$0;
+  sed -ne '/^# /,/^$/{/^$/q;s/^# //p}' "${script}"
 }
