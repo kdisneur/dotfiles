@@ -1,0 +1,1 @@
+port_in_use -q $1 | xargs kill

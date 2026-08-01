@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+if [ "$(kdotool search --class alacritty)" ]; then
+  kdotool search --class alacritty windowactivate
+else
+  exec alacritty
+fi

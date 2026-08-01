@@ -1,0 +1,7 @@
+awkpgm='BEGIN { print "Process Name;PID;Owner" } { print $1";"$2";"$3 }'
+if [ "$1" = "-q" ]; then
+  awkpgm='{ print $2 }';
+  shift;
+fi
+
+lsof -n -i:${1} | grep LISTEN | awk "${awkpgm}" | column -t -s ';'

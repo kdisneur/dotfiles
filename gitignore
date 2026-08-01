@@ -1,0 +1,7 @@
+*.DS_Store
+/.env_vars.*
+/tags
+*.swp
+*.code-workspace
+
+**/.claude/settings.local.json

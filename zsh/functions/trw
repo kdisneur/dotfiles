@@ -1,0 +1,8 @@
+source $HOME/.local/lib/std.bash
+
+[ "${TMUX}" ] || {
+  log_error "must be in a TMUX session to rename a window"
+  return 1
+}
+
+tmux rename-window "$(basename $(pwd))"

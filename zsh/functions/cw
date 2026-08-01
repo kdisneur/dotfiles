@@ -1,0 +1,12 @@
+source $HOME/.local/lib/std.bash
+
+local workspace=$HOME/Workspaces
+local project=$(find "${workspace}" -mindepth 3 -maxdepth 3 -type d -printf "%P\n" | fzf --select-1 --query "$*")
+[ "${project}" ] || {
+  log_error "no project selected"
+  return 1
+}
+
+cd "${workspace}/${project}"
+[ "${TMUX}" ] && trw
+return 0

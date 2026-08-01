@@ -1,0 +1,148 @@
+#! /usr/bin/env bash
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
+source $(dirname $0)/../lib/std.bash
+
+SCHEDULING_DB="${HOME}/.local/state/update-system/next";
+PACMAN_DB="${HOME}/.local/state/update-system/pacman.txt";
+DNF_DB="${HOME}/.local/state/update-system/dnf.txt";
+
+main() {
+  local action="";
+  local action_update_force="false";
+
+  while getopts ":hfp" option; do
+    case "${option}" in
+      h)
+        [ -z "${action}" ] || log_fatal "help cannot be combined with action \"${action}\""
+        action="help";
+        ;;
+      f)
+        [ -z "${action}" ] || log_fatal "update cannot be combined with action \"${action}\""
+        action="update";
+        action_update_force="true";
+        ;;
+      p)
+        [ -z "${action}" ] || log_fatal "postpone cannot be combined with action \"${action}\""
+        action="postpone";
+        ;;
+      \?)
+        log_error "Unknown option \"${OPTARG}\""
+        echo
+        help;
+        exit 1;
+        ;;
+    esac
+  done
+
+  case "${action:-update}" in
+    help)
+      help;
+      ;;
+    postpone)
+      postpone_update;
+      ;;
+    update)
+      update_system "${action_update_force}";
+      ;;
+    *)
+      log_fatal "BUG: unsupported action";
+  esac
+}
+
+init_database() {
+  if [ ! -f "${SCHEDULING_DB}" ]; then
+    # setup file in the past to trigger a system update on first execution
+    mkdir -p $(dirname "${SCHEDULING_DB}");
+    touch --date "last wednesday" ${SCHEDULING_DB};
+  fi
+}
+
+get_last_update() {
+  # get the last modification datetime in seconds since Epoch
+  stat --format "%Y" "${SCHEDULING_DB}";
+}
+
+is_late() {
+  [ "$(date "+%s")" -gt "$(get_last_update)" ];
+}
+
+schedule_next_update() {
+  touch --date "next wednesday" ${SCHEDULING_DB};
+}
+
+update_pacman() {
+  if command -v pacman &>/dev/null; then
+    sudo pacman --sync --refresh --sysupgrade;
+    pacman --query --quiet --explicit | grep -Fvx "$(pacman --query --quiet --foreign)" > "${PACMAN_DB}";
+  fi
+}
+
+update_dnf() {
+  if command -v dnf &>/dev/null; then
+    sudo dnf upgrade;
+    sudo dnf autoremove --assumeyes;
+    sudo dnf repoquery --userinstalled > "${DNF_DB}";
+  fi
+}
+update_rust() {
+  if command -v rustup &>/dev/null; then
+    log_info "updating rustup"
+    rustup update
+  else
+    log_info "installing rustup"
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | bash
+  fi
+}
+
+update_dependencies() {
+  update_pacman;
+  update_dnf;
+  update_rust;
+}
+
+help() {
+cat <<EOF
+Update system softwares and main dependencies such as Rust.
+
+The main idea is to add this script during shell loading. The script will prompt
+the user to update its system once a weekday (on Wedneseday). It will keep
+asking each time a shell is opened (except if explictily postponed).
+
+Syntax $(basename $0) [-h|f|p]
+
+Options:
+  h  Print this help
+  f  Force the execution of the script even if not a requirement
+  p  Postpone the update of the system to next Wednesday
+EOF
+}
+
+postpone_update() {
+  init_database;
+  schedule_next_update;
+  log_success "system udpate postpone. See you next week";
+}
+
+update_system() {
+  local force="${1:-false}"
+  init_database;
+
+  local should_update="${force}";
+  if [ "${force}" = "false" ]; then
+    if is_late && yesno "It's time to update the dependencies. Do you wan to run it now?"; then
+      should_update="true";
+    fi
+  fi
+
+  [ "${should_update}" = "false" ] && return;
+
+  update_dependencies;
+  schedule_next_update;
+  log_success "system udpated. See you next week";
+}
+
+main "$@"
