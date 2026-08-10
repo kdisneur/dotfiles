@@ -1,7 +1,7 @@
 source $HOME/.local/lib/std.bash
 
 local workspace=$HOME/Workspaces
-local project=$(find "${workspace}" -mindepth 3 -maxdepth 3 -type d -printf "%P\n" | fzf --select-1 --query "$*")
+local project=$(find "${workspace}" -mindepth 3 -maxdepth 3 -type d | sed -e "s|^${workspace}/||" | fzf --select-1 --query "$*")
 [ "${project}" ] || {
   log_error "no project selected"
   return 1

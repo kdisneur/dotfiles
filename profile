@@ -1,6 +1,7 @@
 PATH="${HOME}/.local/bin:${PATH}";
 PATH="${HOME}/.local/bin/llvm:${PATH}";
 PATH="${HOME}/.cargo/bin:${PATH}";
+PATH="${HOME}/.go/bin:${PATH}";
 PATH="./scripts:${PATH}";
 
 export HISTFILE=${HOME}/.zsh_history;
@@ -11,6 +12,8 @@ export CC=clang
 export CXX=clang++
 export CMAKE_C_COMPILER=clang
 export CMAKE_CXX_COMPILER=clang++
+export GOBIN=${HOME}/.go/bin
+export GOPATH=${HOME}/Workspaces/go
 
 export EDITOR=nvim;
 export GIT_EDITOR=nvim;
@@ -19,10 +22,10 @@ export PATH;
 export TERM=xterm-256color;
 export WORDCHARS='*?.[]~&;!#$%^(){}<>';
 
- export FZF_DEFAULT_OPTS="
- 	--color=fg:#B7B5AC,bg:#FFFCF0,hl:#100F0F
- 	--color=fg+:#B7B5AC,bg+:#F2F0E5,hl+:#100F0F
- 	--color=border:#AF3029,header:#100F0F,gutter:#FFFCF0
- 	--color=spinner:#3AA99F,info:#3AA99F,separator:#F2F0E5
- 	--color=pointer:#D0A215,marker:#D14D41,prompt:#D0A215"
-. "$HOME/.cargo/env"
+export FZF_DEFAULT_OPTS="
+  --color=base16
+  --color=fg:8,bg:-1,hl:-1
+  --color=fg+:-1:bold,bg+:-1,hl+:-1
+  --color=border:red,header:-1,gutter:-1
+  --color=spinner:bright-cyan,info:bright-cyan,separator:8
+  --color=pointer:bright-yellow,marker:bright-red,prompt:bright-yellow"

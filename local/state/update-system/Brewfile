@@ -1,0 +1,29 @@
+# Command-line fuzzy finder written in Go
+brew "fzf"
+# Distributed revision control system
+brew "git"
+# GNU Privacy Guard (OpenPGP)
+brew "gnupg"
+# Open source programming language to build simple/reliable/efficient software
+brew "go"
+# Ambitious Vim-fork focused on extensibility and agility
+brew "neovim"
+# Pinentry for GPG on Mac
+brew "pinentry-mac"
+# RC file (dotfile) management
+brew "rcm"
+# Search tool like grep and The Silver Searcher
+brew "ripgrep"
+# Terminal multiplexer
+brew "tmux"
+# Parser generator tool
+brew "tree-sitter-cli"
+# UNIX shell (command interpreter)
+brew "zsh"
+# Terminal-based AI coding assistant
+cask "claude-code"
+# Terminal emulator that uses platform-native UI and GPU acceleration
+cask "ghostty"
+# Multimedia player
+cask "vlc"
+go "golang.org/x/tools/gopls"

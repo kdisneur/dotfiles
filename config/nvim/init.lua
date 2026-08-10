@@ -12,30 +12,7 @@ vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
   -- LSP Configuration
-  {
-    "mason-org/mason-lspconfig.nvim",
-    opts = {
-      ensure_installed = {
-        "clangd",
-        "gopls"
-      }
-    },
-    dependencies = {
-      { "mason-org/mason.nvim", opts = {} },
-      "neovim/nvim-lspconfig",
-    },
-  },
-  -- {
-  --   'neovim/nvim-lspconfig',
-  --   dependencies = {
-  --     -- automatically install LSPs to stdpath for neovim
-  --     { 'mason-org/mason.nvim', opts = {} },
-  --     'j-hui/fidget.nvim',
-  --
-  --     -- additional lua configuration to makes neovim plugins
-  --     { 'folke/neodev.nvim',       config = {} },
-  --   }
-  -- },
+  'neovim/nvim-lspconfig',
 
   -- autocompletion
   {
@@ -51,8 +28,18 @@ require('lazy').setup({
   -- better highlights / code navigation
   {
     'nvim-treesitter/nvim-treesitter',
-    dependencies = { 'nvim-treesitter/nvim-treesitter-textobjects' },
-    build = ':TSUpdate'
+    branch = 'main', -- master is frozen, the rewrite lives on main
+    lazy = false,    -- the rewrite does not support lazy-loading
+    build = ':TSUpdate',
+    dependencies = {
+      {
+        'nvim-treesitter/nvim-treesitter-textobjects',
+        branch = 'main',
+        init = function()
+          vim.g.no_plugin_maps = true -- built-in ftplugins map [[, ]], ... and would win
+        end
+      }
+    }
   },
 
   -- un/comment code
@@ -106,9 +93,18 @@ require('lazy').setup({
   'itchyny/vim-qfedit'
 }, {})
 
+-- LSP server settings
+vim.lsp.config('rust_analyzer', {
+  settings = {
+    ['rust-analyzer'] = {
+      check = { command = 'clippy' }, -- run clippy instead of cargo check on save
+      cargo = { targetDir = true },   -- keep LSP artifacts out of target/ to avoid lock contention
+    },
+  },
+})
+
 -- global settings
 vim.o.termguicolors = true
-vim.o.background = 'light'
 
 vim.o.expandtab = true  -- Use correct number of spaces when pressing tab
 vim.o.shiftwidth = 2    -- Number of spaces to use when indentating
@@ -197,63 +193,75 @@ cmp.setup({
 })
 
 -- setup treesitter
-require('nvim-treesitter.configs').setup({
-  auto_install = false,
-  ensure_installed = {
-    'bash',
-    'go',
-    'html',
-    'json',
-    'lua',
-    'markdown',
-    'rust',
-    'toml',
-    'vim',
-    'vimdoc',
-    'yaml',
+require('nvim-treesitter').install({
+  'bash',
+  'go',
+  'html',
+  'json',
+  'lua',
+  'markdown',
+  'rust',
+  'toml',
+  'vim',
+  'vimdoc',
+  'yaml',
+})
+
+-- highlight and indent are provided by neovim itself, they only need to be
+-- turned on for the buffers having a parser installed
+vim.api.nvim_create_autocmd('FileType', {
+  callback = function(args)
+    local language = vim.treesitter.language.get_lang(vim.bo[args.buf].filetype)
+    if not language or not pcall(vim.treesitter.start, args.buf, language) then
+      return
+    end
+
+    vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+  end
+})
+
+-- setup treesitter textobjects
+require('nvim-treesitter-textobjects').setup({
+  select = {
+    lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
   },
-  highlight = {
-    enable = true,
-  },
-  indent = {
-    enable = true,
-  },
-  incremental_selection = {
-    enable = false,
-  },
-  textobjects = {
-    select = {
-      enable = true,
-      lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
-      keymaps = {
-        ['af'] = '@function.outer',
-        ['if'] = '@function.inner',
-        ['aa'] = '@parameter.outer',
-        ['ia'] = '@parameter.inner',
-      }
-    },
-    move = {
-      enable = true,
-      set_jumps = true, -- whether to set jumps in the jumplist
-      goto_next_start = {
-        [']m'] = '@function.outer',
-        [']]'] = '@class.outer',
-      },
-      goto_next_end = {
-        [']M'] = '@function.outer',
-        [']['] = '@class.outer',
-      },
-      goto_previous_start = {
-        ['[m'] = '@function.outer',
-        ['[['] = '@class.outer',
-      },
-      goto_previous_end = {
-        ['[M'] = '@function.outer',
-        ['[]'] = '@class.outer',
-      },
-    },
+  move = {
+    set_jumps = true, -- whether to set jumps in the jumplist
   }
 })
+
+local ts_select = require('nvim-treesitter-textobjects.select')
+local ts_move = require('nvim-treesitter-textobjects.move')
+
+local function select_textobject(query)
+  return function() ts_select.select_textobject(query, 'textobjects') end
+end
+
+local function move_textobject(direction, query)
+  return function() ts_move[direction](query, 'textobjects') end
+end
+
+vim.keymap.set({ 'x', 'o' }, 'af', select_textobject('@function.outer'), { desc = 'a function' })
+vim.keymap.set({ 'x', 'o' }, 'if', select_textobject('@function.inner'), { desc = 'inner function' })
+vim.keymap.set({ 'x', 'o' }, 'aa', select_textobject('@parameter.outer'), { desc = 'a parameter' })
+vim.keymap.set({ 'x', 'o' }, 'ia', select_textobject('@parameter.inner'), { desc = 'inner parameter' })
+
+vim.keymap.set({ 'n', 'x', 'o' }, ']m', move_textobject('goto_next_start', '@function.outer'),
+  { desc = 'go to next function start' })
+vim.keymap.set({ 'n', 'x', 'o' }, ']]', move_textobject('goto_next_start', '@class.outer'),
+  { desc = 'go to next class start' })
+vim.keymap.set({ 'n', 'x', 'o' }, ']M', move_textobject('goto_next_end', '@function.outer'),
+  { desc = 'go to next function end' })
+vim.keymap.set({ 'n', 'x', 'o' }, '][', move_textobject('goto_next_end', '@class.outer'),
+  { desc = 'go to next class end' })
+vim.keymap.set({ 'n', 'x', 'o' }, '[m', move_textobject('goto_previous_start', '@function.outer'),
+  { desc = 'go to previous function start' })
+vim.keymap.set({ 'n', 'x', 'o' }, '[[', move_textobject('goto_previous_start', '@class.outer'),
+  { desc = 'go to previous class start' })
+vim.keymap.set({ 'n', 'x', 'o' }, '[M', move_textobject('goto_previous_end', '@function.outer'),
+  { desc = 'go to previous function end' })
+vim.keymap.set({ 'n', 'x', 'o' }, '[]', move_textobject('goto_previous_end', '@class.outer'),
+  { desc = 'go to previous class end' })
 
 -- setup eunuch
 vim.keymap.set('n', '<leader>fR', ':Move <c-r>=expand("%:p:h")<cr>',
@@ -341,4 +349,7 @@ require('vscode').setup({
   italic_comments = true,
 })
 
-require('vscode').load()
+vim.cmd.colorscheme('vscode')
+
+-- setup LSP
+vim.lsp.enable({ 'clangd', 'gopls', 'rust_analyzer' })

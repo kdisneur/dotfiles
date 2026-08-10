@@ -38,7 +38,7 @@ log_warn() {
 }
 
 log_success() {
-  local message="$@";
+  local color="" message="$@";
   [ -t 1 ] && color="${_COLOR_SUCCESS}";
 
   _log "${color}" "${message}";

@@ -36,10 +36,13 @@ bindkey "^[[1;3C" forward-word
 bindkey "\e[3~" delete-char
 
 setopt PROMPT_SUBST
-export PROMPT='%F{235}%B%c%b%f %(?.%F{24}❯%f.%F{198}❯%f) '
+export PROMPT='%F{7}%B%c%b%f %(?.%F{4}❯%f.%F{1}❯%f) '
 
 source ${HOME}/.zsh/aliases;
 [[ -r ${HOME}/.zshrc.local ]] && source ${HOME}/.zshrc.local;
+[[ -f /opt/homebrew/bin/brew ]] && eval "$(/opt/homebrew/bin/brew shellenv zsh)"
 [[ -r ${HOME}/.cargo/env ]] && source ${HOME}/.cargo/env;
+
+update-system
 
 true

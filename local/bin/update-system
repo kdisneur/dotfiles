@@ -8,6 +8,7 @@ source $(dirname $0)/../lib/std.bash
 
 SCHEDULING_DB="${HOME}/.local/state/update-system/next";
 PACMAN_DB="${HOME}/.local/state/update-system/pacman.txt";
+BREW_DB="${HOME}/.local/state/update-system/Brewfile";
 DNF_DB="${HOME}/.local/state/update-system/dnf.txt";
 
 main() {
@@ -53,17 +54,34 @@ main() {
   esac
 }
 
+# the closest wednesday at midnight, either in the past ("last") or in the
+# future ("next"). GNU and BSD userlands need different date arithmetic.
+wednesday() {
+  if date --version &>/dev/null; then
+    date --date "${1} wednesday" "+%Y-%m-%dT00:00:00";
+  elif [ "${1}" = "next" ]; then
+    # -v+wed alone returns today when today is a wednesday
+    date -v+1d -v+wed "+%Y-%m-%dT00:00:00";
+  else
+    date -v-1d -v-wed "+%Y-%m-%dT00:00:00";
+  fi
+}
+
 init_database() {
   if [ ! -f "${SCHEDULING_DB}" ]; then
     # setup file in the past to trigger a system update on first execution
     mkdir -p $(dirname "${SCHEDULING_DB}");
-    touch --date "last wednesday" ${SCHEDULING_DB};
+    touch -d "$(wednesday last)" ${SCHEDULING_DB};
   fi
 }
 
 get_last_update() {
   # get the last modification datetime in seconds since Epoch
-  stat --format "%Y" "${SCHEDULING_DB}";
+  if stat --version &>/dev/null; then
+    stat --format "%Y" "${SCHEDULING_DB}";
+  else
+    stat -f "%m" "${SCHEDULING_DB}";
+  fi
 }
 
 is_late() {
@@ -71,11 +89,21 @@ is_late() {
 }
 
 schedule_next_update() {
-  touch --date "next wednesday" ${SCHEDULING_DB};
+  touch -d "$(wednesday next)" ${SCHEDULING_DB};
+}
+
+update_brew() {
+  if command -v brew &>/dev/null; then
+    log_info "updating brew packages"
+    brew update;
+    brew upgrade;
+    brew bundle dump --force --file ${BREW_DB};
+  fi
 }
 
 update_pacman() {
   if command -v pacman &>/dev/null; then
+    log_info "updating pacman packages"
     sudo pacman --sync --refresh --sysupgrade;
     pacman --query --quiet --explicit | grep -Fvx "$(pacman --query --quiet --foreign)" > "${PACMAN_DB}";
   fi
@@ -83,25 +111,47 @@ update_pacman() {
 
 update_dnf() {
   if command -v dnf &>/dev/null; then
+    log_info "updating dnf packages"
     sudo dnf upgrade;
     sudo dnf autoremove --assumeyes;
     sudo dnf repoquery --userinstalled > "${DNF_DB}";
   fi
 }
+
+update_nvim() {
+  if command -v nvim &>/dev/null; then
+    log_info "updating nvim packages"
+    nvim --headless "+Lazy! sync" +qa
+    nvim --headless -c "lua require('nvim-treesitter.install').update():wait(300000)" +qa
+  fi
+}
+
+update_go() {
+  if command -v go &>/dev/null; then
+    log_info "updating go tools"
+    go install golang.org/x/tools/gopls@latest;
+  fi
+}
+
+
 update_rust() {
-  if command -v rustup &>/dev/null; then
-    log_info "updating rustup"
-    rustup update
-  else
+  if ! command -v rustup &>/dev/null; then
     log_info "installing rustup"
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | bash
   fi
+
+  log_info "updating rustup"
+  rustup update
+  rustup component add rust-analyzer
 }
 
 update_dependencies() {
   update_pacman;
   update_dnf;
+  update_brew;
+  update_go;
   update_rust;
+  update_nvim;
 }
 
 help() {
