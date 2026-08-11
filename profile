@@ -13,7 +13,7 @@ export CXX=clang++
 export CMAKE_C_COMPILER=clang
 export CMAKE_CXX_COMPILER=clang++
 export GOBIN=${HOME}/.go/bin
-export GOPATH=${HOME}/Workspaces/go
+export GOPATH=${HOME}/.cache/go
 
 export EDITOR=nvim;
 export GIT_EDITOR=nvim;

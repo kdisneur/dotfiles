@@ -1,0 +1,5 @@
+hyper - b : open -a "Safari"
+hyper - c : open -a "Messages"
+hyper - return : open -a "Ghostty"
+hyper - n : open -a "Notes"
+hyper - p : open -a "1Password 7"
