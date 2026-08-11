@@ -10,6 +10,33 @@ Moving a file into a tag does not unlink it on machines where the tag is
 inactive: delete the stale symlink by hand, or run `rcdn` before and `rcup`
 after.
 
+## Drop-in directories
+
+Some configs are split so another dotfiles directory can add to them without
+editing a file here. rcm merges every source into the same real directory, so
+extra files just show up alongside these:
+
+| Directory            | Loaded by                                        |
+| -------------------- | ------------------------------------------------ |
+| `zsh/rc.d/*.zsh`     | `zshrc`, sourced in alphabetical order            |
+| `zsh/functions/*`    | `zshrc`, autoloaded                               |
+| `config/nvim/lua/plugins/*.lua` | `init.lua`, each file is a lazy.nvim spec |
+| `config/nvim/lua/rc/*.lua`      | `init.lua`, sourced in alphabetical order after the plugins |
+
+## A second dotfiles directory
+
+Machine-specific setups that do not belong here (work, ...) live in their own
+repository and are added through an untracked `~/.rcrc.local`:
+
+```sh
+DOTFILES_DIRS="${DOTFILES_DIRS} ${HOME}/path/to/work-dotfiles";
+TAGS="${TAGS} work";
+```
+
+That repository uses the same layout, under `tag-work/`. To add a neovim plugin
+there, `tag-work/config/nvim/lua/plugins/whatever.lua` is enough — this repo
+does not need to know about it.
+
 ## Setup
 
 ```

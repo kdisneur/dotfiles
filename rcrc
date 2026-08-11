@@ -8,3 +8,10 @@ case "$(uname -s)" in
 esac
 
 EXCLUDES="README.md";
+
+# Machine-specific additions live in an untracked ~/.rcrc.local, e.g. at work:
+#   DOTFILES_DIRS="${DOTFILES_DIRS} ${HOME}/path/to/work-dotfiles";
+#   TAGS="${TAGS} work";
+if [ -r "${HOME}/.rcrc.local" ]; then
+  . "${HOME}/.rcrc.local";
+fi
