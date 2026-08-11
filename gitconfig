@@ -33,7 +33,6 @@
   whitespace = red
 
 [core]
-  excludesfile = ~/.gitignore
   pager = less -F -X
 
 [fetch]
