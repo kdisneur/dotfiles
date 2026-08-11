@@ -22,9 +22,10 @@ unsetopt auto_cd # If a command isn't valid, but is a directory, cd to that dir
 setopt prompt_subst # Expand parameters in prompt variables
 setopt emacs # Use emacs keybindings in the shell
 
-autoload -Uz compinit && compinit;
 fpath=("${HOME}/.zsh/functions" "${fpath[@]}");
-for f in ~/.zsh/functions/*; do autoload -Uz ${f##*/}; done
+for f in ~/.zsh/functions/*; do autoload -Uz "${f##*/}"; done
+
+for f in ~/.zsh/rc.d/*.zsh; do source "${f}"; done
 
 bindkey -e
 autoload -U edit-command-line;
@@ -38,9 +39,6 @@ bindkey "\e[3~" delete-char
 setopt PROMPT_SUBST
 export PROMPT='%F{7}%B%c%b%f %(?.%F{4}❯%f.%F{1}❯%f) '
 
-source ${HOME}/.zsh/aliases;
-[[ -r ${HOME}/.zshrc.local ]] && source ${HOME}/.zshrc.local;
-[[ -f /opt/homebrew/bin/brew ]] && eval "$(/opt/homebrew/bin/brew shellenv zsh)"
 [[ -r ${HOME}/.cargo/env ]] && source ${HOME}/.cargo/env;
 
 update-system

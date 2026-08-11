@@ -1,0 +1,10 @@
+# Sourced by rcm (rcup, rcdn, mkrc, lsrc) as a shell script.
+
+DOTFILES_DIRS="${HOME}/Workspaces/github.com/kdisneur/dotfiles";
+
+case "$(uname -s)" in
+  Darwin) TAGS="macos";;
+  Linux)  TAGS="linux";;
+esac
+
+EXCLUDES="README.md";
