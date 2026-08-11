@@ -3,8 +3,11 @@
 Dotfiles are managed using [rcm](https://github.com/thoughtbot/rcm).
 
 Files at the root are installed everywhere. Files under `tag-<name>` are only
-installed when that tag is active. `rcrc` (installed as `~/.rcrc`) picks the tag
-from `uname`: `macos` on Darwin, `linux` on Linux.
+installed when that tag is active. `rcrc` (installed as `~/.rcrc`) activates two
+tags:
+
+- the OS, from `uname`: `macos` on Darwin, `linux` on Linux
+- the location: `home` by default, `work` when `~/.rcrc.local` says so
 
 Moving a file into a tag does not unlink it on machines where the tag is
 inactive: delete the stale symlink by hand, or run `rcdn` before and `rcup`
@@ -18,10 +21,11 @@ extra files just show up alongside these:
 
 | Directory            | Loaded by                                        |
 | -------------------- | ------------------------------------------------ |
-| `zsh/rc.d/*.zsh`     | `zshrc`, sourced in alphabetical order            |
-| `zsh/functions/*`    | `zshrc`, autoloaded                               |
+| `zsh/rc.d/*.zsh`     | `zshrc`, sourced in alphabetical order           |
+| `zsh/functions/*`    | `zshrc`, autoloaded                              |
 | `config/nvim/lua/plugins/*.lua` | `init.lua`, each file is a lazy.nvim spec |
 | `config/nvim/lua/rc/*.lua`      | `init.lua`, sourced in alphabetical order after the plugins |
+| `ssh/config.d/*.conf` | `ssh/config`, source in alphabetical order      |
 
 ## A second dotfiles directory
 
@@ -29,8 +33,8 @@ Machine-specific setups that do not belong here (work, ...) live in their own
 repository and are added through an untracked `~/.rcrc.local`:
 
 ```sh
+LOCATION="work";
 DOTFILES_DIRS="${DOTFILES_DIRS} ${HOME}/path/to/work-dotfiles";
-TAGS="${TAGS} work";
 ```
 
 That repository uses the same layout, under `tag-work/`. To add a neovim plugin

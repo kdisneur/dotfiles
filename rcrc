@@ -1,17 +1,19 @@
-# Sourced by rcm (rcup, rcdn, mkrc, lsrc) as a shell script.
-
 DOTFILES_DIRS="${HOME}/Workspaces/github.com/kdisneur/dotfiles";
 
-case "$(uname -s)" in
-  Darwin) TAGS="macos";;
-  Linux)  TAGS="linux";;
-esac
-
-EXCLUDES="README.md";
-
-# Machine-specific additions live in an untracked ~/.rcrc.local, e.g. at work:
+# Everything that cannot be derived from the machine itself lives in an
+# untracked ~/.rcrc.local, e.g. at work:
+#   LOCATION="work";
 #   DOTFILES_DIRS="${DOTFILES_DIRS} ${HOME}/path/to/work-dotfiles";
-#   TAGS="${TAGS} work";
+LOCATION="home";
 if [ -r "${HOME}/.rcrc.local" ]; then
   . "${HOME}/.rcrc.local";
 fi
+
+case "$(uname -s)" in
+  Darwin) OS="macos";;
+  Linux)  OS="linux";;
+esac
+
+TAGS="${OS} ${LOCATION}";
+
+EXCLUDES="README.md";
