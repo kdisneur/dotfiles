@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-if [ "$(kdotool search --class firefox)" ]; then
-  kdotool search --class firefox windowactivate
-else
-  exec firefox
-fi
