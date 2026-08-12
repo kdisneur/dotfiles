@@ -23,7 +23,9 @@ export LANG=en_US.UTF-8;
 # exported below, so a fragment can extend PATH like the lines at the top do.
 # This is the only drop-in that reaches non-interactive and GUI-launched
 # processes; ~/.zsh/rc.d is interactive shells only.
-for f in "${HOME}"/.profile.d/*.sh; do [ -r "${f}" ] && . "${f}"; done
+if [ -d "${HOME}/.profile.d" ]; then
+  for f in "${HOME}"/.profile.d/*.sh; do [ -r "${f}" ] && . "${f}"; done
+fi
 unset f;
 
 export PATH;

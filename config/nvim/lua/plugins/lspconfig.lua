@@ -13,7 +13,7 @@ return {
     -- <C-f> for document symbols is a global mapping in telescope.lua, so it is
     -- deliberately not repeated here
     local function on_attach(_, buf)
-      vim.api.nvim_buf_set_option(buf, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+      vim.bo[buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
     end
 
     -- Without this servers are never told about nvim-cmp's extras, snippet

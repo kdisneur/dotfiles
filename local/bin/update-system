@@ -97,10 +97,6 @@ schedule_next_update() {
 # A failing fragment is deliberately not caught: it aborts the run, which also
 # skips schedule_next_update, so the next shell asks again instead of recording
 # an update that did not finish.
-#
-# The numeric prefixes order real dependencies. Package managers run first
-# because they can update git, curl and the compilers; tree-sitter needs the
-# cargo that rust installs; nvim needs the tree-sitter CLI to build parsers.
 update_dependencies() {
   local f="";
 
