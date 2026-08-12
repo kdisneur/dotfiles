@@ -1,0 +1,68 @@
+#!/usr/bin/env bash
+#
+# git clean/smudge filter swapping secrets for placeholders.
+#
+# The substitution table lives outside this repository, one "KEY|value" pair
+# per line. An empty table is a legitimate state: it means this machine holds
+# no credentials, and content then passes through untouched.
+#
+# A missing table is an error rather than an empty one, because passing content
+# through on a machine that does have secrets would commit them in clear.
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
+DB="${HOME}/.local/state/dotfiles/db.txt";
+
+action="${1:?"action must be either redact or reveal"}";
+
+case "${action}" in
+  redact|reveal) ;;
+  *)
+    echo "invalid action \"${action}\". action must be either redact or reveal" >&2;
+    exit 1;
+    ;;
+esac
+
+if [ ! -f "${DB}" ]; then
+  echo "no substitution table at ${DB}." >&2;
+  echo "restore it from the password manager, or create it empty if this machine holds no secrets." >&2;
+  exit 1;
+fi
+
+sedCommand="sed";
+
+while IFS= read -r line; do
+  # tolerate blank lines and comments: one stray blank line would otherwise
+  # build an "s###g" expression and break every file, not just that entry
+  [ -n "${line}" ] || continue;
+  case "${line}" in \#*) continue;; esac;
+
+  key="${line%%|*}";
+  value="${line#*|}";
+
+  [ -n "${key}" ] && [ -n "${value}" ] || continue;
+
+  # '#' delimits the sed expressions below, so a value containing one would
+  # produce a silently wrong substitution
+  case "${key}${value}" in
+    *"#"*)
+      echo "entry \"${key}\" contains a '#', which is used as the sed delimiter" >&2;
+      exit 1;
+      ;;
+  esac
+
+  case "${action}" in
+    redact) sedCommand="${sedCommand} -e 's#${value}#${key}#g'";;
+    reveal) sedCommand="${sedCommand} -e 's#${key}#${value}#g'";;
+  esac
+done < "${DB}"
+
+# no entries: nothing to substitute, so hand the content back unchanged
+if [ "${sedCommand}" = "sed" ]; then
+  cat;
+  exit 0;
+fi
+
+eval "${sedCommand}"

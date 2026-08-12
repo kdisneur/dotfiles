@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+#
+# Configure the secrets filter in every dotfiles directory that opts in.
+#
+# A repository cannot describe the filter needed to check its own config out, so
+# the definition cannot live in the tracked gitconfig. Doing it here keeps it
+# version controlled even though the local configuration it produces is not.
+#
+# rcup runs hooks on every invocation, so everything below is idempotent.
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
+DOTFILES_DIRS="";
+# shellcheck source=/dev/null
+[ -r "${HOME}/.rcrc" ] && . "${HOME}/.rcrc";
+[ -n "${DOTFILES_DIRS}" ] || exit 0;
+
+for dotfiles_dir in ${DOTFILES_DIRS}; do
+  # opting in means routing files through filter=secrets; repositories without
+  # secrets have no .gitattributes and are skipped
+  grep -qs 'filter=secrets' "${dotfiles_dir}/.gitattributes" || continue;
+  git -C "${dotfiles_dir}" rev-parse --git-dir >/dev/null 2>&1 || continue;
+
+  git -C "${dotfiles_dir}" config filter.secrets.clean  'bash ~/.local/bin/redact-dotfiles redact';
+  git -C "${dotfiles_dir}" config filter.secrets.smudge 'bash ~/.local/bin/redact-dotfiles reveal';
+
+  # Without this git treats a failing filter as advisory and stages the original
+  # content, which for a clean filter means committing the secret in clear.
+  git -C "${dotfiles_dir}" config filter.secrets.required true;
+
+  # Re-apply the clean filter to everything tracked, so an index built before the
+  # filter existed cannot keep unredacted content.
+  # Skipped when something is already staged, rather than trampling a deliberate
+  # partial staging.
+  if git -C "${dotfiles_dir}" diff --cached --quiet 2>/dev/null; then
+    git -C "${dotfiles_dir}" add --renormalize . 2>/dev/null || true;
+  fi
+done
