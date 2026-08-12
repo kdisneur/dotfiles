@@ -56,6 +56,9 @@
 
 [commit]
   cleanup = scissors
+  # No signingkey on purpose: gpg matches on user.email, so a machine that
+  # overrides the identity picks up its own key without a second override.
+  gpgsign = true
 
 [push]
   default = current
