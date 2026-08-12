@@ -18,6 +18,14 @@ export GOPATH=${HOME}/.cache/go
 export EDITOR=nvim;
 export GIT_EDITOR=nvim;
 export LANG=en_US.UTF-8;
+
+# Other dotfiles directories drop fragments in here. Sourced before PATH is
+# exported below, so a fragment can extend PATH like the lines at the top do.
+# This is the only drop-in that reaches non-interactive and GUI-launched
+# processes; ~/.zsh/rc.d is interactive shells only.
+for f in "${HOME}"/.profile.d/*.sh; do [ -r "${f}" ] && . "${f}"; done
+unset f;
+
 export PATH;
 export TERM=xterm-256color;
 export WORDCHARS='*?.[]~&;!#$%^(){}<>';

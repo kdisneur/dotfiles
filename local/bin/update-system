@@ -7,9 +7,7 @@ set -o nounset
 source $(dirname $0)/../lib/std.bash
 
 SCHEDULING_DB="${HOME}/.local/state/update-system/next";
-PACMAN_DB="${HOME}/.local/state/update-system/pacman.txt";
-BREW_DB="${HOME}/.local/state/update-system/Brewfile";
-DNF_DB="${HOME}/.local/state/update-system/dnf.txt";
+UPDATE_D="${HOME}/.config/update-system/update.d";
 
 main() {
   local action="";
@@ -92,66 +90,25 @@ schedule_next_update() {
   touch -d "$(wednesday next)" ${SCHEDULING_DB};
 }
 
-update_brew() {
-  if command -v brew &>/dev/null; then
-    log_info "updating brew packages"
-    brew update;
-    brew upgrade;
-    brew bundle dump --force --file ${BREW_DB};
-  fi
-}
-
-update_pacman() {
-  if command -v pacman &>/dev/null; then
-    log_info "updating pacman packages"
-    sudo pacman --sync --refresh --sysupgrade;
-    pacman --query --quiet --explicit | grep -Fvx "$(pacman --query --quiet --foreign)" > "${PACMAN_DB}";
-  fi
-}
-
-update_dnf() {
-  if command -v dnf &>/dev/null; then
-    log_info "updating dnf packages"
-    sudo dnf upgrade;
-    sudo dnf autoremove --assumeyes;
-    sudo dnf repoquery --userinstalled > "${DNF_DB}";
-  fi
-}
-
-update_nvim() {
-  if command -v nvim &>/dev/null; then
-    log_info "updating nvim packages"
-    nvim --headless "+Lazy! sync" +qa
-    nvim --headless -c "lua require('nvim-treesitter.install').update():wait(300000)" +qa
-  fi
-}
-
-update_go() {
-  if command -v go &>/dev/null; then
-    log_info "updating go tools"
-    go install golang.org/x/tools/gopls@latest;
-  fi
-}
-
-
-update_rust() {
-  if ! command -v rustup &>/dev/null; then
-    log_info "installing rustup"
-    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | bash
-  fi
-
-  log_info "updating rustup"
-  rustup update
-  rustup component add rust-analyzer
-}
-
+# Every step lives in its own fragment, contributed by whichever dotfiles
+# directory owns it. They are executed rather than sourced, so a fragment cannot
+# leak a cd, clobber a variable or redefine a function here.
+#
+# A failing fragment is deliberately not caught: it aborts the run, which also
+# skips schedule_next_update, so the next shell asks again instead of recording
+# an update that did not finish.
+#
+# The numeric prefixes order real dependencies. Package managers run first
+# because they can update git, curl and the compilers; tree-sitter needs the
+# cargo that rust installs; nvim needs the tree-sitter CLI to build parsers.
 update_dependencies() {
-  update_pacman;
-  update_dnf;
-  update_brew;
-  update_go;
-  update_rust;
-  update_nvim;
+  local f="";
+
+  for f in "${UPDATE_D}"/*.sh; do
+    [ -r "${f}" ] || continue;
+    log_info "running $(basename "${f}")";
+    bash "${f}";
+  done
 }
 
 help() {
@@ -161,6 +118,8 @@ Update system softwares and main dependencies such as Rust.
 The main idea is to add this script during shell loading. The script will prompt
 the user to update its system once a weekday (on Wedneseday). It will keep
 asking each time a shell is opened (except if explictily postponed).
+
+Steps are read from ${UPDATE_D}/*.sh and run in alphabetical order.
 
 Syntax $(basename $0) [-h|f|p]
 

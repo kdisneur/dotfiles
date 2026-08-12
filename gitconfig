@@ -67,3 +67,11 @@
   email = kevin@disneur.me
   name = Kevin Disneur
   useconfigonly = true
+
+# Another dotfiles directory (work, ...) ships this file to override anything
+# above, identity included. It has to be last: git applies an include where it
+# appears, so one placed earlier loses to the [user] block below it. That is why
+# the ~/.gitconfig.local include further up cannot override identity. A missing
+# path is ignored silently, so this is safe on machines without an override.
+[include]
+  path = ~/.config/git/config.local
