@@ -1,6 +1,6 @@
 [alias]
-  amend = ! git commit -m chunk-to-amend && git rebase -i origin/main
-  update = rebase origin/main
+  amend = ! git commit -m chunk-to-amend && git rebase -i @{upstream}
+  update = ! git fetch && git rebase @{upstream}
   ci = commit -S
   clean-branches = ! git branch -vv | grep "gone]" | awk '{ print $1 }' | xargs git branch -D
   co = checkout
@@ -9,6 +9,7 @@
   dc = diff --cached
   g = grep --break --heading --line-number
   l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue)<%an>%Creset' --abbrev-commit
+  ls = l @{upstream}..
   oops = commit -S --amend --no-edit
   p = push -u
   pf = push --force-with-lease
@@ -19,7 +20,13 @@
   diff = true
   ui = true
 
+[branch]
+  sort = -committerdate
+
 [diff]
+  algorithm = histogram
+  colorMoved = plain
+  mnemonicPrefix = true
   renames = copies
   tool = vimdiff3
 
@@ -36,7 +43,9 @@
   pager = less -F -X
 
 [fetch]
+  all = true
   prune = true
+  pruneTags = true
 
 [grep]
   extendRegexp = true
@@ -52,16 +61,27 @@
 	path = nvim
 
 [pull]
-	rebase = false
+	rebase = true
+
+[rebase]
+  autoSquash = true
+  autoStash = true
+  updateRefs = true
+
+[tag]
+  sort = version:refname
 
 [commit]
   cleanup = scissors
   # No signingkey on purpose: gpg matches on user.email, so a machine that
   # overrides the identity picks up its own key without a second override.
   gpgsign = true
+  verbose = true
 
 [push]
+  autoSetupRemote = true
   default = current
+  followTags = true
 
 [user]
   email = kevin@disneur.me
