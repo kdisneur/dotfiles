@@ -1,3 +1,4 @@
+tap "asmvik/formulae", "https://github.com/asmvik/homebrew-formulae.git"
 # Command-line fuzzy finder written in Go
 brew "fzf"
 # Distributed revision control system
@@ -24,6 +25,8 @@ brew "zsh"
 cask "claude-code"
 # Terminal emulator that uses platform-native UI and GPU acceleration
 cask "ghostty"
+# Keyboard customiser
+cask "karabiner-elements"
 # Multimedia player
 cask "vlc"
 go "golang.org/x/tools/gopls"
