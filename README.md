@@ -59,31 +59,6 @@ of `gitconfig`: one placed earlier would lose to the `[user]` block above it. A
 missing path is ignored silently, so this is safe on machines without an
 override.
 
-## Secrets
-
-Configs holding a token are committed with placeholders and expanded in the
-working tree, through a git clean/smudge filter — so the live file is the
-tracked file and there is nothing to backport.
-
-- `local/bin/redact-dotfiles` is the filter itself: `redact` on the way into
-  git, `reveal` on the way out.
-- The substitution table is `~/.local/state/dotfiles/db.txt`, mode 600,
-  `KEY|value` per line. It lives outside every working tree so no ignore rule is
-  load-bearing, and is pasted by hand out of the password manager — no vault CLI
-  is involved, which is what lets the same script run against 1Password at home
-  and KeePass at work. It is a cache, not the source: re-paste after rotating.
-  Empty is a valid state and means this machine holds no credentials; missing is
-  an error, because passing content through on a machine that does have secrets
-  would commit them in clear.
-- `hooks/post-up` installs the filter into `.git/config` of every dotfiles
-  directory that opts in. A repository cannot describe the filter needed to
-  check itself out — `.gitattributes` is cloned, `.git/config` is not — so this
-  runs on every `rcup` instead. Opting in means shipping a `.gitattributes` with
-  `filter=secrets`; this repository has none and is skipped.
-
-`filter.secrets.required` is set so a failing filter aborts the commit rather
-than staging the file unfiltered.
-
 ## Setup
 
 ```
