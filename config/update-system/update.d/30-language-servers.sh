@@ -29,10 +29,11 @@ update_node_tools() {
 }
 
 update_python_tools() {
-  command -v pipx &>/dev/null || return 0
+  command -v uv &>/dev/null || return 0
 
   log_info "updating python tools"
-  pipx upgrade python-lsp-server || pipx install python-lsp-server
+
+  uv tool upgrade python-lsp-server || uv tool install --force python-lsp-server
 }
 
 update_go_tools
