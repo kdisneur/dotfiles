@@ -18,3 +18,7 @@ esac
 TAGS="${OS} ${LOCATION} ${EXTRA_TAGS:-}";
 
 EXCLUDES="README.md etc";
+
+# ~/Library must not become ~/.Library. Used by tag-macos for
+# LaunchAgents (e.g. the hidutil Caps Lock -> Right Ctrl remap).
+UNDOTTED="Library";

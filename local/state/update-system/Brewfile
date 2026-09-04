@@ -1,4 +1,10 @@
 tap "asmvik/formulae", "https://github.com/asmvik/homebrew-formulae.git"
+# Container runtimes on MacOS (and Linux) with minimal setup
+brew "colima"
+# Pack, ship and run any application as a lightweight container
+brew "docker"
+# Isolated development environments using Docker
+brew "docker-compose"
 # Command-line fuzzy finder written in Go
 brew "fzf"
 # Distributed revision control system
@@ -25,8 +31,8 @@ brew "zsh"
 cask "claude-code"
 # Terminal emulator that uses platform-native UI and GPU acceleration
 cask "ghostty"
-# Keyboard customiser
-cask "karabiner-elements"
 # Multimedia player
 cask "vlc"
+go "github.com/nametake/golangci-lint-langserver"
 go "golang.org/x/tools/gopls"
+cargo "sqlx-cli"

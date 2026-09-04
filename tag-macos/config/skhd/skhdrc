@@ -1,5 +1,19 @@
-hyper - b : open -a "Safari"
-hyper - c : open -a "Messages"
-hyper - return : open -a "Ghostty"
-hyper - n : open -a "Notes"
-hyper - p : open -a "1Password 7"
+# Caps Lock + key -> launch app.
+#
+# Caps Lock is remapped to RIGHT CONTROL at the HID level by hidutil
+# (see ~/Library/LaunchAgents/local.capslock-rctrl.plist). No physical
+# Right Control exists on a Mac keyboard, so nothing else can ever emit
+# that code -- zero conflicts, and left Ctrl+<key> is untouched.
+#
+# Mirrors the Linux side, where Caps Lock is remapped to Super:
+#   gsettings set org.gnome.desktop.input-sources xkb-options "['caps:super']"
+# Same physical key, same letters, both OSes.
+
+rctrl - b      : open -a "Safari"          # browser
+rctrl - c      : open -a "Messages"        # chat
+rctrl - n      : open -a "Notes"           # notes
+rctrl - p      : open -a "1Password 7"     # passwords
+rctrl - return : open -a "Ghostty"         # terminal
+
+# No fn involved, so `return` works directly -- none of the
+# keypad-Enter firmware rewriting that fn+Return suffers from.
