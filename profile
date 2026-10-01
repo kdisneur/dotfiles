@@ -8,6 +8,7 @@ export HISTFILE=${HOME}/.zsh_history;
 export HISTSIZE=1000; # Number of entries to keep in memory
 export SAVEHIST=1000; # Number of entries to keep on disk
 export TMPDIR=${HOME}/tmp;
+mkdir -p "${TMPDIR}";
 export CC=clang
 export CXX=clang++
 export CMAKE_C_COMPILER=clang
