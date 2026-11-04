@@ -41,6 +41,8 @@ export PROMPT='%F{7}%B%c%b%f %(?.%F{4}❯%f.%F{1}❯%f) '
 
 [[ -r ${HOME}/.cargo/env ]] && source ${HOME}/.cargo/env;
 
-update-system
+# only prompt from a real terminal: tools like Claude Code load this file with
+# stdin on /dev/null, where yesno would loop forever
+[[ -o interactive && -t 0 ]] && update-system
 
 true
