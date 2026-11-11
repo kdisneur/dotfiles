@@ -12,7 +12,7 @@
 rctrl - b      : open -a "Safari"          # browser
 rctrl - c      : open -a "Messages"        # chat
 rctrl - n      : open -a "Notes"           # notes
-rctrl - p      : open -a "1Password 7"     # passwords
+rctrl - p      : open -a "1Password"     # passwords
 rctrl - return : open -a "Ghostty"         # terminal
 
 # No fn involved, so `return` works directly -- none of the
